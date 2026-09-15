@@ -1,16 +1,78 @@
-# React + Vite
+# LandslideSOS — India Landslide Early Warning & SOS System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Full-stack prototype: **React + Vite** frontend (mock-driven pages) backed by a real **FastAPI + Celery** backend
+that ingests rainfall/SWI data, trains an XGBoost risk model, and dispatches SMS alerts
+(via SMS provider abstraction) for SOS events.
 
-Currently, two official plugins are available:
+```
+landslide-sos/
+├── backend/          # FastAPI backend (app, models, routers, services, tasks, scripts, alembic)
+├── src/              # React frontend pages/components
+├── public/           # frontend static assets
+├── start-dev.ps1     # one-command dev launcher (backend + celery + frontend)
+├── docker-compose.yml
+├── DEPLOY.md
+└── .github/workflows/ci.yml
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Quickstart (one command)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+From the repo root:
 
-## Expanding the Oxlint configuration
+```powershell
+powershell -ExecutionPolicy Bypass -File .\start-dev.ps1
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+This will (on first run) create the backend virtualenv, install dependencies,
+install frontend `node_modules`, then launch:
+
+| Service     | Endpoint                        |
+|-------------|---------------------------------|
+| Frontend    | http://localhost:5173           |
+| Backend API | http://localhost:8000/docs      |
+| Celery      | worker + beat (solo pool, Win)  |
+
+Press `Ctrl+C` in the launcher window to stop everything.
+
+---
+
+## Fresh-clone backend setup (manual)
+
+```powershell
+cd backend
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+.\.venv\Scripts\python.exe -m alembic upgrade head      # apply migrations
+.\.venv\Scripts\python.exe scripts\setup.py             # seed + inventory + SWI + train
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --port 8000
+```
+
+Interactive API docs: http://127.0.0.1:8000/docs
+
+Demo logins (seeded):
+- Admin: `admin@landslidesos.in` / `admin123456`
+- Officer: `officer@landslidesos.in` / `officer123456`
+
+---
+
+## Backend overview
+
+- **Stack:** FastAPI, SQLAlchemy 2, Pydantic v2, Alembic, Celery, XGBoost, PyJWT + bcrypt.
+- **Dev DB:** SQLite (`backend/landslidesos.db`) — no Postgres needed locally.
+- **Broker:** Celery uses kombu `sqlalchemy+sqlite:///celery_broker.db` (built-in transport, no Redis in dev).
+- **SMS:** `SMS_PROVIDER=mock` by default (logs to console). Set `MSG91` creds + `SMS_PROVIDER=msg91` for real SMS.
+- **ML:** `scripts/train_model.py` trains XGBoost on the 841-event inventory + ambient negatives (accuracy 0.994).
+- **Production:** `docker-compose.yml` spins up PostGIS + Redis + backend + celery; see `DEPLOY.md`.
+
+## Frontend overview
+
+- **Stack:** React 19, Vite 8, React Router 7, Tailwind 4, Leaflet maps, Recharts.
+- Pages use mock data (`src/data/mockData.js`). The Vite dev server proxies `/api` → `http://127.0.0.1:8000`
+  so pages can be progressively wired to the real backend.
+
+## CI
+
+`.github/workflows/ci.yml` runs ruff lint, backend tests, and a docker build on every push.

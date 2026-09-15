@@ -1,0 +1,104 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: landslidesos
+      POSTGRES_USER: landslidesos
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-landsdev2026}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U landslidesos"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      target: production
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql+psycopg://landslidesos:${POSTGRES_PASSWORD:-landsdev2026}@postgres:5432/landslidesos
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - CORS_ORIGINS=["http://localhost:5173","http://localhost:3000","http://127.0.0.1:5173"]
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - backend-data:/app/data
+      - backend-models:/app/models
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/api/v1/system/health').raise_for_status()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  celery-worker:
+    build:
+      context: ./backend
+      target: production
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql+psycopg://landslidesos:${POSTGRES_PASSWORD:-landsdev2026}@postgres:5432/landslidesos
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+    command: >
+      celery -A app.tasks.celery_app worker
+      --loglevel=info
+      --concurrency=2
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - backend-data:/app/data
+      - backend-models:/app/models
+
+  celery-beat:
+    build:
+      context: ./backend
+      target: production
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql+psycopg://landslidesos:${POSTGRES_PASSWORD:-landsdev2026}@postgres:5432/landslidesos
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+    command: >
+      celery -A app.tasks.celery_app beat
+      --loglevel=info
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  pgdata:
+  backend-data:
+  backend-models:

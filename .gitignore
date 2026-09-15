@@ -1,0 +1,36 @@
+# === Stray / old copies (DO NOT COMMIT) ===
+landslide-sos-backend/
+mukesh/
+
+# === Archives / PDFs ===
+*.zip
+landslide-sos-backend-modules.pdf
+landslide-sos-backend-plan.pdf
+ERRORS.pdf
+
+# === Python backend artifacts ===
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/**/*.pyc
+backend/.env
+backend/landslidesos.db
+backend/celery_broker.db
+backend/data/dem/
+backend/models/risk_model.joblib
+backend/models/risk_model.json
+backend/.pytest_cache/
+
+# === Node / frontend artifacts ===
+landslide-sos/node_modules/
+landslide-sos/dist/
+landslide-sos/dist-ssr/
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === IDE ===
+.vscode/
+.idea/
+*.sw?

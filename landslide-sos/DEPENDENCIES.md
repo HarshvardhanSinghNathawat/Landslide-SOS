@@ -1,4 +1,4 @@
-# LandslideSOS - Installed Dependencies
+    # LandslideSOS - Installed Dependencies
 
 ## Project Setup
 - **Framework:** React 19 + Vite 8

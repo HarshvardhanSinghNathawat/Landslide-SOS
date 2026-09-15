@@ -1,0 +1,1682 @@
+================================================================================
+                    LANDSLIDESOS - COMPREHENSIVE QUESTION BANK
+                    India Landslide Early Warning & SOS System
+================================================================================
+
+Project: LandslideSOS
+Technology: React 19 + Vite 8 + Tailwind CSS v4
+Framework: React with Vite
+Database: Mock Data (Frontend Only)
+Maps: Leaflet + React-Leaflet
+Charts: Recharts
+Icons: Lucide React
+Linting: Oxlint
+
+================================================================================
+TABLE OF CONTENTS
+================================================================================
+
+1.  PROJECT OVERVIEW (10 Questions)
+2.  TECHNOLOGY STACK (15 Questions)
+3.  ARCHITECTURE & WORKFLOW (15 Questions)
+4.  COMPONENT-LEVEL QUESTIONS (15 Questions)
+5.  FEATURE-SPECIFIC QUESTIONS (15 Questions)
+6.  DATA & STATE MANAGEMENT (10 Questions)
+7.  UI/UX & STYLING (10 Questions)
+8.  SECURITY & BEST PRACTICES (10 Questions)
+9.  DEPLOYMENT & PERFORMANCE (10 Questions)
+10. FUTURE ENHANCEMENTS (10 Questions)
+11. INTERVIEW SCENARIO QUESTIONS (15 Questions)
+12. DEBUGGING & TROUBLESHOOTING (10 Questions)
+13. SYSTEM DESIGN QUESTIONS (10 Questions)
+14. DOMAIN KNOWLEDGE (10 Questions)
+
+================================================================================
+1. PROJECT OVERVIEW (10 Questions)
+================================================================================
+
+Q1.1: What is LandslideSOS and what is its primary purpose?
+Answer: LandslideSOS is an India Landslide Early Warning & SOS System - an
+AI-powered landslide prediction platform with real-time monitoring, automated
+alerts, and community-driven disaster response for India's mountainous regions.
+
+Q1.2: What problem does LandslideSOS solve?
+Answer: It addresses the critical need for early warning systems in landslide-
+prone regions of India, enabling timely evacuation and disaster response to
+save lives and minimize damage.
+
+Q1.3: Who are the target users of this system?
+Answer: Three user roles:
+- Administrators: Full system access, monitoring, and management
+- Field Officers: Report and manage alerts in the field
+- Public Users: View alerts and maps for personal safety
+
+Q1.4: What are the key features of LandslideSOS?
+Answer:
+- Real-time rainfall monitoring and forecasting
+- Digital Elevation Model (DEM) terrain analysis
+- Interactive GIS mapping with heatmaps
+- SOS emergency alert system (SMS + Browser Push)
+- Offline Progressive Web App (PWA) support
+- Admin dashboard with system health monitoring
+- Role-based access control
+
+Q1.5: How does LandslideSOS contribute to disaster management?
+Answer: It provides early warning capabilities through:
+- Real-time data monitoring from rainfall stations
+- AI-powered landslide prediction models
+- Automated multi-channel alert distribution (SMS, Push, Browser)
+- Community-driven disaster response coordination
+
+Q1.6: What geographic regions does this system cover?
+Answer: India's landslide-prone mountainous regions including:
+- Uttarakhand (Chamoli)
+- Himachal Pradesh (Kinnaur)
+- Kerala (Wayanad, Munnar-Idukki)
+- Sikkim (North)
+- Meghalaya (East, Cherrapunji)
+- Maharashtra (Mahabaleshwar)
+- Tamil Nadu (Ooty-Nilgiris)
+- West Bengal (Darjeeling)
+
+Q1.7: What is the current system statistics shown in the dashboard?
+Answer:
+- 847+ Zones Monitored
+- 1,250 Rainfall Stations
+- 4,230+ Alerts Sent Today
+- 94.2% Model Accuracy
+- 12,400 Lives at Risk
+- 3 Active Alerts
+
+Q1.8: What is the significance of this project for Smart India Hackathon?
+Answer: It's a government-focused solution (Ministry of Earth Sciences, NDMA)
+addressing a real national problem of landslide disaster management in India's
+vulnerable mountainous regions.
+
+Q1.9: What are the main benefits of using this system?
+Answer:
+- Early warning reduces casualties
+- Multi-channel alert delivery ensures reach
+- Offline capability works in remote areas
+- Role-based access ensures proper governance
+- Real-time monitoring enables proactive response
+
+Q1.10: How does the system handle different risk levels?
+Answer: Four-tier risk classification:
+- Green: Low risk (Safe)
+- Yellow: Moderate risk (Watch)
+- Orange: High risk (Be Ready)
+- Red: Critical risk (Evacuate Immediately)
+
+================================================================================
+2. TECHNOLOGY STACK (15 Questions)
+================================================================================
+
+Q2.1: Why was React chosen as the frontend framework?
+Answer: React was chosen for:
+- Component-based architecture for reusable UI
+- Virtual DOM for efficient rendering
+- Large ecosystem and community support
+- Easy state management with hooks
+- Fast development with Vite integration
+
+Q2.2: What is the role of Vite 8 in this project?
+Answer: Vite 8 serves as:
+- Development server with hot module replacement (HMR)
+- Production bundler for optimized builds
+- Plugin system for React and Tailwind CSS
+- Fast build times and startup
+- ES module support for modern development
+
+Q2.3: Why Tailwind CSS v4 over traditional CSS?
+Answer: Tailwind CSS v4 provides:
+- Utility-first approach for rapid development
+- Consistent design system with custom theme
+- Smaller bundle size (no unused CSS)
+- Built-in responsive design utilities
+- Easy customization via CSS variables
+
+Q2.4: Explain the choice of Leaflet for mapping.
+Answer: Leaflet was chosen because:
+- Lightweight and fast (~42KB gzipped)
+- Excellent mobile support
+- Rich plugin ecosystem
+- Open-source with no licensing fees
+- OpenStreetMap tile integration
+- React-Leaflet provides clean React bindings
+
+Q2.5: Why use Recharts for data visualization?
+Answer: Recharts offers:
+- Declarative chart components
+- React-native integration
+- Responsive containers
+- Customizable tooltips and legends
+- SVG-based rendering for quality
+
+Q2.6: What is the role of React Router DOM v7?
+Answer: React Router DOM provides:
+- Client-side routing without page reloads
+- HashRouter for static file hosting compatibility
+- Nested route support
+- Navigation hooks (useNavigate, useLocation)
+- Route protection capabilities
+
+Q2.7: Why was Oxlint chosen over ESLint?
+Answer: Oxlint offers:
+- Faster linting (Rust-based)
+- Lower resource consumption
+- Modern linting rules
+- Better performance for large codebases
+- Easy configuration
+
+Q2.8: What is the role of Lucide React icons?
+Answer: Lucide React provides:
+- Consistent iconography across the app
+- Lightweight SVG icons
+- Customizable size and color
+- Tree-shakable imports
+- Professional appearance
+
+Q2.9: Why use HashRouter instead of BrowserRouter?
+Answer: HashRouter was chosen because:
+- Works with static file hosting (no server config needed)
+- Compatible with file:// protocol
+- Better for deployment on simple hosting
+- No server-side routing configuration required
+- Works in offline PWA scenarios
+
+Q2.10: How does the project use CSS custom properties?
+Answer: Custom properties are defined in index.css:
+- Color palette (primary, emergency, warning, success)
+- Typography (Inter font family)
+- Consistent theming across components
+- Easy theme customization
+
+Q2.11: What is the benefit of using ES modules in this project?
+Answer: ES modules provide:
+- Better tree-shaking for smaller bundles
+- Async module loading
+- Clear dependency management
+- Modern JavaScript standards
+- Better IDE support
+
+Q2.12: How does the project handle responsive design?
+Answer: Through Tailwind CSS:
+- Mobile-first approach
+- Breakpoint utilities (sm, md, lg, xl)
+- Flexible grid layouts
+- Responsive typography
+- Hidden/shown elements at different breakpoints
+
+Q2.13: What is the purpose of @vitejs/plugin-react?
+Answer: The plugin provides:
+- JSX transformation
+- Fast Refresh for development
+- Automatic React import handling
+- Development server integration
+- Production build optimization
+
+Q2.14: How does the project handle state management?
+Answer: State management approach:
+- Local state with useState hooks
+- Context API for global state (AuthContext)
+- No external state management library
+- Component-level state for UI interactions
+
+Q2.15: What is the benefit of using function components with hooks?
+Answer: Benefits include:
+- Cleaner, more readable code
+- Better logic reuse with custom hooks
+- No this binding issues
+- Easier testing
+- Modern React best practices
+
+================================================================================
+3. ARCHITECTURE & WORKFLOW (15 Questions)
+================================================================================
+
+Q3.1: Describe the overall project structure.
+Answer: Project structure:
+- /src - Source code
+  - /components - Reusable UI components (Navbar, AlertBadge, StatCard)
+  - /context - React Context providers (AuthContext)
+  - /data - Mock data files (mockData.js)
+  - /pages - Page-level components (Landing, Dashboard, MapView, SOS, Alerts, Login, Admin)
+  - App.jsx - Main application component with routing
+  - main.jsx - Entry point rendering App with StrictMode
+  - index.css - Global styles and Tailwind theme
+- /public - Static assets
+- /dist - Production build output
+- vite.config.js - Vite configuration
+
+Q3.2: Explain the component hierarchy in the application.
+Answer: Hierarchy:
+- main.jsx mounts App component
+- App.jsx wraps children in AuthProvider, HashRouter
+- App renders Navbar + Routes
+- Routes defines 7 routes (/ , /dashboard, /map, /sos, /alerts, /login, /admin)
+- Each route maps to a page component
+- Pages use shared components (StatCard, AlertBadge, Navbar)
+
+Q3.3: How does the routing system work?
+Answer: Routing flow:
+1. HashRouter manages URL hash-based routes (#/dashboard, #/map, etc.)
+2. Routes component defines all available routes
+3. Each Route maps a path to a page component
+4. Navbar uses useLocation() to detect current path and highlight active link
+5. Link components handle client-side navigation without full page reloads
+
+Q3.4: Describe the authentication workflow.
+Answer: Authentication flow:
+1. AuthContext wraps the entire app providing user state
+2. Login page allows role selection (admin/officer/public)
+3. login(role) creates user object { name, role }
+4. Based on role, user gets assigned a name (Dr. Sharma for admin, Rajesh Kumar for officer)
+5. Navbar conditionally renders based on user state (show/hide Admin link, logout button)
+6. No actual backend authentication - demo mode only
+
+Q3.5: How does data flow from mock data to UI components?
+Answer: Data flow:
+1. mockData.js exports static data objects (zones, alerts, rainfallData, etc.)
+2. Pages import required data at the top of the file
+3. Data is passed to child components as props (e.g., <StatCard value={stats.activeAlerts} />)
+4. Components render data with proper formatting and styling
+5. No API calls - all data is local and static
+
+Q3.6: Explain the page rendering workflow.
+Answer: Page rendering:
+1. main.jsx renders App inside StrictMode and ReactDOM
+2. App renders AuthProvider > HashRouter > div > Navbar + Routes
+3. HashRouter matches current URL hash to a Route
+4. Matched Route renders its element (page component)
+5. Page component renders its layout with imported data
+6. Child components render with props from parent page
+
+Q3.7: How does the notification system work in Navbar?
+Answer: Notification system:
+1. Navbar imports alerts array from mockData.js
+2. Filters alerts where status === 'pending' to get unread count
+3. Displays badge with unread count on Bell icon
+4. onClick toggles notifOpen state for dropdown visibility
+5. Dropdown shows first 3 alerts with zone name, time, and colored risk dot
+6. Badge disappears when no pending alerts exist
+
+Q3.8: Describe the SOS alert workflow.
+Answer: SOS workflow:
+1. User selects affected zone from dropdown (populated from zones mock data)
+2. User chooses alert level by clicking one of three buttons (Yellow/Orange/Red)
+3. User optionally types additional message in textarea
+4. Click "SEND SOS ALERT" triggers showConfirm state (button disabled if no zone selected)
+5. Confirmation modal shows alert details (level + zone name)
+6. User clicks "Confirm & Send" -> sent state becomes true -> success UI shows for 4 seconds
+7. Success screen displays delivery stats (SMS sent, Push delivered, Pending)
+
+Q3.9: How does the map view handle multiple layers?
+Answer: Layer management:
+1. Three boolean state variables: showRainfall, showSlope, showAlerts
+2. Three toggle buttons in toolbar change respective states
+3. Conditional rendering: {showAlerts && zones.map(...)} shows/hides layers
+4. Each layer uses CircleMarker with different colors and sizes:
+   - Alert zones: risk-colored circles (red/orange/yellow/green)
+   - Rainfall: blue dashed circles (radius = intensity/10)
+   - Slope: amber dashed circles (radius = slope/3)
+5. Popup on each alert zone shows zone details
+
+Q3.10: Explain the SWI Timeline Animation feature.
+Answer: SWI Animation:
+1. swiTimeline array contains 6 date-indexed data points (Sep 1 to Sep 10)
+2. timelineIdx state controls which data point is selected
+3. Slider input (type="range") allows manual scrubbing through timeline
+4. currentSWI = swiTimeline[timelineIdx] selects current data
+5. Displays SWI value and risk level badge below the slider
+6. Date labels below slider highlight current date in bold/primary color
+
+Q3.11: How does the admin panel display system health?
+Answer: System health display:
+1. systemHealth array contains 6 service objects with name, status, uptime, latency
+2. statusConfig maps status strings to icon, color, bg, and label
+3. Loop renders each service in a row with:
+   - Status icon (CheckCircle for operational, AlertTriangle for degraded/down)
+   - Service name and latency
+   - Status badge and uptime percentage
+
+Q3.12: Describe the alert filtering mechanism.
+Answer: Alert filtering:
+1. filter state tracks selected filter ('all', 'red', 'orange', 'yellow', 'green')
+2. search state tracks text search query
+3. filtered array created using alerts.filter():
+   - If filter !== 'all', checks alert.type matches filter
+   - If search exists, checks zone name or alert ID contains search text
+4. Filter buttons toggle filter state
+5. Search input updates search state on onChange
+6. Table renders only filtered results
+7. Empty state message shown when filtered.length === 0
+
+Q3.13: How does the responsive navigation work?
+Answer: Responsive nav:
+1. Desktop (md+): Full horizontal navigation links visible, mobile menu hidden
+2. Mobile (<md): Nav links hidden, hamburger Menu icon button visible
+3. menuOpen state toggles mobile menu visibility
+4. Mobile menu shows links in a vertical list below the navbar
+5. Clicking a link calls setMenuOpen(false) to close the menu
+6. X icon shown when menu is open, Menu icon when closed
+
+Q3.14: Explain the role-based access control.
+Answer: RBAC implementation:
+1. AuthContext stores user object with role property
+2. Navbar checks user?.role === 'admin' before rendering Admin link
+3. Login page allows selecting role (public/officer/admin) before login
+4. Different roles get different names displayed
+5. Admin page is only accessible via /admin route (no route guard currently)
+6. Frontend-only enforcement (no backend validation)
+
+Q3.15: How does the application handle errors?
+Answer: Error handling:
+- No explicit error boundaries implemented
+- Graceful degradation: AlertBadge handles unknown types with 'unknown' fallback
+- Optional chaining used for null checks (user?.role)
+- No global error handling or error pages
+- Console errors visible in development mode
+- This is a current limitation of the prototype
+
+================================================================================
+4. COMPONENT-LEVEL QUESTIONS (15 Questions)
+================================================================================
+
+Q4.1: Explain the Navbar component structure and its responsibilities.
+Answer: Navbar responsibilities:
+- Brand logo and name (Link to /)
+- Navigation links array: Dashboard, GIS Map, SOS, Alerts
+- Admin link (conditional on user?.role === 'admin')
+- Notification bell with unread count badge (pending alerts)
+- User profile display with name and logout button
+- Login button (shown when no user logged in)
+- Mobile hamburger menu with toggle
+
+Q4.2: How does AlertBadge determine its appearance?
+Answer: AlertBadge logic:
+1. Receives type prop (red/orange/yellow/green) and optional size (sm/md/lg)
+2. styles object maps each type to Tailwind CSS classes (background, text, border)
+3. safeType variable provides fallback to 'unknown' for unrecognized types
+4. dotColor variable determines the colored dot color based on type
+5. Renders a styled span with colored dot + uppercase text (e.g., "RED")
+
+Q4.3: What props does StatCard accept and how does it use them?
+Answer: StatCard props:
+- title: Displayed as small label text above the value
+- value: Main metric displayed in large bold text
+- change: Optional percentage change with TrendingUp/TrendingDown icon (+ green, - red)
+- icon: Lucide icon component rendered in colored circle
+- color: Theme selection (primary/emergency/warning/success) for icon background
+- suffix: Unit text appended to value (e.g., "mm")
+
+Q4.4: How does the Landing page structure its sections?
+Answer: Landing sections:
+1. Hero section: Gradient blue background with decorative blur circles, logo, headline, description, CTA buttons, and stats grid
+2. Features section: Centered heading + 6 feature cards in 3-column grid
+3. Roles section: White background with "Built for Disaster Response Teams" and 3 role badges
+4. Footer: Dark slate background with brand name and government attribution
+
+Q4.5: Explain the Dashboard page layout.
+Answer: Dashboard layout:
+1. Header: Title "Dashboard" + subtitle
+2. Stats row: 4 StatCards in responsive grid (Active Alerts, Zones at Risk, Rainfall Index, System Status)
+3. Two-column section:
+   - Left (2/3 width): Rainfall trend LineChart with Observed + Forecast lines
+   - Right (1/3 width): Recent Alerts list with AlertBadge, zone, time, SMS count
+4. Full-width: Risk Zone Map with Leaflet map showing all 10 zones as colored markers
+
+Q4.6: How does the MapView page handle map interactions?
+Answer: Map interactions:
+1. Full-height layout using h-[calc(100vh-4rem)]
+2. Toolbar with three toggle buttons (Rainfall Heatmap, Slope/DEM, Active Alerts)
+3. MapContainer centered on India [22.5, 82] with zoom level 5
+4. CircleMarker components with varying radii based on data values
+5. Popups show zone details on marker click
+6. SWI Timeline panel at bottom with range slider
+7. Legend panel at top-right showing color codes
+
+Q4.7: Describe the SOS page form handling.
+Answer: SOS form handling:
+1. Five state variables: selectedZone, alertType, message, showConfirm, sent
+2. Zone select dropdown populated from zones mockData
+3. Three alert level buttons with active state styling (ring effect)
+4. Optional textarea for custom message
+5. Submit button disabled when no zone selected
+6. Confirmation modal appears before sending
+7. After send: success screen auto-resets after 4 seconds via setTimeout
+
+Q4.8: How does the Alerts page handle search and filtering?
+Answer: Alerts search/filter:
+1. search state bound to text input with placeholder "Search by zone or alert ID..."
+2. filter state controlled by 5 color-coded buttons (all, red, orange, yellow, green)
+3. filtered array computed: alerts.filter(a => typeMatch && searchMatch)
+4. Table columns: Alert ID, Zone, Level, Status, Time, SMS Sent, expand toggle
+5. Click on row toggles expandedId state showing detail row
+6. Detail row shows: SMS Delivered, Recipients, Avg Delivery, Radio Push status
+7. Empty state shown when filtered.length === 0
+
+Q4.9: Explain the Login page role selection mechanism.
+Answer: Login role selection:
+1. Three roles defined: public (User icon), officer (Radio icon), admin (Shield icon)
+2. role state defaults to 'public'
+3. Three toggle buttons with active state (border-primary, bg-primary-light)
+4. Email and password inputs are controlled but not validated
+5. Form onSubmit calls login(role) and navigates to /admin (admin) or /dashboard (others)
+6. Demo buttons provide quick role-based login without form submission
+
+Q4.10: How does the Admin page organize its content?
+Answer: Admin page structure:
+1. Header with Shield icon and title
+2. Stats row: 4 cards (API Uptime, Model Accuracy, PWA Users, Total Users)
+3. Two-column layout:
+   - Left: System Health list (6 services with status, uptime, latency)
+   - Right: User Management list (5 users with name, role, status, last login)
+4. "Manage All Users" button at bottom of user list
+5. Model Performance section: 4 metrics (Accuracy, False Positive Rate, Inference Time, Training Data)
+
+Q4.11: What is the purpose of the createIcon function in Dashboard?
+Answer: createIcon function:
+- Takes a color parameter (hex string)
+- Returns a Leaflet divIcon with custom HTML
+- HTML creates a 14px colored circle with white border and shadow
+- Used as the icon prop for Marker components
+- Enables color-coded risk zone markers on the dashboard map
+- iconSize and iconAnchor set for proper centering
+
+Q4.12: How does the notification dropdown in Navbar work?
+Answer: Notification dropdown:
+1. notifOpen state (boolean) controls dropdown visibility
+2. Bell icon button onClick toggles notifOpen
+3. Dropdown positioned absolute (right-0, top-12) with z-50
+4. Renders first 3 alerts from mockData
+5. Each alert shows: colored dot, zone name, time
+6. Styled with white background, rounded corners, shadow, border
+7. Note: No click-outside-to-close handler (current limitation)
+
+Q4.13: Explain the SOS confirmation modal.
+Answer: SOS modal:
+1. showConfirm state controls visibility
+2. Renders fixed overlay (bg-black/50) with centered modal
+3. Modal shows: title "Confirm SOS Alert", alert level in uppercase, zone name
+4. Description explains that SMS and browser notifications will be sent
+5. Two buttons: "Cancel" (closes modal) and "Confirm & Send" (triggers handleSend)
+6. X button in top-right also closes modal
+7. Uses slide-up animation class
+
+Q4.14: How does the dashboard rainfall chart work?
+Answer: Rainfall chart:
+1. Recharts LineChart wrapped in ResponsiveContainer (100% width/height)
+2. Data source: rainfallData array with time, value, forecast
+3. XAxis: time labels ("00:00", "03:00", etc.)
+4. YAxis: rainfall values in mm
+5. Two Line components:
+   - "Observed": solid blue line (#2563EB)
+   - "Forecast": dashed gray line (#94A3B8) with strokeDasharray="5 5"
+6. CartesianGrid with dashed lines
+7. Tooltip with rounded border on hover
+8. Legend distinguishes Observed vs Forecast
+
+Q4.15: What is the role of the slide-up animation?
+Answer: slide-up animation:
+- CSS keyframe defined in index.css
+- from: opacity 0, translateY(20px) (hidden, shifted down)
+- to: opacity 1, translateY(0) (visible, normal position)
+- Duration: 0.3s with ease-out timing
+- Applied to: notification dropdown, mobile menu, SOS confirmation modal, success screen
+- Creates smooth entrance effect for overlay elements
+
+================================================================================
+5. FEATURE-SPECIFIC QUESTIONS (15 Questions)
+================================================================================
+
+Q5.1: How does the real-time rainfall monitoring feature work?
+Answer: Rainfall monitoring (simulated):
+- mockData.js rainfallData array contains 10 readings across 24+ hours
+- Each entry has time, observed value, and forecast value
+- Dashboard displays this as a LineChart (24h trend)
+- MapView shows rainfall as blue CircleMarkers (radius = intensity/10)
+- 5 rainfall data points across India (Chamoli, Darjeeling, Wayanad, Meghalaya, Munnar)
+- Data is static/mock but represents real-time concept
+
+Q5.2: Explain the SWI (Soil Wetness Index) concept in this project.
+Answer: SWI concept:
+- Measures soil moisture: 0 = saturated (wet), 1 = dry
+- Lower SWI = higher landslide risk (soil is waterlogged)
+- Each zone has a current SWI value in mockData (e.g., Chamoli: 0.12 = very wet/high risk)
+- swiTimeline tracks SWI changes over 10 days (Sep 1-10)
+- Timeline shows SWI decreasing from 0.52 (green) to 0.12 (red) over time
+- Combined with rainfall and slope for overall risk assessment
+
+Q5.3: How does the SOS alert delivery system work?
+Answer: SOS delivery (simulated):
+1. User triggers SOS from the SOS page
+2. System calculates SMS recipients based on zone population
+3. Tracks three delivery channels: SMS, Push, Pending
+4. Success screen shows delivery counts (e.g., 1,240 SMS, 890 Push, 350 Pending)
+5. Alerts table tracks status: delivered, acknowledged, pending
+6. No actual SMS gateway or push service connected (frontend simulation)
+
+Q5.4: What is the purpose of the risk zone classification system?
+Answer: Risk classification:
+- Green: SWI > 0.4, Low rainfall (<60mm), Gentle slope (<25°) = Safe
+- Yellow: SWI 0.3-0.4, Moderate rainfall (60-100mm), Moderate slope = Watch
+- Orange: SWI 0.2-0.3, High rainfall (100-150mm), Steep slope = Be Ready
+- Red: SWI < 0.2, Heavy rainfall (>150mm), Very steep slope (>40°) = Evacuate
+- Classification based on multiple factors, not just one
+- Used for map visualization, alert badges, and SOS triggers
+
+Q5.5: How does the interactive GIS map support decision-making?
+Answer: GIS map support:
+- Visual identification of risk zones across India
+- Toggle layers to view different data (rainfall, slope, alerts)
+- Click markers for detailed zone information (risk, rainfall, slope, SWI)
+- SWI timeline slider for temporal trend analysis
+- Color-coded legend for quick risk assessment
+- Full-screen map for detailed geographic analysis
+
+Q5.6: Explain the terrain analysis (Slope/DEM) feature.
+Answer: Terrain analysis:
+- Digital Elevation Model data provides slope angles
+- Slope measured in degrees (e.g., Chamoli: 45°, Darjeeling: 48°)
+- Steeper slopes have higher landslide risk
+- Displayed as amber CircleMarkers on MapView (radius = slope/3)
+- Toggleable layer (Slope/DEM button in toolbar)
+- Combined with rainfall and SWI for comprehensive risk assessment
+
+Q5.7: How does the system health monitoring work?
+Answer: System health monitoring:
+- 6 services tracked in systemHealth array:
+  - Rainfall API (operational, 99.8% uptime, 42ms latency)
+  - DEM Processing (operational, 99.5%, 120ms)
+  - ML Prediction Model (operational, 98.9%, 850ms)
+  - SMS Gateway (degraded, 97.2%, 1.2s)
+  - PWA Push Service (operational, 99.9%, 35ms)
+  - GIS Tile Server (operational, 99.7%, 95ms)
+- Each service has status icon, name, latency, status label, uptime
+- Status determines icon color (green/amber/red)
+
+Q5.8: What is the role of the prediction model in this system?
+Answer: Prediction model (conceptual/simulated):
+- 94.2% prediction accuracy (last 30 days)
+- 3.1% false positive rate (within acceptable tolerance)
+- 850ms average inference time per prediction
+- Trained on 2.4 million data points
+- Combines rainfall, slope, SWI, and terrain data
+- Model performance displayed in Admin panel
+- No actual ML model running in frontend
+
+Q5.9: How does the multi-channel alert system work conceptually?
+Answer: Multi-channel alerts:
+- SMS: Text message delivery to registered phone numbers (shown in alert counts)
+- Browser Push: PWA push notifications to installed app users
+- Radio Push: Emergency radio broadcast integration (mentioned in alert details)
+- Alert tracks per-channel status and delivery counts
+- Each SOS trigger sends to all channels simultaneously
+- Delivery metrics shown in SOS success screen and alert expansion
+
+Q5.10: Explain the user role management system.
+Answer: Role management:
+- Three roles: admin, officer, public
+- Admin (Dr. Sharma): Full access - Dashboard, Map, SOS, Alerts, Admin panel
+- Officer (Rajesh Kumar): Report and manage alerts - Dashboard, Map, SOS, Alerts
+- Public User: View only - Dashboard, Map, Alerts
+- Role affects: Navbar visibility (Admin link), name display, login redirect
+- Admin page accessible only via /admin route (not linked for non-admins)
+
+Q5.11: How does the offline PWA capability work conceptually?
+Answer: PWA capability (designed but not fully implemented):
+- index.html loaded as single page application
+- Service worker would cache static assets for offline use
+- Critical alert delivery without internet connection
+- Mobile-friendly responsive interface
+- Installable on mobile devices as home screen app
+- Mentioned as feature on Landing page
+
+Q5.12: What data points does each monitoring zone contain?
+Answer: Zone data structure:
+- id: Unique numeric identifier (1-10)
+- name: Zone name in "Region - District" format (e.g., "Uttarakhand - Chamoli")
+- lat: Latitude coordinate for map placement
+- lng: Longitude coordinate for map placement
+- risk: Risk level classification (red/orange/yellow/green)
+- rainfall: Current rainfall measurement in mm
+- slope: Terrain slope angle in degrees
+- swi: Soil Wetness Index value (0.0 to 1.0)
+
+Q5.13: How does the alert history tracking work?
+Answer: Alert history:
+- Each alert has unique ID format "ALS-XXXX" (e.g., ALS-2401)
+- Tracks: zone name, type (risk level), status, relative time
+- Records SMS sent count and total recipients
+- 8 historical alerts in mockData
+- Expandable row shows: SMS Delivered, Recipients, Avg Delivery (1.2s), Radio Push status
+- Table supports sorting by filter and search
+
+Q5.14: What is the significance of the 847 zones monitored statistic?
+Answer: 847 zones significance:
+- Represents comprehensive geographic coverage across India
+- Multiple regions in landslide-prone mountainous areas
+- Each zone monitored for rainfall, slope, and soil conditions
+- Enables localized early warnings
+- Demonstrates government-scale deployment capability
+- Stat displayed on Landing page and Dashboard
+
+Q5.15: How does the model accuracy metric relate to the overall system?
+Answer: Model accuracy context:
+- 94.2% accuracy displayed on Landing, Dashboard, and Admin pages
+- 3.1% false positive rate indicates reliable predictions
+- 850ms inference time affects real-time capability
+- 2.4M training data points ensure robust model
+- Combined with real-time rainfall and sensor data
+- Drives the risk classification that triggers alerts
+
+================================================================================
+6. DATA & STATE MANAGEMENT (10 Questions)
+================================================================================
+
+Q6.1: What is the structure of mockData.js and what does it contain?
+Answer: mockData.js exports six data structures:
+- zones: Array of 10 zone objects (id, name, lat, lng, risk, rainfall, slope, swi)
+- alerts: Array of 8 alert objects (id, zone, type, status, time, sms, recipients)
+- rainfallData: Array of 10 rainfall readings (time, value, forecast)
+- swiTimeline: Array of 6 SWI data points (date, swi, risk)
+- systemHealth: Array of 6 service health objects (name, status, uptime, latency)
+- stats: Object with 6 system-wide metrics (zonesMonitored, activeAlerts, etc.)
+
+Q6.2: How is authentication state managed in the application?
+Answer: Auth state management:
+- AuthContext created with createContext(null)
+- AuthProvider wraps entire app in App.jsx
+- useState(null) initializes user state
+- login(role) creates user object: { name: role-based-name, role }
+- logout() sets user state back to null
+- useAuth() custom hook provides access to { user, login, logout }
+
+Q6.3: Explain the AuthContext implementation in detail.
+Answer: AuthContext implementation:
+1. createContext(null) creates the context with null default
+2. AuthProvider function component accepts children prop
+3. useState(null) for user state (null = not logged in)
+4. login(role) switch:
+   - 'admin' -> name: 'Dr. Sharma'
+   - 'officer' -> name: 'Rajesh Kumar'
+   - default -> name: 'Public User'
+5. logout() calls setUser(null)
+6. Returns AuthContext.Provider with value={{ user, login, logout }}
+7. useAuth() = useContext(AuthContext) for convenient access
+
+Q6.4: What data is stored in component state across the application?
+Answer: Component states:
+- Navbar: menuOpen (mobile menu),notifOpen (notifications dropdown)
+- MapView: showRainfall, showSlope, showAlerts (layer toggles), timelineIdx (SWI position)
+- SOS: selectedZone, alertType, message, showConfirm, sent
+- Alerts: expandedId (expanded row), filter (risk filter), search (text search)
+- Login: email, password, role (form inputs)
+
+Q6.5: How does the application handle user input across forms?
+Answer: User input handling:
+- All inputs are controlled components with useState
+- onChange handlers call setState with event.target.value
+- Form submissions use onSubmit with e.preventDefault()
+- Select dropdowns use onChange with e.target.value
+- Textarea uses onChange with e.target.value
+- Button clicks use onClick handlers
+
+Q6.6: What is the benefit of using Context API over prop drilling here?
+Answer: Context API benefits:
+- AuthContext avoids passing auth state through Navbar to all components
+- Any component can access user/login/logout via useAuth()
+- Clean component tree (no intermediate props)
+- Single source of truth for authentication
+- No external library needed (built-in React feature)
+
+Q6.7: How does the application handle data persistence?
+Answer: Data persistence:
+- Currently NO persistence (all data in-memory)
+- No localStorage or sessionStorage usage
+- No cookies for state
+- No backend API calls
+- All data resets on page refresh
+- This is a known limitation of the prototype
+
+Q6.8: What is the role of the stats object in mockData?
+Answer: stats object:
+- Contains 6 key metrics: zonesMonitored (847), activeAlerts (3), smsSentToday (4230),
+  livesAtRisk (12400), rainfallStations (1250), modelAccuracy (94.2)
+- Used in Landing page hero section (4 stats grid)
+- Used in Dashboard for StatCard components
+- Used indirectly in Admin panel metrics
+- Static values (no real-time updates)
+
+Q6.9: How are alerts data structured and used across the app?
+Answer: Alert data usage:
+- Structure: { id, zone, type, status, time, sms, recipients }
+- Navbar: Filters pending alerts for notification count
+- Dashboard: Displays first 6 alerts in recent alerts list
+- Alerts page: Full table with search, filter, expand functionality
+- SOS page: Triggers creation of new alerts (simulated)
+- Data is shared via direct import (not via context)
+
+Q6.10: How could the application be extended to use a backend API?
+Answer: Backend integration points:
+- Replace mockData imports with fetch/axios API calls
+- Add useEffect hooks for data fetching on component mount
+- Implement authentication with JWT tokens
+- Add loading states and error handling for API calls
+- Use WebSocket for real-time alert updates
+- Store user preferences and zone configurations in database
+- Integrate real SMS gateway (Twilio, MSG91)
+- Add ML model serving endpoint for predictions
+
+================================================================================
+7. UI/UX & STYLING (10 Questions)
+================================================================================
+
+Q7.1: How are custom CSS animations implemented in the project?
+Answer: CSS animations in index.css:
+- sos-pulse: Red pulsing shadow effect (0->20px->0) over 2s infinite
+  - Used on SOS button and emergency icon for urgency
+- slideUp: Fade-in with vertical translation (20px->0) over 0.3s ease-out
+  - Used on dropdowns, modals, and menus for smooth entrance
+- Both defined with @keyframes and applied via utility classes
+
+Q7.2: Explain the color system defined in the Tailwind theme.
+Answer: Color system in index.css @theme:
+- primary: #2563EB (blue) - Main brand color, buttons, links
+- primary-dark: #1D4ED8 - Hover states for primary
+- primary-light: #DBEAFE - Light backgrounds, active states
+- emergency: #DC2626 (red) - Critical alerts, SOS button, danger
+- emergency-dark: #B91C1C - Hover states for emergency
+- warning: #F59E0B (amber) - Caution, orange risk level
+- success: #16A34A (green) - Positive states, green risk level
+- surface: #FFFFFF - Card backgrounds
+- background: #F1F5F9 - Page background
+- text: #1E293B - Primary text color
+- text-secondary: #64748B - Muted text, labels
+- border: #E2E8F0 - Borders, dividers
+
+Q7.3: How does the responsive design work across different devices?
+Answer: Responsive design approach:
+- Mobile-first: Base styles for mobile, breakpoints add complexity
+- Tailwind breakpoints: sm(640px), md(768px), lg(1024px), xl(1280px)
+- Grid layouts: grid-cols-1 (mobile) -> sm:grid-cols-2 -> lg:grid-cols-4
+- Navigation: Hidden on mobile, hamburger menu toggle
+- Tables: hidden sm:table-cell for less important columns
+- Typography: Responsive text sizing with text-sm to text-6xl
+
+Q7.4: What is the purpose of the gradient backgrounds?
+Answer: Gradient usage:
+- Landing hero: from-primary via-primary-dark to-blue-900 (deep blue gradient)
+- Creates visual hierarchy and professional appearance
+- White decorative blur circles add depth
+- Brand identity without external images
+- Dark footer: bg-slate-900 for contrast
+
+Q7.5: How are hover and transition effects implemented?
+Answer: Hover/transition effects:
+- Buttons: hover:bg-primary-dark, hover:bg-emergency-dark (color transitions)
+- Cards: hover:shadow-md (shadow elevation on hover)
+- Feature cards: hover:shadow-lg hover:-translate-y-1 (lift effect)
+- Nav links: hover:bg-gray-100 (background change)
+- Table rows: hover:bg-gray-50 (subtle highlight)
+- All use Tailwind transition-colors or transition-all utilities
+
+Q7.6: Explain the typography system used in the application.
+Answer: Typography:
+- Font family: Inter (Google Fonts, loaded via CDN in index.html)
+- Font weights: 400 (regular), 500 (medium), 600 (semibold), 700 (bold), 800 (extrabold)
+- Scale: text-[10px] (badge) -> text-xs -> text-sm -> text-base -> text-lg -> text-xl -> text-2xl -> text-3xl -> text-4xl -> text-6xl (hero)
+- Consistent hierarchy: titles bold, descriptions text-secondary
+- Font smoothing: -webkit-font-smoothing: antialiased
+
+Q7.7: How does the card design system work across the app?
+Answer: Card design system:
+- Base: bg-white rounded-xl border border-border p-5
+- Variations: rounded-2xl for larger cards (SOS, Login)
+- Hover: hover:shadow-md or hover:shadow-lg
+- Transition: transition-shadow or transition-all
+- Inner content: Consistent padding and spacing
+- Used in: StatCards, alert items, feature cards, admin panels
+
+Q7.8: What is the purpose of the glass morphism effect in the hero?
+Answer: Glass morphism in hero:
+- White decorative circles with opacity-10 and blur-3xl
+- Creates abstract, modern visual background
+- Adds depth without distracting from content
+- No actual glass morphism (backdrop-blur) on text
+- Professional, tech-forward aesthetic
+
+Q7.9: How are icons integrated into the design system?
+Answer: Icon integration:
+- Library: Lucide React (tree-shakable)
+- Consistent sizing: w-3 to w-10 based on context
+- Color: text-primary, text-emergency, text-success, text-warning
+- Placement: Inline with text, standalone in circles
+- Semantic meaning: Mountain=brand, AlertTriangle=warning, Bell=notifications
+- Icon backgrounds: Rounded containers with themed colors
+
+Q7.10: How does the SOS pulse animation enhance the UX?
+Answer: SOS pulse animation:
+- Creates urgency with pulsing red shadow effect
+- 2-second infinite loop for continuous attention
+- Applied to SOS button and emergency icon on Landing page
+- Visual cue that this is critical functionality
+- No audio cue (would be enhancement)
+- Helps users quickly identify emergency action
+
+================================================================================
+8. SECURITY & BEST PRACTICES (10 Questions)
+================================================================================
+
+Q8.1: How is authentication currently handled in the application?
+Answer: Current authentication:
+- Demo/prototype mode only (no real authentication)
+- Role selection via UI buttons without validation
+- No password verification or hashing
+- No session management or tokens
+- User state stored only in React context (in-memory)
+- No backend to authenticate against
+
+Q8.2: What security considerations are implemented?
+Answer: Security measures:
+- No hardcoded secrets or API keys in codebase
+- No sensitive user data (demo names only)
+- HTTPS-ready for deployment
+- No localStorage usage for credentials
+- Role-based UI restrictions (Admin link hidden)
+- No external API calls with credentials
+
+Q8.3: What are the current security limitations?
+Answer: Security limitations:
+- No real authentication or authorization
+- No backend validation of any kind
+- No JWT tokens or session management
+- No CSRF protection
+- No rate limiting on actions
+- No input sanitization (XSS vulnerable)
+- No Content Security Policy headers
+- No HTTPS enforcement
+
+Q8.4: How could authentication be improved for production?
+Answer: Authentication improvements:
+- Add backend auth service (Node.js/Express or Firebase)
+- Implement JWT-based authentication
+- Add password hashing (bcrypt)
+- Role-based API authorization
+- Session management with refresh tokens
+- Multi-factor authentication for admin
+- Account lockout after failed attempts
+
+Q8.5: What is the role of environment variables in this project?
+Answer: Environment variables:
+- VITE_ prefix required for client-side variables
+- Currently no .env file exists
+- Would be used for: API URLs, map tokens, SMS gateway keys
+- Not committed to repository (.gitignore should exclude .env)
+- Build-time configuration for Vite
+
+Q8.6: How does the application handle user input sanitization?
+Answer: Input handling:
+- No explicit sanitization implemented (current limitation)
+- React provides basic XSS protection via JSX escaping
+- Controlled components prevent injection via state
+- No server-side validation (no backend)
+- For production: sanitize all user inputs, validate on server
+
+Q8.7: What security headers should be configured for deployment?
+Answer: Security headers needed:
+- Content-Security-Policy (CSP) for XSS prevention
+- Strict-Transport-Security (HSTS) for HTTPS
+- X-Content-Type-Options: nosniff
+- X-Frame-Options: DENY (prevent clickjacking)
+- X-XSS-Protection for legacy browsers
+- Referrer-Policy for privacy
+
+Q8.8: How could the application be hardened for production?
+Answer: Production hardening:
+- Implement real authentication with backend
+- Add input validation and sanitization
+- Configure security headers
+- Enable HTTPS enforcement
+- Add rate limiting
+- Implement CORS policy
+- Add error logging and monitoring
+- Regular dependency auditing
+
+Q8.9: What role does CORS play in the application?
+Answer: CORS considerations:
+- Currently no CORS issues (frontend-only)
+- When backend is added, CORS must be configured
+- Allow specific origins (domain whitelist)
+- Restrict HTTP methods and headers
+- Handle preflight requests
+- Credentials mode for authenticated requests
+
+Q8.10: How should API keys be managed in production?
+Answer: API key management:
+- Never commit keys to repository
+- Store in environment variables or secret manager
+- Use backend proxy for sensitive API calls
+- Rotate keys regularly
+- Monitor API usage and set quotas
+- Use different keys for dev/staging/production
+
+================================================================================
+9. DEPLOYMENT & PERFORMANCE (10 Questions)
+================================================================================
+
+Q9.1: How is the project built for production?
+Answer: Production build process:
+- Command: npm run build
+- Vite bundles all source code to /dist folder
+- Output: index.html, JS bundles, CSS files, assets
+- Optimized with tree-shaking, minification, code splitting
+- Static files ready for any hosting service
+
+Q9.2: What optimizations are applied during the Vite build?
+Answer: Build optimizations:
+- Tree shaking: Unused code eliminated
+- Code splitting: Automatic route-based splitting
+- Minification: JavaScript and CSS compressed
+- Asset optimization: Images and fonts optimized
+- CSS purging: Unused Tailwind classes removed
+- ES module output for modern browsers
+
+Q9.3: How does the Vite development server work?
+Answer: Vite dev server:
+- Command: npm run dev
+- Starts at http://localhost:5173
+- Hot Module Replacement (HMR) for instant updates
+- Fast Refresh for React components
+- ES module serving (no bundling in dev)
+- host: true allows network access
+- port: 5173 configurable in vite.config.js
+
+Q9.4: What is the deployment target and hosting options?
+Answer: Deployment targets:
+- Static hosting (primary): Netlify, Vercel, GitHub Pages
+- Simple HTTP server: nginx, Apache
+- CDN distribution: CloudFront, Cloudflare
+- No server-side requirements (pure frontend)
+- base: './' in vite.config.js for relative paths
+
+Q9.5: How does the base path configuration affect deployment?
+Answer: Base path:
+- vite.config.js: base: './' (relative paths)
+- Allows deployment in subdirectories
+- Works with any hosting path structure
+- No absolute path dependencies
+- Assets load relative to index.html
+
+Q9.6: What is the estimated bundle size?
+Answer: Bundle size estimates:
+- React + ReactDOM: ~45KB gzipped
+- Leaflet: ~42KB gzipped
+- React-Leaflet: ~15KB gzipped
+- Recharts: ~200KB gzipped (largest dependency)
+- Tailwind CSS (purged): ~10KB
+- Lucide React (tree-shaken): ~20KB
+- Application code: ~30KB
+- Total estimate: ~350-400KB gzipped
+
+Q9.7: How can performance be measured and monitored?
+Answer: Performance measurement:
+- Lighthouse audits (Chrome DevTools)
+- Core Web Vitals (LCP, FID, CLS)
+- Bundle analyzer (rollup-plugin-visualizer)
+- Network tab monitoring
+- React DevTools Profiler
+- User experience metrics
+
+Q9.8: What caching strategies could be implemented?
+Answer: Caching strategies:
+- Service worker for offline-first (PWA)
+- Cache static assets with versioned filenames
+- API response caching with stale-while-revalidate
+- CDN caching for global distribution
+- Browser cache headers (Cache-Control)
+- IndexedDB for client-side data storage
+
+Q9.9: How does the application handle slow network conditions?
+Answer: Slow network handling:
+- No explicit handling currently (limitation)
+- Static assets may load slowly
+- No skeleton loaders or progress indicators
+- Map tiles may take time to render
+- Future: Add lazy loading, progressive loading
+- Future: Service worker for offline caching
+
+Q9.10: What is the complete build and deployment workflow?
+Answer: Build workflow:
+1. npm install (install dependencies)
+2. npm run lint (code quality check)
+3. npm run build (production build to /dist)
+4. Deploy /dist to hosting service
+5. Configure custom domain (optional)
+6. Set up CI/CD pipeline (GitHub Actions)
+7. Monitor performance and errors
+
+================================================================================
+10. FUTURE ENHANCEMENTS (10 Questions)
+================================================================================
+
+Q10.1: How could real-time data integration be added?
+Answer: Real-time integration:
+- WebSocket server for live rainfall updates
+- API polling for sensor data (every 5 minutes)
+- IoT sensor network integration
+- Satellite imagery feeds (ISRO data)
+- Government API integration (IMD rainfall data)
+- Real-time SWI calculations from sensor data
+
+Q10.2: What backend technology stack would you recommend?
+Answer: Backend recommendation:
+- Runtime: Node.js with Express.js or Fastify
+- Database: PostgreSQL with PostGIS extension (geospatial)
+- Cache: Redis for session data and real-time feeds
+- Queue: RabbitMQ or Bull for alert distribution
+- Auth: JWT with refresh tokens
+- Alternative: Python FastAPI with SQLAlchemy
+
+Q10.3: How could ML models be integrated into the system?
+Answer: ML integration:
+- TensorFlow Serving or PyTorch model serving
+- FastAPI endpoint for predictions
+- Real-time inference from sensor data
+- Model retraining pipeline with new data
+- A/B testing for model versions
+- TensorFlow.js for client-side inference (basic)
+
+Q10.4: What additional features could enhance the platform?
+Answer: Feature additions:
+- Real SMS gateway (Twilio, MSG91, BSNL)
+- Email notification system
+- Voice call alerts (IVR)
+- Multi-language support (Hindi, regional languages)
+- Mobile app (React Native)
+- Historical data analytics dashboard
+- Evacuation route planning
+- Community reporting feature
+
+Q10.5: How could the alert system be enhanced for production?
+Answer: Alert enhancements:
+- Real-time SMS delivery with delivery receipts
+- Email alerts with rich HTML templates
+- Push notifications via Firebase Cloud Messaging
+- Social media integration (Twitter alerts)
+- Emergency contact management
+- Alert escalation workflows
+- Multi-channel delivery tracking
+- Alert scheduling and templates
+
+Q10.6: What database design would support this application?
+Answer: Database design:
+- zones table: id, name, lat, lng, risk_level, created_at
+- alerts table: id, zone_id, type, status, message, timestamps
+- users table: id, name, email, password_hash, role, last_login
+- rainfall_readings: id, zone_id, value, forecast, timestamp
+- swi_readings: id, zone_id, value, timestamp
+- alert_recipients: id, alert_id, channel, status, delivered_at
+- Indexes on zone_id, timestamp, status for query performance
+
+Q10.7: How could the GIS capabilities be extended?
+Answer: GIS extensions:
+- Custom map layers (geological, vegetation, land use)
+- Satellite imagery overlay (Sentinel, Landsat)
+- 3D terrain visualization (Cesium/Deck.gl)
+- Evacuation route planning
+- Geofencing for automatic alerts
+- Heatmap visualizations
+- Historical landslide event mapping
+- Watershed analysis
+
+Q10.8: What testing strategy should be implemented?
+Answer: Testing strategy:
+- Unit tests: Jest/Vitest for utility functions
+- Component tests: React Testing Library for UI components
+- Integration tests: Page-level functionality
+- E2E tests: Cypress or Playwright for critical flows
+- API tests: For backend endpoints
+- Performance tests: Load testing for alerts
+- Accessibility tests: WCAG compliance
+
+Q10.9: How could the admin panel be expanded?
+Answer: Admin expansions:
+- User management CRUD operations
+- Zone configuration and management
+- Alert template management
+- Audit logging for all actions
+- Advanced analytics dashboard
+- Model performance tracking
+- System configuration settings
+- Data export capabilities
+
+Q10.10: What scalability considerations should be addressed?
+Answer: Scalability considerations:
+- Horizontal scaling with load balancer
+- Database sharding by geographic region
+- CDN for static asset distribution
+- Microservices for independent scaling
+- Kubernetes for container orchestration
+- Message queue for async alert processing
+- Read replicas for database scaling
+- Auto-scaling based on traffic
+
+================================================================================
+11. INTERVIEW SCENARIO QUESTIONS (15 Questions)
+================================================================================
+
+Q11.1: Walk me through the architecture of this application.
+Answer: Architecture walkthrough:
+"This is a React single-page application built with Vite for fast development
+and optimized builds. It uses a component-based architecture with 7 pages,
+3 shared components, and a Context API for authentication state. Leaflet
+provides interactive GIS mapping, Recharts handles data visualization, and
+Tailwind CSS v4 manages styling with a custom design system. The app uses
+HashRouter for client-side routing compatible with static hosting."
+
+Q11.2: How would you explain this project to a non-technical person?
+Answer: Non-technical explanation:
+"LandslideSOS is a web application that helps predict and warn about landslides
+in India's mountainous regions. It monitors rainfall and soil conditions in real-
+time across 847 zones. When danger is detected, it automatically sends SMS and
+push notifications to people in the affected area. Government officials can view
+everything on an interactive map and manage the system through an admin panel."
+
+Q11.3: What challenges did you face during development?
+Answer: Development challenges:
+- Integrating Leaflet with React (CSS import order, container sizing)
+- Making the map responsive across devices
+- Implementing the SWI timeline slider with proper state management
+- Designing consistent UI across 7 different pages
+- Managing multiple state variables in complex components like MapView
+- Handling the SOS confirmation flow with proper state transitions
+
+Q11.4: How would you improve this application?
+Answer: Improvements:
+- Add real backend with authentication and database
+- Integrate actual SMS gateway for real alerts
+- Connect to real-time weather and sensor APIs
+- Add comprehensive error handling and loading states
+- Implement full PWA with service worker
+- Add unit and integration tests
+- TypeScript migration for better type safety
+
+Q11.5: What did you learn from building this project?
+Answer: Learning outcomes:
+- React component architecture and state management patterns
+- GIS mapping integration with Leaflet and React-Leaflet
+- Tailwind CSS v4 theme system and utility-first design
+- Responsive design principles across devices
+- Client-side routing with React Router DOM
+- Data visualization with Recharts
+- Role-based UI access patterns
+
+Q11.6: How would you handle a situation where the map stops loading?
+Answer: Troubleshooting approach:
+1. Open browser console for JavaScript errors
+2. Verify Leaflet CSS is imported correctly ('leaflet/dist/leaflet.css')
+3. Check MapContainer has explicit height (100% or fixed pixels)
+4. Verify OpenStreetMap tile URL is accessible (network tab)
+5. Check latitude/longitude values are within valid ranges
+6. Test in incognito mode to rule out extensions
+7. Try different browser to isolate the issue
+
+Q11.7: What would you do differently if starting over?
+Answer: Different approach:
+- Start with TypeScript for type safety from day one
+- Set up backend architecture first
+- Implement proper authentication system
+- Add testing framework before writing features
+- Use a more robust state management solution (Zustand)
+- Set up CI/CD pipeline early
+- Document components with Storybook
+
+Q11.8: How does this project demonstrate your skills?
+Answer: Skills demonstrated:
+- Frontend development: React 19 with modern hooks
+- UI/UX design: Tailwind CSS with custom theme system
+- GIS integration: Leaflet with React-Leaflet bindings
+- State management: Context API and local state patterns
+- Responsive design: Mobile-first approach with breakpoints
+- Component architecture: Reusable, well-structured components
+- Problem-solving: Complex features like map layers and timeline
+
+Q11.9: What is the most complex feature in this application?
+Answer: Most complex feature:
+"The MapView page is the most complex, combining:
+- Three toggleable map layers with different data sources
+- SWI timeline animation with slider control
+- CircleMarker components with dynamic sizing
+- Legend panel with color-coded information
+- Responsive layout that works on all devices
+- State management for 4+ variables simultaneously"
+
+Q11.10: How would you explain the data flow in this application?
+Answer: Data flow explanation:
+"Data starts in mockData.js as static objects. Pages import this data and
+pass it to components via props. For example, Dashboard imports stats and
+passes individual values to StatCard components. State is managed locally
+with useState for UI interactions (menu open/close, form inputs). Global
+state (authentication) uses Context API. When a user logs in, AuthContext
+updates the user object, which Navbar reads to conditionally render elements."
+
+Q11.11: What testing would you add to this project?
+Answer: Testing additions:
+- Unit tests for AlertBadge rendering with different types
+- Unit tests for StatCard prop handling
+- Integration test for login flow (role selection -> navigation)
+- Integration test for SOS alert creation flow
+- E2E test for map layer toggling
+- E2E test for alert search and filtering
+- Snapshot tests for page layouts
+- Accessibility tests for form elements
+
+Q11.12: How would you optimize the performance?
+Answer: Performance optimizations:
+- Code splitting with React.lazy for route components
+- Lazy loading for Leaflet (only load when map page accessed)
+- Memoization for expensive computations (filtered alerts)
+- Image optimization and lazy loading
+- Bundle analysis to identify large dependencies
+- Virtual scrolling for large alert lists
+- Debouncing for search input
+- Service worker for caching static assets
+
+Q11.13: What security measures would you implement for production?
+Answer: Security measures:
+- JWT authentication with secure httpOnly cookies
+- Input validation on all forms (client + server)
+- CORS configuration for allowed origins only
+- Rate limiting on authentication endpoints
+- Content Security Policy headers
+- HTTPS enforcement with HSTS
+- SQL injection prevention (parameterized queries)
+- XSS protection through output encoding
+
+Q11.14: How would you deploy this application?
+Answer: Deployment steps:
+1. Run npm run build to create /dist
+2. Choose hosting: Vercel (recommended for React)
+3. Connect GitHub repository to Vercel
+4. Configure environment variables in Vercel dashboard
+5. Set up custom domain (optional)
+6. Enable automatic deployments on push
+7. Configure preview deployments for PRs
+8. Set up monitoring with Vercel Analytics
+
+Q11.15: What questions do you have about this project?
+Answer: Good questions to ask:
+- What is the expected number of concurrent users?
+- What is the timeline for production deployment?
+- Are there existing government APIs for rainfall data?
+- What SMS gateway provider should we integrate with?
+- Are there accessibility requirements (WCAG compliance)?
+- What are the data privacy requirements for user information?
+
+================================================================================
+12. DEBUGGING & TROUBLESHOOTING (10 Questions)
+================================================================================
+
+Q12.1: What would you check if the Leaflet map doesn't render?
+Answer: Map debugging checklist:
+1. Verify 'leaflet/dist/leaflet.css' is imported in the component
+2. Check MapContainer has explicit height (height: '100%' or fixed px)
+3. Verify parent container has defined height (h-[calc(100vh-4rem)])
+4. Check tile URL format: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+5. Verify latitude/longitude are valid numbers (not strings)
+6. Check browser console for CORS or network errors
+7. Ensure leaflet and react-leaflet packages are installed
+
+Q12.2: How would you debug a state update issue?
+Answer: State debugging:
+1. Add console.log in setState callbacks
+2. Use React DevTools to inspect state changes
+3. Check for stale closures in useEffect dependencies
+4. Verify useState initial values are correct
+5. Check for direct state mutation (always create new objects)
+6. Verify conditional rendering logic
+7. Check useEffect dependency arrays
+
+Q12.3: What would you do if routing stops working?
+Answer: Routing troubleshooting:
+1. Verify HashRouter wraps Routes component
+2. Check Route path format (must start with /)
+3. Verify component imports in App.jsx
+4. Check for console errors about missing imports
+5. Verify Link components use 'to' prop (not 'href')
+6. Test with direct URL access (#/dashboard)
+7. Check for conflicting route patterns
+
+Q12.4: How would you fix a responsive design issue?
+Answer: Responsive debugging:
+1. Use Chrome DevTools device toolbar
+2. Check Tailwind breakpoint classes (sm:, md:, lg:)
+3. Verify flex/grid layouts have proper wrapping
+4. Check for fixed widths that break on small screens
+5. Test overflow behavior (overflow-hidden vs overflow-auto)
+6. Verify text doesn't overflow containers
+7. Check that mobile menu toggle works correctly
+
+Q12.5: What would you check if forms don't submit properly?
+Answer: Form debugging:
+1. Verify onSubmit handler is on form element (not button)
+2. Check for e.preventDefault() in submit handler
+3. Verify controlled input state updates work
+4. Check that form values are not empty when required
+5. Verify button is not disabled (check disabled condition)
+6. Check for typos in function names
+7. Verify navigation after submission (useNavigate)
+
+Q12.6: How would you debug a performance issue?
+Answer: Performance debugging:
+1. Open React DevTools Profiler
+2. Record interaction and check render counts
+3. Identify components re-rendering unnecessarily
+4. Add React.memo to pure components
+5. Check for expensive computations in render
+6. Verify useEffect dependencies are correct
+7. Check bundle size with Vite build --mode development
+
+Q12.7: What would you do if authentication state isn't updating?
+Answer: Auth debugging:
+1. Verify AuthProvider wraps all components in App.jsx
+2. Check useAuth() hook returns correct values
+3. Verify login() function sets state correctly
+4. Check for stale closures in login function
+5. Verify Navbar reads user from correct context
+6. Check for multiple AuthContext instances
+7. Add console.log in AuthProvider render
+
+Q12.8: How would you fix a styling inconsistency?
+Answer: Styling debugging:
+1. Check Tailwind class specificity and order
+2. Verify custom theme variables in index.css
+3. Check for conflicting inline styles
+4. Use browser inspector to see computed styles
+5. Verify component props pass correct color values
+6. Check for CSS specificity conflicts
+7. Test in different browsers
+
+Q12.9: What would you check if data doesn't display in components?
+Answer: Data debugging:
+1. Verify mockData.js exports are correct
+2. Check import statements match export names
+3. Verify data structure matches component expectations
+4. Check for undefined/null values in data
+5. Verify map/filter logic produces expected results
+6. Check console for rendering errors
+7. Verify props are passed correctly from parent
+
+Q12.10: How would you debug a build failure?
+Answer: Build debugging:
+1. Read error message carefully (line number, file)
+2. Check for syntax errors (missing brackets, commas)
+3. Verify all imports resolve correctly
+4. Check for missing npm packages
+5. Verify vite.config.js is valid
+6. Run npm run lint to check for issues
+7. Check Node.js version compatibility
+
+================================================================================
+13. SYSTEM DESIGN QUESTIONS (10 Questions)
+================================================================================
+
+Q13.1: How would you design the backend for this application?
+Answer: Backend design:
+"Node.js with Express.js for REST API, PostgreSQL with PostGIS for geospatial
+queries, Redis for caching and session management, JWT for authentication,
+and RabbitMQ for async alert distribution. The API would serve zone data,
+alert management, user authentication, and real-time data ingestion from
+rainfall sensors."
+
+Q13.2: What database schema would support the application?
+Answer: Database schema:
+- zones: id (PK), name, latitude, longitude, risk_level, slope, created_at
+- rainfall_readings: id (PK), zone_id (FK), value, forecast, timestamp
+- swi_readings: id (PK), zone_id (FK), value, timestamp
+- alerts: id (PK), zone_id (FK), type, status, message, sent_by (FK), timestamps
+- alert_deliveries: id (PK), alert_id (FK), channel, recipient, status, delivered_at
+- users: id (PK), name, email, password_hash, role, last_login, created_at
+- Indexes on zone_id, timestamp, status, email for query performance
+
+Q13.3: How would you implement real-time notifications?
+Answer: Real-time implementation:
+"WebSocket server (Socket.io) for browser push notifications. Client connects
+on login and joins zone-specific rooms. Server pushes alert events to affected
+zones. Firebase Cloud Messaging for mobile push. SMS via MSG91/Twilio API.
+Email via SendGrid. All channels triggered asynchronously via message queue."
+
+Q13.4: What API endpoints would the backend expose?
+Answer: API endpoints:
+- POST /api/auth/login - Authenticate user
+- POST /api/auth/register - Register new user
+- GET /api/zones - List all monitoring zones
+- GET /api/zones/:id - Get zone details with readings
+- GET /api/zones/:id/rainfall - Get rainfall history
+- GET /api/zones/:id/swi - Get SWI history
+- POST /api/alerts - Create new alert (officer/admin)
+- GET /api/alerts - List alerts with filters
+- PUT /api/alerts/:id/acknowledge - Acknowledge alert
+- GET /api/admin/health - System health status
+- GET /api/admin/users - List users (admin only)
+
+Q13.5: How would you ensure high availability?
+Answer: High availability:
+- Load balancer (nginx or AWS ALB) distributing traffic
+- Multiple backend instances behind load balancer
+- PostgreSQL primary-replica setup for read scaling
+- Redis cluster for session and cache redundancy
+- CDN for static assets (CloudFront/Cloudflare)
+- Health checks with automatic instance replacement
+- Database automated backups every 6 hours
+
+Q13.6: What caching strategy would you implement?
+Answer: Caching strategy:
+- Redis: Session data (TTL 24h), zone data (TTL 5min)
+- CDN: Static assets with immutable cache headers
+- Browser: Service worker for offline-first PWA
+- API: Cache-Control headers for zone data (max-age=300)
+- Invalidation: Event-driven cache invalidation on data updates
+- Stale-while-revalidate for frequently accessed data
+
+Q13.7: How would you monitor the system in production?
+Answer: Production monitoring:
+- Application logs: Winston/Pino → ELK stack or Datadog
+- Error tracking: Sentry for JavaScript errors
+- Performance: New Relic or Datadog APM
+- Uptime: Pingdom or UptimeRobot for health checks
+- Alerting: PagerDuty for critical incidents
+- Metrics: Prometheus + Grafana for dashboards
+- Database: pg_stat_statements for query performance
+
+Q13.8: What is the disaster recovery plan?
+Answer: Disaster recovery:
+- Database backups: Automated daily + WAL archiving
+- Recovery Point Objective (RPO): 1 hour
+- Recovery Time Objective (RTO): 30 minutes
+- Multi-AZ deployment for database failover
+- Infrastructure as Code (Terraform) for reproducibility
+- Runbook documentation for common failure scenarios
+- Regular DR drills and testing
+
+Q13.9: How would you scale for millions of users?
+Answer: Scaling strategy:
+- Horizontal: Auto-scaling group (2-20 instances)
+- Database: Read replicas (3+) + connection pooling (PgBouncer)
+- Cache: Redis cluster with sharding
+- CDN: Global edge distribution
+- Queue: Separate alert processing workers
+- API: Rate limiting (100 req/min per user)
+- Monitoring: Auto-scale triggers at 70% CPU
+
+Q13.10: What security architecture would you implement?
+Answer: Security architecture:
+- Authentication: JWT with short-lived access tokens (15min) + refresh tokens
+- Authorization: Role-based access control (RBAC) middleware
+- API: Rate limiting, input validation (Joi/Zod)
+- Network: VPC, WAF, DDoS protection
+- Data: Encryption at rest (AES-256) and in transit (TLS 1.3)
+- Secrets: HashiCorp Vault or AWS Secrets Manager
+- Audit: Comprehensive logging of all actions
+
+================================================================================
+14. DOMAIN KNOWLEDGE (10 Questions)
+================================================================================
+
+Q14.1: What causes landslides and how can they be predicted?
+Answer: Landslide causes:
+- Primary trigger: Heavy or prolonged rainfall (saturation)
+- Secondary: Earthquakes, volcanic activity, human activities
+- Contributing factors: Steep slopes, weak soil/rock, deforestation
+- Prediction methods: Rainfall thresholds, soil moisture monitoring,
+  slope stability analysis, historical pattern matching
+- AI/ML can combine multiple factors for better prediction accuracy
+
+Q14.2: What is SWI and why is it important for landslide prediction?
+Answer: SWI (Soil Wetness Index):
+- Measures soil moisture content on a 0-1 scale
+- 0 = fully saturated (highest risk), 1 = completely dry (lowest risk)
+- Calculated from rainfall data, soil properties, and drainage
+- Combined with slope angle and rainfall intensity for risk assessment
+- Critical early indicator before visible signs of instability
+- Lower SWI values trigger higher alert levels
+
+Q14.3: How do early warning systems work for natural disasters?
+Answer: Early warning system workflow:
+1. Data collection: Sensors, satellites, weather stations
+2. Data transmission: Real-time data pipeline to processing center
+3. Analysis: ML models process data against thresholds
+4. Risk assessment: Multi-factor risk classification
+5. Alert generation: Automated alert creation when thresholds exceeded
+6. Distribution: Multi-channel delivery (SMS, push, radio, TV)
+7. Community response: Evacuation drills, safe zone activation
+
+Q14.4: What are the different types of landslides?
+Answer: Landslide types:
+- Falls: Rock/soil detaching and falling freely
+- Topples: Forward rotation of rock/soil mass
+- Slides: Movement along a distinct surface
+  - Translational: Along planar surface
+  - Rotational: Along curved surface
+- Flows: Rapid movement of saturated material
+  - Debris flows, mudflows
+- Lateral spreads: Horizontal movement on slopes
+- Complex: Combination of multiple types
+
+Q14.5: Which regions of India are most vulnerable to landslides?
+Answer: Vulnerable regions:
+- Western Himalayas: Uttarakhand, Himachal Pradesh, J&K
+- Northeast India: Sikkim, Meghalaya, Mizoram, Nagaland
+- Western Ghats: Kerala, Karnataka, Goa, Maharashtra
+- Eastern Ghats: Tamil Nadu, Andhra Pradesh
+- Heavy rainfall zones: Cherrapunji, Mawsynram
+- Urban areas: Mumbai, Chennai (rainfall-triggered)
+- Approximately 12% of India's land area is landslide-prone
+
+Q14.6: What role does NDMA play in landslide disaster management?
+Answer: NDMA role:
+- National Disaster Management Authority (established 2005)
+- Develops national disaster management policies
+- Coordinates disaster response across agencies
+- Implements early warning systems
+- Conducts community preparedness programs
+- Manages National Disaster Response Force (NDRF)
+- Works with State DMAs for localized response
+- Publishes guidelines for landslide hazard mitigation
+
+Q14.7: How does cumulative rainfall affect landslide risk?
+Answer: Cumulative rainfall impact:
+- Single heavy rainfall event can trigger landslides
+- Prolonged moderate rainfall also dangerous (soil saturation)
+- Antecedent rainfall (previous days) affects baseline moisture
+- Critical rainfall thresholds vary by region and soil type
+- IMD issues red/orange warnings for >115mm/24h or >65mm/hour
+- Combined with slope and soil data for accurate prediction
+
+Q14.8: What is the significance of slope angle in landslide risk?
+Answer: Slope angle importance:
+- 0-15°: Generally safe (low risk)
+- 15-25°: Moderate risk (depends on soil/rock)
+- 25-35°: High risk (especially with weak material)
+- 35-45°: Very high risk (steep, unstable)
+- >45°: Critical risk (near-angle of repose)
+- Critical angle depends on material type (rock vs soil)
+- DEM (Digital Elevation Model) provides slope data
+
+Q14.9: How do mountain communities prepare for landslides?
+Answer: Community preparation:
+- Awareness campaigns about warning signs
+- Evacuation route planning and marking
+- Safe zone identification (high ground, open areas)
+- Emergency supply kits (water, food, first aid, flashlight)
+- Early warning reception systems (sirens, radio, mobile)
+- Community drills and mock exercises
+- Building codes for slope stability
+- Deforestation prevention and reforestation
+
+Q14.10: What is the role of technology in modern disaster management?
+Answer: Technology role:
+- Remote sensing: Satellite imagery for terrain monitoring
+- IoT sensors: Real-time rainfall, soil moisture, seismic data
+- AI/ML: Pattern recognition, prediction models, risk assessment
+- GIS: Geographic analysis, mapping, visualization
+- Mobile apps: Alert delivery, crowd-sourced reporting
+- Drones: Damage assessment, search and rescue
+- Communication: Mass notification systems
+- Cloud computing: Scalable data processing and storage
+
+================================================================================
+                    LANDSLIDESOS - INTERVIEW PREPARATION GUIDE
+================================================================================
+
+PROJECT SUMMARY:
+LandslideSOS is a React-based India Landslide Early Warning & SOS System
+built for Smart India Hackathon 2026. It features real-time monitoring,
+interactive GIS mapping, emergency SOS alerts, and role-based access.
+
+TECHNOLOGY HIGHLIGHTS:
+- React 19 + Vite 8 (Fast development and builds)
+- Tailwind CSS v4 (Utility-first styling with custom theme)
+- Leaflet + React-Leaflet (Interactive GIS mapping)
+- Recharts (Data visualization)
+- React Router DOM v7 (Client-side routing)
+- Context API (State management)
+
+KEY FEATURES TO DISCUSS:
+1. Multi-zone monitoring (847 zones, 10 in demo)
+2. Risk classification (Green/Yellow/Orange/Red)
+3. Interactive GIS map with toggleable layers
+4. SWI timeline animation for trend analysis
+5. SOS alert system with confirmation flow
+6. Role-based access (Admin/Officer/Public)
+7. System health monitoring dashboard
+8. Responsive design for all devices
+
+COMMON FOLLOW-UP QUESTIONS:
+- How would you add a real backend?
+- How would you implement real-time data?
+- How would you scale this system?
+- What testing strategy would you use?
+- How would you secure this application?
+
+================================================================================
+                         END OF QUESTION BANK
+================================================================================
+
+Total Questions: 140+
+Categories: 14
+Difficulty: Beginner to Advanced
+File: PROJECT_QUESTIONS.txt
+Project: LandslideSOS
+Created: 2026
+
+Use this document for:
+- Interview preparation and practice
+- Project presentation and demo
+- Technical assessment preparation
+- Knowledge verification
+- Learning reference and study guide
+
+================================================================================
