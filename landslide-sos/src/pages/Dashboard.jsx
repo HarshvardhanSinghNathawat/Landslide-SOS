@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { AlertTriangle, Droplets, Mountain, Activity, Radio, TrendingUp } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -5,7 +6,9 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import StatCard from '../components/StatCard';
 import AlertBadge from '../components/AlertBadge';
-import { stats, alerts, zones, rainfallData } from '../data/mockData';
+import { api } from '../api/client';
+import { formatRelativeTime } from '../utils/formatTime';
+import { MAP_TILE_URL, MAP_ATTRIBUTION } from '../utils/tiles';
 
 const createIcon = (color) => L.divIcon({
   className: '',
@@ -17,6 +20,37 @@ const createIcon = (color) => L.divIcon({
 const riskColors = { red: '#DC2626', orange: '#F59E0B', yellow: '#EAB308', green: '#16A34A' };
 
 export default function Dashboard() {
+  const [stats, setStats] = useState(null);
+  const [rainfall, setRainfall] = useState([]);
+  const [recentAlerts, setRecentAlerts] = useState([]);
+  const [zones, setZones] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      api.dashboardStats(),
+      api.rainfall(),
+      api.recentAlerts(),
+      api.zones(),
+    ])
+      .then(([statsData, rainfallData, alertsData, zonesData]) => {
+        setStats(statsData);
+        setRainfall(rainfallData);
+        setRecentAlerts(alertsData);
+        setZones(zonesData);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <p className="text-text-secondary text-sm">Loading dashboard…</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       <div>
@@ -25,10 +59,10 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Active Alerts" value={stats.activeAlerts} change={12} icon={AlertTriangle} color="emergency" />
-        <StatCard title="Zones at Risk" value={stats.zonesMonitored} icon={Mountain} color="warning" />
-        <StatCard title="Rainfall Index" value="127" suffix="mm" change={-5} icon={Droplets} color="primary" />
-        <StatCard title="System Status" value="Online" icon={Activity} color="success" />
+        <StatCard title="Active Alerts" value={stats?.activeAlerts ?? 0} change={12} icon={AlertTriangle} color="emergency" />
+        <StatCard title="Zones at Risk" value={stats?.zonesMonitored ?? 0} icon={Mountain} color="warning" />
+        <StatCard title="SMS Sent Today" value={stats?.smsSentToday ?? 0} suffix="" change={-5} icon={Droplets} color="primary" />
+        <StatCard title="Model Accuracy" value={stats?.modelAccuracy ?? 0} suffix="%" icon={Activity} color="success" />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -38,11 +72,11 @@ export default function Dashboard() {
               <TrendingUp className="w-4 h-4 text-primary" />
               Rainfall Trend (24h)
             </h2>
-            <span className="text-xs text-text-secondary bg-background px-2 py-1 rounded-lg">Chamoli Region</span>
+            <span className="text-xs text-text-secondary bg-background px-2 py-1 rounded-lg">Dima Hasao Hills</span>
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={rainfallData}>
+              <LineChart data={rainfall}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
                 <XAxis dataKey="time" tick={{ fontSize: 12 }} stroke="#94A3B8" />
                 <YAxis tick={{ fontSize: 12 }} stroke="#94A3B8" unit="mm" />
@@ -63,15 +97,19 @@ export default function Dashboard() {
             Recent Alerts
           </h2>
           <div className="space-y-3 max-h-64 overflow-y-auto">
-            {alerts.slice(0, 6).map(alert => (
-              <div key={alert.id} className="flex items-start gap-3 p-3 rounded-lg bg-background hover:bg-gray-100 transition-colors cursor-pointer">
-                <AlertBadge type={alert.type} size="sm" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{alert.zone}</p>
-                  <p className="text-xs text-text-secondary">{alert.time} · {alert.sms} SMS sent</p>
+            {recentAlerts.length === 0 ? (
+              <p className="text-sm text-text-secondary">No recent alerts</p>
+            ) : (
+              recentAlerts.slice(0, 6).map(alert => (
+                <div key={alert.id} className="flex items-start gap-3 p-3 rounded-lg bg-background hover:bg-gray-100 transition-colors cursor-pointer">
+                  <AlertBadge type={alert.type} size="sm" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate">{alert.zone}</p>
+                    <p className="text-xs text-text-secondary">{formatRelativeTime(alert.time)} · {alert.sms} SMS sent</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>
@@ -80,14 +118,14 @@ export default function Dashboard() {
         <h2 className="font-semibold mb-4">Risk Zone Map</h2>
         <div className="h-80 rounded-lg overflow-hidden">
           <MapContainer
-            center={[22.5, 82]}
-            zoom={5}
+            center={[26.2, 92.7]}
+            zoom={7}
             style={{ height: '100%', width: '100%' }}
             scrollWheelZoom={false}
           >
             <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution={MAP_ATTRIBUTION}
+              url={MAP_TILE_URL}
             />
             {zones.map(zone => (
               <Marker

@@ -1,7 +1,9 @@
-import { useState, Fragment } from 'react';
+import { useEffect, useState, useRef, Fragment } from 'react';
 import { Search, ChevronDown, ChevronUp, MessageSquare, Users, Clock } from 'lucide-react';
 import AlertBadge from '../components/AlertBadge';
-import { alerts } from '../data/mockData';
+import { useAuth } from '../context/AuthContext';
+import { api } from '../api/client';
+import { formatRelativeTime } from '../utils/formatTime';
 
 const statusColors = {
   delivered: 'bg-green-100 text-success',
@@ -10,15 +12,49 @@ const statusColors = {
 };
 
 export default function Alerts() {
+  const { user } = useAuth();
   const [expandedId, setExpandedId] = useState(null);
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
+  const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [ackIds, setAckIds] = useState(new Set());
+  const debounceRef = useRef(null);
 
-  const filtered = alerts.filter(a => {
-    if (filter !== 'all' && a.type !== filter) return false;
-    if (search && !a.zone.toLowerCase().includes(search.toLowerCase()) && !a.id.toLowerCase().includes(search.toLowerCase())) return false;
-    return true;
-  });
+  const canAck = user?.role === 'officer' || user?.role === 'admin';
+
+  const fetchAlerts = (f, s) => {
+    setLoading(true);
+    api
+      .alerts({ filter: f === 'all' ? undefined : f, search: s || undefined, limit: 50 })
+      .then(({ items: data, total: t }) => {
+        setItems(data);
+        setTotal(t);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchAlerts(filter, search);
+  }, [filter]);
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => fetchAlerts(filter, value), 350);
+  };
+
+  const handleAck = async (id) => {
+    try {
+      await api.acknowledgeAlert(id);
+      setAckIds((prev) => new Set([...prev, id]));
+      setItems((prev) => prev.map((a) => (a.id === id ? { ...a, status: 'acknowledged' } : a)));
+    } catch {
+      /* silently fail for prototype */
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
@@ -35,7 +71,7 @@ export default function Alerts() {
               type="text"
               placeholder="Search by zone or alert ID..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
@@ -70,7 +106,7 @@ export default function Alerts() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map(alert => (
+              {items.map(alert => (
                 <Fragment key={alert.id}>
                   <tr
                     className="border-b border-border hover:bg-gray-50 cursor-pointer transition-colors"
@@ -80,11 +116,11 @@ export default function Alerts() {
                     <td className="px-4 py-3 text-sm font-medium">{alert.zone}</td>
                     <td className="px-4 py-3"><AlertBadge type={alert.type} size="sm" /></td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[alert.status]}`}>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[alert.status] || ''}`}>
                         {alert.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-sm text-text-secondary hidden sm:table-cell">{alert.time}</td>
+                    <td className="px-4 py-3 text-sm text-text-secondary hidden sm:table-cell">{formatRelativeTime(alert.time)}</td>
                     <td className="px-4 py-3 text-sm hidden md:table-cell">{alert.sms.toLocaleString()}</td>
                     <td className="px-4 py-3">
                       {expandedId === alert.id ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -115,13 +151,16 @@ export default function Alerts() {
                               <p className="font-bold">1.2s</p>
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">📡</span>
-                            <div>
-                              <p className="text-xs text-text-secondary">Radio Push</p>
-                              <p className="font-bold">Active</p>
+                          {canAck && (alert.status === 'pending' && !ackIds.has(alert.id)) && (
+                            <div className="flex items-center">
+                              <button
+                                onClick={(e) => { e.stopPropagation(); handleAck(alert.id); }}
+                                className="px-4 py-2 bg-primary text-white text-xs font-semibold rounded-lg hover:bg-primary-dark transition-colors"
+                              >
+                                Acknowledge
+                              </button>
                             </div>
-                          </div>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -131,10 +170,15 @@ export default function Alerts() {
             </tbody>
           </table>
         </div>
-        {filtered.length === 0 && (
+        {items.length === 0 && !loading && (
           <div className="py-12 text-center text-text-secondary">
             <p className="font-medium">No alerts found</p>
             <p className="text-sm mt-1">Try adjusting your filters or search</p>
+          </div>
+        )}
+        {loading && (
+          <div className="py-8 text-center text-text-secondary">
+            <p className="text-sm">Loading alerts…</p>
           </div>
         )}
       </div>

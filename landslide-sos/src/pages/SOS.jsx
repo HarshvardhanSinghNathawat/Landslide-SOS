@@ -1,18 +1,71 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AlertTriangle, Send, MapPin, CheckCircle, X } from 'lucide-react';
-import { zones } from '../data/mockData';
+import { useAuth } from '../context/AuthContext';
+import { api } from '../api/client';
+import { formatRelativeTime } from '../utils/formatTime';
 
 export default function SOS() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [zones, setZones] = useState([]);
   const [selectedZone, setSelectedZone] = useState('');
   const [alertType, setAlertType] = useState('red');
   const [message, setMessage] = useState('');
   const [showConfirm, setShowConfirm] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sentResult, setSentResult] = useState(null);
+  const [error, setError] = useState('');
 
-  const handleSend = () => {
-    setShowConfirm(false);
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
+  useEffect(() => {
+    api
+      .zones()
+      .then(setZones)
+      .catch(() => {});
+  }, []);
+
+  if (!user) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-10 text-center">
+        <p className="text-text-secondary">Please log in to use the SOS system.</p>
+        <button
+          onClick={() => navigate('/login')}
+          className="mt-4 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium"
+        >
+          Go to Login
+        </button>
+      </div>
+    );
+  }
+
+  if (user.role === 'public') {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-10 text-center">
+        <p className="text-text-secondary">SOS alerts can only be triggered by field officers or administrators.</p>
+      </div>
+    );
+  }
+
+  const selectedZoneObj = zones.find(z => z.id === Number(selectedZone));
+
+  const handleSend = async () => {
+    setError('');
+    setSending(true);
+    try {
+      const result = await api.sendSos({
+        zone_id: Number(selectedZone),
+        alert_type: alertType,
+        message: message || undefined,
+      });
+      setSentResult(result);
+      setShowConfirm(false);
+      setTimeout(() => setSentResult(null), 6000);
+    } catch (err) {
+      setError(err.message || 'Failed to send SOS alert.');
+      setShowConfirm(false);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -25,24 +78,24 @@ export default function SOS() {
         <p className="text-text-secondary mt-2">Trigger an immediate landslide warning for affected communities</p>
       </div>
 
-      {sent ? (
+      {sentResult ? (
         <div className="bg-white rounded-2xl border border-border p-10 text-center slide-up">
           <CheckCircle className="w-16 h-16 text-success mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-success">Alert Sent Successfully!</h2>
-          <p className="text-text-secondary mt-2">SMS and browser notifications are being delivered to the selected zone.</p>
+          <p className="text-text-secondary mt-2">SMS and browser notifications are being delivered to <strong>{sentResult.zone}</strong>.</p>
           <div className="mt-6 p-4 bg-green-50 rounded-xl">
             <p className="text-sm font-medium text-success">Delivery Status</p>
             <div className="grid grid-cols-3 gap-4 mt-3">
               <div>
-                <p className="text-2xl font-bold text-success">1,240</p>
+                <p className="text-2xl font-bold text-success">{sentResult.delivery.sms_sent.toLocaleString()}</p>
                 <p className="text-xs text-text-secondary">SMS Sent</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-primary">890</p>
+                <p className="text-2xl font-bold text-primary">{sentResult.delivery.push_delivered.toLocaleString()}</p>
                 <p className="text-xs text-text-secondary">Push Delivered</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-warning">350</p>
+                <p className="text-2xl font-bold text-warning">{sentResult.delivery.pending.toLocaleString()}</p>
                 <p className="text-xs text-text-secondary">Pending</p>
               </div>
             </div>
@@ -105,6 +158,10 @@ export default function SOS() {
               />
             </div>
 
+            {error && (
+              <p className="text-sm text-emergency bg-red-50 border border-red-100 rounded-lg px-3 py-2">{error}</p>
+            )}
+
             <button
               onClick={() => selectedZone && setShowConfirm(true)}
               disabled={!selectedZone}
@@ -129,24 +186,29 @@ export default function SOS() {
             <div className="p-4 bg-red-50 rounded-xl mb-4">
               <p className="text-sm">
                 You are about to send a <strong className="text-emergency uppercase">{alertType}</strong> level alert to
-                <strong> {zones.find(z => z.id === Number(selectedZone))?.name}</strong>.
+                <strong> {selectedZoneObj?.name}</strong>.
               </p>
               <p className="text-sm mt-2 text-text-secondary">
                 This will trigger SMS notifications to all registered users in the zone and browser push alerts for PWA users.
               </p>
             </div>
+            {error && (
+              <p className="text-sm text-emergency bg-red-50 border border-red-100 rounded-lg px-3 py-2 mb-4">{error}</p>
+            )}
             <div className="flex gap-3">
               <button
                 onClick={() => setShowConfirm(false)}
+                disabled={sending}
                 className="flex-1 py-2.5 border border-border rounded-xl text-sm font-medium hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSend}
-                className="flex-1 py-2.5 bg-emergency text-white rounded-xl text-sm font-bold hover:bg-emergency-dark"
+                disabled={sending}
+                className="flex-1 py-2.5 bg-emergency text-white rounded-xl text-sm font-bold hover:bg-emergency-dark disabled:opacity-60"
               >
-                Confirm & Send
+                {sending ? 'Sending...' : 'Confirm & Send'}
               </button>
             </div>
           </div>

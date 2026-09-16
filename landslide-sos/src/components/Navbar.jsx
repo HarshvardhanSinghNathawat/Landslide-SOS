@@ -1,15 +1,28 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mountain, Bell, User, LogOut, Menu, X } from 'lucide-react';
-import { useState } from 'react';
-import { alerts } from '../data/mockData';
+import { useEffect, useState } from 'react';
+import { api } from '../api/client';
+import { formatRelativeTime } from '../utils/formatTime';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
-  const unread = alerts.filter(a => a.status === 'pending').length;
+  const [unread, setUnread] = useState(0);
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    api
+      .unreadCount()
+      .then((data) => setUnread(data.count || 0))
+      .catch(() => {});
+    api
+      .recentAlerts()
+      .then((items) => setNotifications(items))
+      .catch(() => {});
+  }, [location.pathname]);
 
   const navLinks = [
     { to: '/dashboard', label: 'Dashboard' },
@@ -73,17 +86,21 @@ export default function Navbar() {
               {notifOpen && (
                 <div className="absolute right-0 top-12 w-80 bg-white rounded-xl shadow-lg border border-border p-3 slide-up">
                   <p className="text-xs font-semibold text-text-secondary uppercase mb-2">Notifications</p>
-                  {alerts.slice(0, 3).map(a => (
-                    <div key={a.id} className="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50">
-                      <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${
-                        a.type === 'red' ? 'bg-emergency' : a.type === 'orange' ? 'bg-warning' : 'bg-success'
-                      }`} />
-                      <div>
-                        <p className="text-sm font-medium">{a.zone}</p>
-                        <p className="text-xs text-text-secondary">{a.time}</p>
+                  {notifications.length === 0 ? (
+                    <p className="text-sm text-text-secondary py-3 text-center">No alerts yet</p>
+                  ) : (
+                    notifications.slice(0, 3).map(a => (
+                      <div key={a.id} className="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50">
+                        <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${
+                          a.type === 'red' ? 'bg-emergency' : a.type === 'orange' ? 'bg-warning' : 'bg-success'
+                        }`} />
+                        <div>
+                          <p className="text-sm font-medium">{a.zone}</p>
+                          <p className="text-xs text-text-secondary">{formatRelativeTime(a.time)}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               )}
             </div>

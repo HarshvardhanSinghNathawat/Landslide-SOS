@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# API keys (Mapbox token, etc.)
+.env
+.env.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

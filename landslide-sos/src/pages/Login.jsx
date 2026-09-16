@@ -3,22 +3,51 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mountain, Shield, User, Radio } from 'lucide-react';
 
+const DEMO_ACCOUNTS = {
+  public: { email: 'user@example.com', password: 'user123' },
+  officer: { email: 'officer@landslide.gov.in', password: 'officer123' },
+  admin: { email: 'admin@landslide.gov.in', password: 'admin123' },
+};
+
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('public');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    login(role);
-    navigate(role === 'admin' ? '/admin' : '/dashboard');
+  const redirect = (user) => {
+    navigate(user?.role === 'admin' ? '/admin' : '/dashboard');
   };
 
-  const handleDemo = (demoRole) => {
-    login(demoRole);
-    navigate(demoRole === 'admin' ? '/admin' : '/dashboard');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError('');
+    setBusy(true);
+    try {
+      const user = await login(email.trim(), password);
+      redirect(user);
+    } catch (err) {
+      setError(err.message || 'Login failed. Please try again.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleDemo = async (demoRole) => {
+    setError('');
+    setBusy(true);
+    try {
+      const { email: demoEmail, password: demoPassword } = DEMO_ACCOUNTS[demoRole];
+      const user = await login(demoEmail, demoPassword);
+      redirect(user);
+    } catch (err) {
+      setError(err.message || 'Demo login failed. Is the backend running?');
+    } finally {
+      setBusy(false);
+    }
   };
 
   const roles = [
@@ -40,7 +69,7 @@ export default function Login() {
 
         <div className="bg-white rounded-2xl border border-border p-6">
           <div className="mb-5">
-            <label className="block text-sm font-semibold mb-2">Select Role</label>
+            <label className="block text-sm font-semibold mb-2">Account Type</label>
             <div className="grid grid-cols-3 gap-2">
               {roles.map(r => (
                 <button
@@ -68,6 +97,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.gov.in"
+                required
                 className="w-full px-4 py-2.5 border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
@@ -78,29 +108,36 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
+                required
                 className="w-full px-4 py-2.5 border border-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
+            {error && (
+              <p className="text-sm text-emergency bg-red-50 border border-red-100 rounded-lg px-3 py-2">{error}</p>
+            )}
             <button
               type="submit"
-              className="w-full py-2.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors"
+              disabled={busy}
+              className="w-full py-2.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-60"
             >
-              Sign In
+              {busy ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
 
           <div className="mt-5 pt-5 border-t border-border">
-            <p className="text-xs text-text-secondary text-center mb-3">Quick demo access (no auth needed)</p>
+            <p className="text-xs text-text-secondary text-center mb-3">Quick demo access</p>
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => handleDemo('officer')}
-                className="py-2 px-3 bg-background border border-border rounded-xl text-xs font-medium hover:bg-gray-200 transition-colors"
+                disabled={busy}
+                className="py-2 px-3 bg-background border border-border rounded-xl text-xs font-medium hover:bg-gray-200 transition-colors disabled:opacity-60"
               >
                 Demo as Field Officer
               </button>
               <button
                 onClick={() => handleDemo('admin')}
-                className="py-2 px-3 bg-background border border-border rounded-xl text-xs font-medium hover:bg-gray-200 transition-colors"
+                disabled={busy}
+                className="py-2 px-3 bg-background border border-border rounded-xl text-xs font-medium hover:bg-gray-200 transition-colors disabled:opacity-60"
               >
                 Demo as Admin
               </button>
