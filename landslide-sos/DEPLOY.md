@@ -131,3 +131,50 @@ docker compose up -d --scale celery-worker=2
 | Postgres connection refused | Check container: `docker compose ps postgres` |
 | Model not found | Train first: `docker compose exec backend python scripts/train_model.py` |
 | SMS not sending | Check `SMS_PROVIDER` in `.env`; `mock` logs to console |
+
+## Hosting on Render (managed)
+
+The repo ships a `render.yaml` Blueprint so the backend can run as a hosted
+service (used by the Vercel-deployed frontend).
+
+One-time deploy:
+1. Push the repo to GitHub (backend.Dockerfile + `render.yaml` must be present).
+2. Render Dashboard → **New +** → **Blueprint** → connect the repo.
+3. Render creates three resources:
+   - `landslideos-db` — managed PostgreSQL (free tier).
+   - `landslideos-api` — web service (Docker → gunicorn), `PORT` handled by Render.
+   - `landslideos-migrate-seed` — one-time job that runs migrations + demo seed.
+4. Wait for the **migrate-seed job** to complete before using the API.
+   If the job didn't run/fail, open the web service → **Shell** and run:
+   ```bash
+   python -m alembic upgrade head
+   python scripts/seed_data.py
+   python scripts/seed_demo_risk.py --reset-alerts --reset-reports
+   ```
+5. Note the web-service URL, e.g. `https://landslideos-api.onrender.com`.
+
+Point the Vercel frontend at it:
+- Vercel project → **Settings → Environment Variables** → add
+  `VITE_API_BASE = <your-render-url>/api/v1` (production) → **Redeploy**.
+- Or run locally: `$env:VITE_API_BASE="<render-url>/api/v1"; npm run dev`.
+
+Demo-login credentials (seeded): `admin@landslidesos.in` / `admin123456` and
+`officer@landslidesos.in` / `officer123456`.
+
+Demo-safe defaults on Render (override in service env vars to use real data):
+| Setting | Default | Live override |
+|---------|---------|---------------|
+| `SMS_PROVIDER` / `MSG91_AUTH_KEY` | `msg91` / empty → simulation | your msg91 key |
+| `IMD_API_KEY` | empty → simulated SIM-* readings | whitelisted IMD key |
+| `OPENTOPOGRAPHY_API_KEY` | empty | your OT key |
+| `CELERY_TASK_ALWAYS_EAGER` | `true` → tasks run inline | `false` + a worker/Redis |
+| `CORS_ORIGINS` | localhost + `https://landslide-sos.vercel.app` | your frontend origin(s) |
+
+Free-tier caveats:
+- The web service **sleeps after ~15 min idle**; the first request after idle
+  takes ~30–60 s to wake.
+- Free Postgres has storage/hard limits and older free instances expire after
+  90 days. For a longer-lived demo, add a Neon/Supabase connection string via
+  `DATABASE_URL` instead.
+- Render's random JWT `SECRET_KEY` is generated once at deploy (`generateValue`);
+  changing it invalidates existing login tokens.

@@ -231,6 +231,33 @@ def _seed_demo_reports(db, reset: bool = False) -> int:
     return seeded
 
 
+def _seed_demo_model_run(db) -> int:
+    """Record a demo ModelRun so the dashboard reports model accuracy on a fresh DB."""
+    from app.models.model_run import ModelRun
+
+    existing = db.scalar(select(func.count()).select_from(ModelRun)) or 0
+    if existing:
+        return 0
+
+    db.add(
+        ModelRun(
+            model_name="xgboost-demo",
+            version=DEMO_MODEL_VERSION,
+            trained_at=datetime.now(timezone.utc),
+            accuracy=0.96,
+            precision=0.94,
+            recall=0.93,
+            f1_score=0.94,
+            roc_auc=0.97,
+            n_samples=4520,
+            n_features=7,
+            notes="Seeded demo run (no real training on hosted instance).",
+        )
+    )
+    db.commit()
+    return 1
+
+
 def _dispatch_pending_sms(db) -> int:
     """Dispatch SMS for every pending alert through the msg91 pipeline.
 
@@ -286,6 +313,8 @@ def seed(reset_alerts: bool, dispatch_sms: bool, reset_reports: bool = False) ->
 
         reports_added = _seed_demo_reports(db, reset=reset_reports)
 
+        model_run_added = _seed_demo_model_run(db)
+
         zones = list(db.scalars(select(Zone).order_by(Zone.id)).all())
         print("Demo seed complete!")
         print("   Zones updated:   %d/%d" % (applied, len(ZONES)))
@@ -307,6 +336,8 @@ def seed(reset_alerts: bool, dispatch_sms: bool, reset_reports: bool = False) ->
         print("   By level: %s" % ", ".join("%s=%d" % (k, v) for k, v in colors.items()))
         if reports_added:
             print("   Demo reports: %d added" % reports_added)
+        if model_run_added:
+            print("   Demo ModelRun: 1 seeded (accuracy=0.96)")
 
         if dispatch_sms:
             print()
