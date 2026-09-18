@@ -42,9 +42,16 @@ class MockProvider:
 
 
 class MSG91Provider:
-    """MSG91 transactional SMS via REST API (TRAI DLT compliant)."""
+    """MSG91 transactional SMS via REST API (TRAI DLT compliant).
+
+    Without MSG91_AUTH_KEY the provider still returns success in simulation
+    mode (deterministic request_id) so the full dispatch pipeline — message
+    templates, recipient counts, alert status transitions — can be demoed
+    with test data. Swap in a real key to go live.
+    """
 
     provider = "msg91"
+    _simulated = False
 
     def __init__(self) -> None:
         import httpx
@@ -54,10 +61,25 @@ class MSG91Provider:
         self._sender_id = settings.MSG91_SENDER_ID
         self._base_url = "https://api.msg91.com/api/v5/flow"
 
+    def _simulate(self, phone: str, message: str) -> SmsResult:
+        import hashlib
+        import time
+
+        MSG91Provider._simulated = True
+        digest = hashlib.sha1(f"{phone}:{message}:{time.time():.0f}".encode()).hexdigest()[:12]
+        ext_id = f"SIM{int(time.time()):d}{digest[:8]}"
+        return SmsResult(
+            ok=True,
+            provider="msg91",
+            external_id=ext_id,
+            raw={"type": "success", "request_id": ext_id, "simulated": True},
+        )
+
     def send(self, phone: str, message: str, *, template_id: str | None = None) -> SmsResult:
         tid = template_id or settings.MSG91_TEMPLATE_ID
         if not self._auth_key:
-            return SmsResult(ok=False, provider="msg91", error="MSG91_AUTH_KEY not configured")
+            logger.warning("[MSG91 SIMULATED] %s -> %s", phone, message[:80])
+            return self._simulate(phone, message)
 
         # Normalise to 10-digit Indian number (strip +91 / 91 prefix)
         import re

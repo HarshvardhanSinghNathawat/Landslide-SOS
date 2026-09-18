@@ -245,6 +245,7 @@ def plan_route(
             "avoided_zones": [],
             "caution_zones": [
                 {"id": c["id"], "name": c["name"], "risk": c["risk"],
+                 "lat": c["lat"], "lng": c["lng"],
                  "district": c["district"], "state": c["state"]}
                 for c in direct_caut
             ],
@@ -287,11 +288,13 @@ def plan_route(
         },
         "avoided_zones": [
             {"id": z["id"], "name": z["name"], "risk": z["risk"],
+             "lat": z["lat"], "lng": z["lng"],
              "district": z["district"], "state": z["state"]}
             for z in direct_crossed
         ],
         "caution_zones": [
             {"id": c["id"], "name": c["name"], "risk": c["risk"],
+             "lat": c["lat"], "lng": c["lng"],
              "district": c["district"], "state": c["state"]}
             for c in best_caut
         ],
