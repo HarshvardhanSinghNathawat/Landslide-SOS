@@ -99,7 +99,7 @@ def _apply_zone_risk(db, zspec: dict) -> list[Zone]:
 
 
 def _seed_alerts(db, reset: bool) -> int:
-    """Seed exactly 3 demo notifications (red level only — no orange)."""
+    """Seed ~10 demo notifications across the last 7 days (red/yellow only — no orange)."""
     if reset:
         for alert in db.scalars(select(Alert)).all():
             db.delete(alert)
@@ -113,24 +113,35 @@ def _seed_alerts(db, reset: bool) -> int:
 
     zones = {z.name: z for z in db.scalars(select(Zone)).all()}
     now = datetime.now(timezone.utc)
-    red_zones = [zspec for zspec in ZONES if zspec["risk_level"] == RiskLevel.red][:3]
+
+    specs = [
+        ("Dima Hasao - Haflong",        RiskLevel.red,    AlertStatus.delivered,        25),
+        ("Meghalaya - East Khasi",      RiskLevel.red,    AlertStatus.delivered,       130),
+        ("Mizoram - Aizawl",            RiskLevel.red,    AlertStatus.pending,         300),
+        ("Karbi Anglong - Hamren",      RiskLevel.yellow, AlertStatus.delivered,    27 * 60),
+        ("Golaghat - Nambor RF",        RiskLevel.yellow, AlertStatus.delivered,    49 * 60),
+        ("Cachar - Barak Foothills",    RiskLevel.yellow, AlertStatus.acknowledged, 78 * 60),
+        ("Karimganj - Baramukh",        RiskLevel.yellow, AlertStatus.failed,       98 * 60),
+        ("Manipur - Churachandpur",     RiskLevel.yellow, AlertStatus.delivered,   124 * 60),
+        ("Manipur - Ukhrul",            RiskLevel.yellow, AlertStatus.acknowledged,145 * 60),
+        ("Hailakandi - Katlicherra",    RiskLevel.yellow, AlertStatus.delivered,   162 * 60),
+    ]
 
     seeded = 0
-    for idx, zspec in enumerate(red_zones):
-        zone = zones.get(zspec["name"])
+    for zone_name, level, status, minutes_ago in specs:
+        zone = zones.get(zone_name)
         if zone is None:
             continue
-        kind, sms, recipients = ALERT_KINDS[zspec["risk_level"]]
-        status = AlertStatus.pending if idx == 0 else AlertStatus.delivered
+        kind, sms, recipients = ALERT_KINDS[level]
         db.add(
             Alert(
                 zone_id=zone.id,
-                level=zspec["risk_level"],
+                level=level,
                 kind=kind,
                 status=status,
-                sms_sent=sms,
+                sms_sent=0 if status == AlertStatus.failed else sms,
                 recipient_count=recipients,
-                created_at=now - timedelta(minutes=20 + idx * 25),
+                created_at=now - timedelta(minutes=minutes_ago),
             )
         )
         seeded += 1

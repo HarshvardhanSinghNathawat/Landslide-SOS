@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AlertTriangle, Droplets, Mountain, Activity, Radio, TrendingUp } from 'lucide-react';
+import { AlertTriangle, Droplets, Mountain, Activity, Radio, TrendingUp, Users, MapPin } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -24,24 +24,33 @@ export default function Dashboard() {
   const [rainfall, setRainfall] = useState([]);
   const [recentAlerts, setRecentAlerts] = useState([]);
   const [zones, setZones] = useState([]);
+  const [zoneId, setZoneId] = useState('');
+  const [hours, setHours] = useState(24);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Promise.all([
       api.dashboardStats(),
-      api.rainfall(),
       api.alerts({ limit: 6 }),
       api.zones(),
     ])
-      .then(([statsData, rainfallData, alertsData, zonesData]) => {
+      .then(([statsData, alertsData, zonesData]) => {
         setStats(statsData);
-        setRainfall(rainfallData?.points ?? []);
         setRecentAlerts(alertsData);
         setZones(zonesData);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    api.rainfall(zoneId || undefined, hours)
+      .then((data) => setRainfall(data?.points ?? []))
+      .catch(() => {});
+  }, [zoneId, hours]);
+
+  const zoneLabel =
+    zoneId ? (zones.find((z) => String(z.id) === String(zoneId))?.name ?? 'NE Network') : 'NE Network';
 
   if (loading) {
     return (
@@ -58,21 +67,47 @@ export default function Dashboard() {
         <p className="text-text-secondary text-sm mt-1">Real-time landslide monitoring overview</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <StatCard title="Active Alerts" value={stats?.activeAlerts ?? 0} icon={AlertTriangle} color="emergency" />
         <StatCard title="Zones at Risk" value={stats?.zonesMonitored ?? 0} icon={Mountain} color="warning" />
         <StatCard title="SMS Sent Today" value={stats?.smsSentToday ?? 0} icon={Droplets} color="primary" />
+        <StatCard title="Lives at Risk" value={stats?.livesAtRisk ?? 0} icon={Users} color="danger" />
+        <StatCard title="Rainfall Stations" value={stats?.rainfallStations ?? 0} icon={MapPin} color="success" />
         <StatCard title="Model Accuracy" value={Math.round((stats?.modelAccuracy ?? 0) * 100)} suffix="%" icon={Activity} color="success" />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 bg-white rounded-xl border border-border p-5">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 gap-3 flex-wrap">
             <h2 className="font-semibold flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-primary" />
-              Rainfall Trend (24h)
+              Rainfall Trend ({hours}h)
             </h2>
-            <span className="text-xs text-text-secondary bg-background px-2 py-1 rounded-lg">{zones[0]?.name || 'NE Network'}</span>
+            <div className="flex items-center gap-2">
+              <select
+                value={zoneId}
+                onChange={(e) => setZoneId(e.target.value)}
+                className="text-xs border border-border bg-background rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="">All zones · {zoneLabel}</option>
+                {zones.map((z) => (
+                  <option key={z.id} value={z.id}>{z.name}</option>
+                ))}
+              </select>
+              <div className="flex rounded-lg overflow-hidden border border-border">
+                {[24, 48].map((h) => (
+                  <button
+                    key={h}
+                    onClick={() => setHours(h)}
+                    className={`px-3 py-1.5 text-xs font-semibold ${
+                      hours === h ? 'bg-primary text-white' : 'bg-background text-text-secondary hover:bg-gray-200'
+                    }`}
+                  >
+                    {h}h
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">

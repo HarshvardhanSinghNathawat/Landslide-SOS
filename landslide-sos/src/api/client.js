@@ -57,8 +57,13 @@ export const api = {
   acknowledgeAlert: (id) =>
     request(`/alerts/${id}/acknowledge`, { method: 'PATCH', body: {} }),
 
-  rainfall: (zoneId) =>
-    request(`/rainfall${zoneId ? `?zone_id=${zoneId}` : ''}`),
+  rainfall: (zoneId, hours) => {
+    const params = new URLSearchParams();
+    if (zoneId) params.set('zone_id', zoneId);
+    if (hours) params.set('hours', hours);
+    const qs = params.toString();
+    return request(`/rainfall${qs ? `?${qs}` : ''}`);
+  },
 
   dashboardStats: () => request('/dashboard/stats'),
   publicStats: () => request('/dashboard/stats'),

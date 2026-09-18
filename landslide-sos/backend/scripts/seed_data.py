@@ -151,13 +151,16 @@ def seed():
             zones = list(db.scalars(select(Zone).limit(10)).all())
             now = datetime.now(timezone.utc)
             seed_alerts = [
-                (zones[0], AlertKind.landslide, RiskLevel.red,    AlertStatus.delivered,    1240, 1580, 2),
-                (zones[2], AlertKind.landslide, RiskLevel.red,    AlertStatus.delivered,     980, 1120, 18),
-                (zones[1], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.delivered,    430, 520,  60),
-                (zones[4], AlertKind.landslide, RiskLevel.yellow, AlertStatus.pending,       310, 450, 120),
-                (zones[3], AlertKind.landslide, RiskLevel.yellow, AlertStatus.delivered,     280, 340, 180),
-                (zones[8], AlertKind.advisory,   RiskLevel.green,  AlertStatus.acknowledged, 150, 200, 300),
-                (zones[5], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.delivered,     200, 260, 360),
+                (zones[0], AlertKind.landslide, RiskLevel.red,    AlertStatus.delivered,      1240, 1580, 25),
+                (zones[6], AlertKind.landslide, RiskLevel.red,    AlertStatus.delivered,      1240, 1580, 130),
+                (zones[7], AlertKind.landslide, RiskLevel.red,    AlertStatus.pending,        1240, 1580, 300),
+                (zones[1], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.delivered,     430, 520,  27 * 60),
+                (zones[5], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.delivered,     430, 520,  49 * 60),
+                (zones[2], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.acknowledged,  430, 520,  78 * 60),
+                (zones[4], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.failed,        0,   520,  98 * 60),
+                (zones[8], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.delivered,     430, 520,  124 * 60),
+                (zones[9], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.acknowledged,  430, 520,  145 * 60),
+                (zones[3], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.delivered,     430, 520,  162 * 60),
             ]
             for zone, kind, level, status, sms, recipients, mins_ago in seed_alerts:
                 alert = Alert(
