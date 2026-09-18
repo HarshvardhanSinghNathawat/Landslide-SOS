@@ -2,12 +2,14 @@
 """Idempotent demo-data seeder: give zones realistic, varied risk for demos.
 
 Overwrites the model-scored (all-green) risk with the curated zone spec from
-seed_data so the prototype visibly shows yellow/orange/red zones, coherent
-RiskScore history, and route detours — all without API keys.
+seed_data so the prototype visibly shows yellow/red zones (no orange),
+coherent RiskScore history, route detours, and demo reports — all without
+API keys.
 
-    python scripts/seed_demo_risk.py [--reset-alerts] [--dispatch-sms]
+    python scripts/seed_demo_risk.py [--reset-alerts] [--reset-reports] [--dispatch-sms]
 
 --reset-alerts   Re-seed the demo alert set (from a clean slate) too.
+--reset-reports  Re-seed the demo community reports too.
 --dispatch-sms   Dispatch pending alerts through the msg91 pipeline.
 """
 
@@ -35,7 +37,6 @@ engine.echo = False
 
 ALERT_KINDS = {
     RiskLevel.red: (AlertKind.landslide, 1240, 1580),
-    RiskLevel.orange: (AlertKind.landslide, 650, 780),
     RiskLevel.yellow: (AlertKind.advisory, 430, 520),
 }
 
@@ -163,6 +164,62 @@ def _seed_demo_recipients(db) -> int:
     return added
 
 
+def _seed_demo_reports(db, reset: bool = False) -> int:
+    """Seed a few demo community reports (idempotent; skips if any exist)."""
+    from app.models.enums import ReportStatus
+    from app.models.report import Report
+    from app.models.user import User
+
+    if reset:
+        for report in db.scalars(select(Report)).all():
+            db.delete(report)
+        db.flush()
+
+    existing = db.scalar(select(func.count()).select_from(Report)) or 0
+    if existing:
+        return 0
+
+    zones = {z.name: z for z in db.scalars(select(Zone)).all()}
+    reporter = db.scalar(select(User).where(User.email == "officer@landslidesos.in"))
+    if reporter is None:
+        return 0
+
+    now = datetime.now(timezone.utc)
+    specs = [
+        ("Dima Hasao - Haflong", "landslide", ReportStatus.verified,
+         "Fresh cracks on the NH-6 hillside above Haflong; earth shifting overnight.", 6),
+        ("Meghalaya - East Khasi", "landslide", ReportStatus.submitted,
+         "New debris slide across the Shillong-Cherrapunji road, traffic blocked.", 2),
+        ("Mizoram - Aizawl", "flash-flood", ReportStatus.submitted,
+         "Road washout below Aizawl west; runoff carrying mud onto the highway.", 1),
+        ("Karbi Anglong - Hamren", "visual-confirm", ReportStatus.verified,
+         "Seepage and minor tilt observed on the slope near Hamren market.", 10),
+        ("Karimganj - Baramukh", "visual-confirm", ReportStatus.resolved,
+         "Inspected depression near Baramukh - no active slip detected.", 26),
+        ("Cachar - Barak Foothills", "visual-confirm", ReportStatus.submitted,
+         "Visible slope scar after heavy rain; monitoring requested.", 30),
+    ]
+
+    seeded = 0
+    for zone_name, kind, status, description, hours_ago in specs:
+        zone = zones.get(zone_name)
+        if zone is None:
+            continue
+        db.add(
+            Report(
+                zone_id=zone.id,
+                user_id=reporter.id,
+                kind=kind,
+                description=description,
+                status=status,
+                created_at=now - timedelta(hours=hours_ago),
+            )
+        )
+        seeded += 1
+    db.commit()
+    return seeded
+
+
 def _dispatch_pending_sms(db) -> int:
     """Dispatch SMS for every pending alert through the msg91 pipeline.
 
@@ -203,7 +260,7 @@ def _dispatch_pending_sms(db) -> int:
     return dispatched
 
 
-def seed(reset_alerts: bool, dispatch_sms: bool) -> None:
+def seed(reset_alerts: bool, dispatch_sms: bool, reset_reports: bool = False) -> None:
     db = SessionLocal()
     try:
         applied = 0
@@ -215,6 +272,8 @@ def seed(reset_alerts: bool, dispatch_sms: bool) -> None:
         db.commit()
 
         recipients_added = _seed_demo_recipients(db) if dispatch_sms else 0
+
+        reports_added = _seed_demo_reports(db, reset=reset_reports)
 
         zones = list(db.scalars(select(Zone).order_by(Zone.id)).all())
         print("Demo seed complete!")
@@ -235,6 +294,8 @@ def seed(reset_alerts: bool, dispatch_sms: bool) -> None:
         for z in zones:
             colors[z.risk_level.value] += 1
         print("   By level: %s" % ", ".join("%s=%d" % (k, v) for k, v in colors.items()))
+        if reports_added:
+            print("   Demo reports: %d added" % reports_added)
 
         if dispatch_sms:
             print()
@@ -252,6 +313,7 @@ def seed(reset_alerts: bool, dispatch_sms: bool) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--reset-alerts", action="store_true")
+    parser.add_argument("--reset-reports", action="store_true")
     parser.add_argument("--dispatch-sms", action="store_true")
     args = parser.parse_args()
-    seed(reset_alerts=args.reset_alerts, dispatch_sms=args.dispatch_sms)
+    seed(reset_alerts=args.reset_alerts, dispatch_sms=args.dispatch_sms, reset_reports=args.reset_reports)

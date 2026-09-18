@@ -74,7 +74,7 @@ export default function Alerts() {
             />
           </div>
           <div className="flex gap-2">
-            {['all', 'red', 'orange', 'yellow', 'green'].map(f => (
+            {[ 'all', 'red', 'yellow', 'green'].map(f => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}

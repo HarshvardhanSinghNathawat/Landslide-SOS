@@ -17,7 +17,7 @@ const createIcon = (color) => L.divIcon({
   iconAnchor: [7, 7],
 });
 
-const riskColors = { red: '#DC2626', orange: '#F59E0B', yellow: '#EAB308', green: '#16A34A' };
+const riskColors = { red: '#DC2626', yellow: '#EAB308', green: '#16A34A' };
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);

@@ -93,7 +93,7 @@ export default function Navbar() {
                     notifications.slice(0, 3).map(a => (
                       <div key={a.id} className="flex items-start gap-2 p-2 rounded-lg hover:bg-gray-50">
                         <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${
-                          a.type === 'red' ? 'bg-emergency' : a.type === 'orange' ? 'bg-warning' : 'bg-success'
+                          a.type === 'red' ? 'bg-emergency' : 'bg-success'
                         }`} />
                         <div>
                           <p className="text-sm font-medium">{a.zone}</p>

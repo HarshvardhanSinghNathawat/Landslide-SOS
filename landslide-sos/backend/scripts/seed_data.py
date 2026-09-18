@@ -30,15 +30,15 @@ from app.services.security import hash_password
 
 ZONES = [
     {"name": "Dima Hasao - Haflong",      "district": "Dima Hasao",       "state": "Assam",     "lat": 25.1647, "lng": 93.0188, "slope": 42.0, "aspect": 180.0, "elevation": 900.0,  "lithology": "Sandstone",     "risk_level": RiskLevel.red,    "risk_probability": 0.91, "rainfall_current_mm": 148.0, "swi_current": 0.10},
-    {"name": "Karbi Anglong - Hamren",    "district": "Karbi Anglong",    "state": "Assam",     "lat": 25.8400, "lng": 93.4300, "slope": 38.0, "aspect": 150.0, "elevation": 700.0,  "lithology": "Sandstone",     "risk_level": RiskLevel.orange, "risk_probability": 0.74, "rainfall_current_mm": 118.0, "swi_current": 0.22},
-    {"name": "Cachar - Barak Foothills",  "district": "Cachar",           "state": "Assam",     "lat": 24.8200, "lng": 92.8000, "slope": 30.0, "aspect": 135.0, "elevation": 180.0,  "lithology": "Sandstone",     "risk_level": RiskLevel.orange, "risk_probability": 0.71, "rainfall_current_mm": 125.0, "swi_current": 0.19},
+    {"name": "Karbi Anglong - Hamren",    "district": "Karbi Anglong",    "state": "Assam",     "lat": 25.8400, "lng": 93.4300, "slope": 38.0, "aspect": 150.0, "elevation": 700.0,  "lithology": "Sandstone",     "risk_level": RiskLevel.yellow, "risk_probability": 0.44, "rainfall_current_mm": 118.0, "swi_current": 0.22},
+    {"name": "Cachar - Barak Foothills",  "district": "Cachar",           "state": "Assam",     "lat": 24.8200, "lng": 92.8000, "slope": 30.0, "aspect": 135.0, "elevation": 180.0,  "lithology": "Sandstone",     "risk_level": RiskLevel.yellow, "risk_probability": 0.42, "rainfall_current_mm": 125.0, "swi_current": 0.19},
     {"name": "Hailakandi - Katlicherra",  "district": "Hailakandi",       "state": "Assam",     "lat": 24.6800, "lng": 92.5600, "slope": 28.0, "aspect": 110.0, "elevation": 90.0,   "lithology": "Sandstone",     "risk_level": RiskLevel.yellow, "risk_probability": 0.45, "rainfall_current_mm": 96.0,   "swi_current": 0.31},
     {"name": "Karimganj - Baramukh",      "district": "Karimganj",        "state": "Assam",     "lat": 24.8700, "lng": 92.3600, "slope": 26.0, "aspect": 100.0, "elevation": 80.0,   "lithology": "Sandstone",     "risk_level": RiskLevel.yellow, "risk_probability": 0.42, "rainfall_current_mm": 101.0, "swi_current": 0.29},
     {"name": "Golaghat - Nambor RF",      "district": "Golaghat",         "state": "Assam",     "lat": 26.5000, "lng": 93.9000, "slope": 25.0, "aspect": 95.0,  "elevation": 130.0,  "lithology": "Sandstone",     "risk_level": RiskLevel.yellow, "risk_probability": 0.48, "rainfall_current_mm": 89.0,   "swi_current": 0.33},
     {"name": "Meghalaya - East Khasi",    "district": "East Khasi Hills","state": "Meghalaya",  "lat": 25.5700, "lng": 91.8800, "slope": 33.0, "aspect": 170.0, "elevation": 1520.0, "lithology": "Sandstone",     "risk_level": RiskLevel.red,    "risk_probability": 0.88, "rainfall_current_mm": 201.0, "swi_current": 0.08},
     {"name": "Mizoram - Aizawl",          "district": "Aizawl",           "state": "Mizoram",    "lat": 23.7300, "lng": 92.7200, "slope": 40.0, "aspect": 200.0, "elevation": 1130.0, "lithology": "Metasediment",  "risk_level": RiskLevel.red,    "risk_probability": 0.87, "rainfall_current_mm": 176.0, "swi_current": 0.12},
-    {"name": "Manipur - Churachandpur",   "district": "Churachandpur",    "state": "Manipur",    "lat": 24.3300, "lng": 93.6800, "slope": 35.0, "aspect": 160.0, "elevation": 850.0,  "lithology": "Metasediment",  "risk_level": RiskLevel.orange, "risk_probability": 0.72, "rainfall_current_mm": 132.0, "swi_current": 0.20},
-    {"name": "Manipur - Ukhrul",          "district": "Ukhrul",           "state": "Manipur",    "lat": 25.1000, "lng": 94.3700, "slope": 37.0, "aspect": 210.0, "elevation": 1800.0, "lithology": "Metasediment",  "risk_level": RiskLevel.orange, "risk_probability": 0.76, "rainfall_current_mm": 141.0, "swi_current": 0.17},
+    {"name": "Manipur - Churachandpur",   "district": "Churachandpur",    "state": "Manipur",    "lat": 24.3300, "lng": 93.6800, "slope": 35.0, "aspect": 160.0, "elevation": 850.0,  "lithology": "Metasediment",  "risk_level": RiskLevel.yellow, "risk_probability": 0.43, "rainfall_current_mm": 132.0, "swi_current": 0.20},
+    {"name": "Manipur - Ukhrul",          "district": "Ukhrul",           "state": "Manipur",    "lat": 25.1000, "lng": 94.3700, "slope": 37.0, "aspect": 210.0, "elevation": 1800.0, "lithology": "Metasediment",  "risk_level": RiskLevel.yellow, "risk_probability": 0.44, "rainfall_current_mm": 141.0, "swi_current": 0.17},
 ]
 
 # Bootstrap admin (password: admin123456 for dev)
@@ -153,9 +153,8 @@ def seed():
             seed_alerts = [
                 (zones[0], AlertKind.landslide, RiskLevel.red,    AlertStatus.delivered,    1240, 1580, 2),
                 (zones[2], AlertKind.landslide, RiskLevel.red,    AlertStatus.delivered,     980, 1120, 18),
-                (zones[7], AlertKind.landslide, RiskLevel.orange, AlertStatus.acknowledged,  650, 780,  45),
                 (zones[1], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.delivered,    430, 520,  60),
-                (zones[4], AlertKind.landslide, RiskLevel.orange, AlertStatus.pending,       310, 450, 120),
+                (zones[4], AlertKind.landslide, RiskLevel.yellow, AlertStatus.pending,       310, 450, 120),
                 (zones[3], AlertKind.landslide, RiskLevel.yellow, AlertStatus.delivered,     280, 340, 180),
                 (zones[8], AlertKind.advisory,   RiskLevel.green,  AlertStatus.acknowledged, 150, 200, 300),
                 (zones[5], AlertKind.advisory,   RiskLevel.yellow, AlertStatus.delivered,     200, 260, 360),

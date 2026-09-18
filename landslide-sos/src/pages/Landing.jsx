@@ -24,7 +24,7 @@ export default function Landing() {
     { icon: Radio, title: "Real-Time Rainfall", desc: "Monsoon rainfall tracking and 24h forecasts across Assam's landslide-prone districts" },
     { icon: Mountain, title: "Hilly Terrain Analysis", desc: "Digital elevation modelling for slope, aspect, and risk in the Barail ranges and foothills" },
     { icon: MapPin, title: "Interactive GIS Map", desc: "Heatmaps, custom layers, and animated soil-wetness tracking across NE India" },
-    { icon: AlertTriangle, title: "SOS Alerts", desc: "Automated SMS and browser alerts for Yellow, Orange, and Red zones in Assam" },
+    { icon: AlertTriangle, title: "SOS Alerts", desc: "Automated SMS and browser alerts for Yellow and Red zones in Assam" },
     { icon: Smartphone, title: "Offline PWA", desc: "Works offline in remote hill districts for critical alert delivery and response" },
     { icon: BarChart3, title: "Admin Dashboard", desc: "System health, model performance, and role-based access for disaster management" },
   ];

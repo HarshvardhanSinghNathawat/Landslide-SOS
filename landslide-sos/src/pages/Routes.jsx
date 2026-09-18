@@ -5,7 +5,7 @@ import { Route as RouteIcon, MapPin, AlertTriangle, ArrowLeftRight, Shield } fro
 import { api } from '../api/client';
 import { MAP_TILE_URL, MAP_ATTRIBUTION } from '../utils/tiles';
 
-const riskColors = { red: '#DC2626', orange: '#F59E0B', yellow: '#EAB308', green: '#16A34A' };
+const riskColors = { red: '#DC2626', yellow: '#EAB308', green: '#16A34A' };
 
 const TOWNS = [
   { id: 'guwahati', name: 'Guwahati (Assam)', lat: 26.1445, lng: 91.7362 },
@@ -133,7 +133,7 @@ export default function Routes() {
         </div>
         <div className="flex items-center gap-2 text-xs text-text-secondary">
           <Shield className="w-4 h-4 text-success" />
-          Danger zones (red/orange) are detoured · yellow zones warn
+          Danger zones (red) are detoured · yellow zones warn
         </div>
       </div>
 
@@ -303,7 +303,7 @@ export default function Routes() {
               <CircleMarker
                 key={z.id}
                 center={[z.lat, z.lng]}
-                radius={z.risk === 'red' ? 13 : z.risk === 'orange' ? 10 : z.risk === 'yellow' ? 8 : 6}
+                radius={z.risk === 'red' ? 13 : z.risk === 'yellow' ? 8 : 6}
                 pathOptions={{ fillColor: riskColors[z.risk], fillOpacity: 0.35, color: '#ffffff', weight: 1.5 }}
               >
                 <Popup>

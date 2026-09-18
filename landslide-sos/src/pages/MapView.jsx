@@ -6,7 +6,7 @@ import AlertBadge from '../components/AlertBadge';
 import { api } from '../api/client';
 import { MAP_TILE_URL, MAP_ATTRIBUTION } from '../utils/tiles';
 
-const riskColors = { red: '#DC2626', orange: '#F59E0B', yellow: '#EAB308', green: '#16A34A' };
+const riskColors = { red: '#DC2626', yellow: '#EAB308', green: '#16A34A' };
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function shortDate(iso) {
@@ -108,7 +108,7 @@ export default function MapView() {
             <CircleMarker
               key={zone.id}
               center={[zone.lat, zone.lng]}
-              radius={zone.risk === 'red' ? 14 : zone.risk === 'orange' ? 11 : 9}
+              radius={zone.risk === 'red' ? 14 : 9}
               fillColor={riskColors[zone.risk]}
               fillOpacity={0.7}
               color="white"

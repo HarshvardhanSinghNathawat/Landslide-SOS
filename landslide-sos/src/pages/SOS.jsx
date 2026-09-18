@@ -125,10 +125,9 @@ export default function SOS() {
 
             <div>
               <label className="block text-sm font-semibold mb-2">Alert Level</label>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 {[
                   { value: 'yellow', label: 'Yellow', desc: 'Watch', color: 'bg-yellow-100 border-yellow-300 text-yellow-800' },
-                  { value: 'orange', label: 'Orange', desc: 'Be Ready', color: 'bg-amber-100 border-amber-300 text-amber-800' },
                   { value: 'red', label: 'Red', desc: 'Evacuate', color: 'bg-red-100 border-red-300 text-red-800' },
                 ].map(level => (
                   <button

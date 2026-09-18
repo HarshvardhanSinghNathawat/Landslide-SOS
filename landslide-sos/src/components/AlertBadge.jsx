@@ -1,7 +1,6 @@
 export default function AlertBadge({ type, size = 'md' }) {
   const styles = {
     red: 'bg-red-100 text-emergency border-red-200',
-    orange: 'bg-amber-100 text-warning border-amber-200',
     yellow: 'bg-yellow-100 text-yellow-700 border-yellow-200',
     green: 'bg-green-100 text-success border-green-200',
     unknown: 'bg-gray-100 text-text-secondary border-gray-300',
@@ -15,7 +14,7 @@ export default function AlertBadge({ type, size = 'md' }) {
 
   const safeType = styles[type] ? type : 'unknown';
   const dotColor =
-    safeType === 'red' ? 'bg-emergency' : safeType === 'orange' ? 'bg-warning' : safeType === 'yellow' ? 'bg-yellow-600' : safeType === 'green' ? 'bg-success' : 'bg-gray-400';
+    safeType === 'red' ? 'bg-emergency' : safeType === 'yellow' ? 'bg-yellow-600' : safeType === 'green' ? 'bg-success' : 'bg-gray-400';
 
   return (
     <span className={`inline-flex items-center font-semibold rounded-full border uppercase tracking-wide ${styles[safeType]} ${sizes[size]}`}>
