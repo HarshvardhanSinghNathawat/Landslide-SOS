@@ -83,10 +83,13 @@ def step_dem(db, zones: list, *, dry_run: bool) -> int:
 
 
 def step_rainfall(db, zones: list, *, dry_run: bool) -> int:
-    """Upsert nearest IMD AWS station's 24h rainfall per zone (best-effort)."""
+    """Upsert nearest IMD AWS station's 24h rainfall per zone.
+
+    Without IMD_API_KEY the IMD client returns simulated readings; with a real
+    key it fetches live AWS data. Either way the step runs end-to-end.
+    """
     if not settings.IMD_API_KEY:
-        logger.warning("  IMD_API_KEY not set — rainfall ingest skipped (using stored history)")
-        return 0
+        logger.warning("  IMD_API_KEY not set — using SIMULATED AWS readings")
 
     from datetime import datetime, timezone
 

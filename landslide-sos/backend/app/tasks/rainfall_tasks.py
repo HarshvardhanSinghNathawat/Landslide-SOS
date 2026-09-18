@@ -21,12 +21,16 @@ logger = logging.getLogger(__name__)
 
 @shared_task(name="rainfall.ingest_imd")
 def ingest_imd() -> dict:
-    """Upsert the latest AWS 24h rainfall for each zone (best-effort)."""
+    """Upsert the latest AWS 24h rainfall for each zone.
+
+    Without IMD_API_KEY the IMD client returns simulated readings (SIM-*
+    stations) so the pipeline stays demonstrable; with a real key it fetches
+    live AWS station data.
+    """
     result = {"updated": 0, "skipped": 0, "reason": None}
 
     if not settings.IMD_API_KEY:
-        result["reason"] = "IMD_API_KEY not set — ingest disabled"
-        return result
+        result["reason"] = "IMD_API_KEY not set — SIMULATED readings"
 
     db = SessionLocal()
     try:

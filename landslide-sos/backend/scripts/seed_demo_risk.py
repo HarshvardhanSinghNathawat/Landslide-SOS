@@ -79,7 +79,11 @@ def _apply_zone_risk(db, zspec: dict) -> list[Zone]:
             RiskScore.zone_id == zone.id, RiskScore.timestamp == now
         )
     )
-    if existing is None:
+    if existing is not None:
+        existing.probability = zspec["risk_probability"]
+        existing.level = zspec["risk_level"]
+        existing.model_version = DEMO_MODEL_VERSION
+    else:
         db.add(
             RiskScore(
                 zone_id=zone.id,

@@ -1,14 +1,19 @@
 """IMD Rainfall Client — real-time AWS station data via api.imd.gov.in.
 
-When IMD_API_KEY is configured and the server IP is whitelisted, this fetches
+With IMD_API_KEY configured and the server IP whitelisted, this fetches
 Automatic Weather Station (AWS) data mapping to find the nearest station to a
-zone, then pulls the station's latest rainfall reading. Falls back gracefully
-when the key is missing or the network is blocked.
+zone, then pulls the station's latest rainfall reading.
+
+Without IMD_API_KEY the client runs in SIMULATION mode: it returns
+deterministic, monsoon-plausible readings (tagged "SIM-*" stations) so the full
+rainfall → SWI → risk pipeline stays demonstrable. Provide a real key to go live.
 """
 
 from __future__ import annotations
 
 import logging
+import math
+import zlib
 from datetime import datetime, timezone
 from typing import Any
 
@@ -31,6 +36,29 @@ class IMDError(Exception):
 
 class IMDNotConfigured(Exception):
     """Raised when IMD_API_KEY is not set — caller should fall back to DB."""
+
+
+def _simulate_last_24h(lat: float, lng: float) -> dict[str, Any]:
+    """Deterministic monsoon-plausible reading for a (lat, lng) — simulation mode."""
+    key = f"{lat:.3f}:{lng:.3f}"
+    state = zlib.crc32(key.encode("utf-8")) or 1
+
+    def rnd() -> float:
+        nonlocal state
+        state = (state * 1103515245 + 12345) & 0x7FFFFFFF
+        return state / 0x7FFFFFFF
+
+    base = 60.0 + rnd() * 150.0                       # 60–210 mm daily intensity
+    hour = datetime.now(timezone.utc).hour
+    pulse = 1.0 + 0.35 * math.sin(math.pi * (hour + rnd() * 4) / 12.0)
+    mm = base * (0.75 + 0.5 * pulse) * (0.85 + 0.3 * rnd())
+
+    name = f"SIM-{state % 10000:04d}"
+    return {
+        "station": name,
+        "last_24h_mm": round(max(5.0, min(250.0, mm)), 1),
+        "raw_response": {"simulated": True, "note": "no IMD_API_KEY configured"},
+    }
 
 
 def _api_key() -> str:
@@ -112,9 +140,17 @@ def get_station_rainfall(station_id: str) -> dict[str, Any]:
 def fetch_zone_rainfall(lat: float, lng: float) -> dict[str, Any]:
     """Convenience: find nearest station and pull its rainfall.
 
+    Without IMD_API_KEY, returns a deterministic simulated reading (station
+    tagged SIM-*) so the pipeline still runs end-to-end.
+
     Returns: {"station": str, "last_24h_mm": float, "distance_m": float}
-    Raises IMDNotConfigured / IMDError on failure.
     """
+    if not settings.IMD_API_KEY:
+        logger.info("[IMD SIMULATED] no IMD_API_KEY — synthetic AWS reading for (%.3f, %.3f)", lat, lng)
+        data = _simulate_last_24h(lat, lng)
+        data["distance_m"] = 0.0
+        return data
+
     station = find_nearest_station(lat, lng)
     if station is None:
         raise IMDError("No AWS stations available")
