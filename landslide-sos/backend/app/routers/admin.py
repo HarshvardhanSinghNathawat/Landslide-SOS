@@ -6,9 +6,10 @@ from sqlalchemy import select
 from app.middleware.auth import DbDep, require_roles
 from app.models.enums import Role
 from app.models.user import User
-from app.schemas.admin import UserUpdate
+from app.schemas.admin import UserCreate, UserUpdate
 from app.schemas.user import UserOut
 from app.services.model.trainer import latest_metrics, model_exists
+from app.services.security import hash_password
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
@@ -21,13 +22,13 @@ def list_users(db: DbDep, user: AdminUser, limit: int = 100) -> list[UserOut]:
     return [UserOut.model_validate(u) for u in users]
 
 
-@router.put("/users/{target_user_id}", response_model=UserUpdate)
+@router.put("/users/{target_user_id}", response_model=UserOut)
 def update_user(
     target_user_id: int,
     payload: UserUpdate,
     db: DbDep,
     user: AdminUser,
-) -> dict:
+) -> User:
     if target_user_id == user.id and payload.role is not None and payload.role != Role.admin:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -38,6 +39,17 @@ def update_user(
     if target is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
+    if payload.email is not None:
+        email = str(payload.email).lower()
+        if email != target.email:
+            clash = db.scalar(select(User).where(User.email == email))
+            if clash is not None:
+                raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
+            target.email = email
+    if payload.full_name is not None:
+        target.full_name = payload.full_name
+    if payload.password is not None:
+        target.hashed_password = hash_password(payload.password)
     if payload.role is not None:
         target.role = payload.role
     if payload.is_active is not None:
@@ -47,7 +59,32 @@ def update_user(
 
     db.commit()
     db.refresh(target)
-    return {"id": target.id, "role": target.role, "is_active": target.is_active, "opt_in_sms": target.opt_in_sms}
+    return target
+
+
+@router.post("/users", response_model=UserOut, status_code=status.HTTP_201_CREATED)
+def create_user(
+    payload: UserCreate,
+    db: DbDep,
+    user: AdminUser,
+) -> User:
+    email = str(payload.email).lower()
+    existing = db.scalar(select(User).where(User.email == email))
+    if existing is not None:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
+
+    new_user = User(
+        email=email,
+        full_name=payload.full_name,
+        hashed_password=hash_password(payload.password),
+        phone=payload.phone,
+        role=payload.role,
+        opt_in_sms=payload.opt_in_sms,
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
 
 
 @router.get("/model/performance")

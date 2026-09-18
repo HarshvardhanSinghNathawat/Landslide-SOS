@@ -8,6 +8,7 @@ import SOS from './pages/SOS';
 import Alerts from './pages/Alerts';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
+import RoutesPage from './pages/Routes';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/map" element={<MapView />} />
             <Route path="/sos" element={<SOS />} />
             <Route path="/alerts" element={<Alerts />} />
+            <Route path="/routes" element={<RoutesPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>

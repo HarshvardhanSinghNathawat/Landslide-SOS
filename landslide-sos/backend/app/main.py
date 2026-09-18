@@ -8,7 +8,7 @@ from app.config import settings
 from app.database import Base, engine
 from app import models  # noqa: F401 — ensure all models registered on Base.metadata
 from app.middleware.logging import RequestLoggingMiddleware
-from app.routers import admin, alerts, auth, dashboard, rainfall, reports, system, zones
+from app.routers import admin, alerts, auth, dashboard, rainfall, reports, routes, system, zones
 from app.startup import validate_production_settings
 
 logging.basicConfig(
@@ -54,6 +54,7 @@ app.include_router(alerts.router, prefix=api_prefix)
 app.include_router(reports.router, prefix=api_prefix)
 app.include_router(dashboard.router, prefix=api_prefix)
 app.include_router(admin.router, prefix=api_prefix)
+app.include_router(routes.router, prefix=api_prefix)
 app.include_router(system.router, prefix=api_prefix)
 
 

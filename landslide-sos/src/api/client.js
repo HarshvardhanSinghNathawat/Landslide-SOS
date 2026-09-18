@@ -68,4 +68,8 @@ export const api = {
   adminHealth: () => request('/system/health'),
   adminUsers: () => request('/admin/users'),
   adminMetrics: () => request('/admin/model/performance'),
+  adminCreateUser: (payload) => request('/admin/users', { method: 'POST', body: payload }),
+  adminUpdateUser: (id, payload) => request(`/admin/users/${id}`, { method: 'PUT', body: payload }),
+
+  planRoute: (payload) => request('/routes/plan', { method: 'POST', body: payload }),
 };

@@ -27,6 +27,7 @@ export default function Navbar() {
   const navLinks = [
     { to: '/dashboard', label: 'Dashboard' },
     { to: '/map', label: 'GIS Map' },
+    { to: '/routes', label: 'Safe Routes' },
     { to: '/sos', label: 'SOS' },
     { to: '/alerts', label: 'Alerts' },
   ];
