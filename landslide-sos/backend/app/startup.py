@@ -24,6 +24,11 @@ _PROD_INSECURE_DEFAULTS: list[tuple[str, object, str]] = [
         True,
         "AUTO_CREATE_TABLES must be False in production — use alembic migrate.",
     ),
+    (
+        "CORS_ALLOW_ALL",
+        True,
+        "CORS_ALLOW_ALL must be False in production — restrict CORS_ORIGINS.",
+    ),
 ]
 
 

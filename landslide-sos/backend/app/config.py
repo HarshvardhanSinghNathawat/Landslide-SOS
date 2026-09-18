@@ -46,6 +46,7 @@ class Settings(BaseSettings):
     CELERY_RECONCILE_MINUTES: int = 30
 
     CORS_ORIGINS: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+    CORS_ALLOW_ALL: bool = True
 
 
 @lru_cache
