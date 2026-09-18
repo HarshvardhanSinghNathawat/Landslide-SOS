@@ -17,7 +17,6 @@ export default function Alerts() {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
   const [items, setItems] = useState([]);
-  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [ackIds, setAckIds] = useState(new Set());
   const debounceRef = useRef(null);
@@ -27,10 +26,9 @@ export default function Alerts() {
   const fetchAlerts = (f, s) => {
     setLoading(true);
     api
-      .alerts({ filter: f === 'all' ? undefined : f, search: s || undefined, limit: 50 })
-      .then(({ items: data, total: t }) => {
-        setItems(data);
-        setTotal(t);
+      .alerts({ level: f === 'all' ? undefined : f, search: s || undefined, limit: 50 })
+      .then((items) => {
+        setItems(Array.isArray(items) ? items : []);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
@@ -147,8 +145,8 @@ export default function Alerts() {
                           <div className="flex items-center gap-2">
                             <Clock className="w-4 h-4 text-primary" />
                             <div>
-                              <p className="text-xs text-text-secondary">Avg Delivery</p>
-                              <p className="font-bold">1.2s</p>
+                              <p className="text-xs text-text-secondary">SMS Failed</p>
+                              <p className="font-bold">{alert.sms_failed}</p>
                             </div>
                           </div>
                           {canAck && (alert.status === 'pending' && !ackIds.has(alert.id)) && (

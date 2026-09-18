@@ -6,11 +6,13 @@
 Project: LandslideSOS
 Technology: React 19 + Vite 8 + Tailwind CSS v4
 Framework: React with Vite
-Database: Mock Data (Frontend Only)
+Database: FastAPI + SQLAlchemy (SQLite dev / Postgres+PostGIS prod)
 Maps: Leaflet + React-Leaflet
 Charts: Recharts
 Icons: Lucide React
 Linting: Oxlint
+Focus: Assam & Northeast India
+Backend: FastAPI + Celery + XGBoost (real API, live frontend integration)
 
 ================================================================================
 TABLE OF CONTENTS
@@ -36,14 +38,14 @@ TABLE OF CONTENTS
 ================================================================================
 
 Q1.1: What is LandslideSOS and what is its primary purpose?
-Answer: LandslideSOS is an India Landslide Early Warning & SOS System - an
+Answer: LandslideSOS is an Assam & Northeast India Landslide Early Warning & SOS System - an
 AI-powered landslide prediction platform with real-time monitoring, automated
-alerts, and community-driven disaster response for India's mountainous regions.
+alerts, and community-driven disaster response for the region's high-risk hill districts.
 
 Q1.2: What problem does LandslideSOS solve?
-Answer: It addresses the critical need for early warning systems in landslide-
-prone regions of India, enabling timely evacuation and disaster response to
-save lives and minimize damage.
+Answer: It addresses the critical need for early warning systems in the landslide-prone
+hill districts of Assam and Northeast India (e.g. Dima Hasao, Cachar, Aizawl),
+enabling timely evacuation and disaster response to save lives and minimize damage.
 
 Q1.3: Who are the target users of this system?
 Answer: Three user roles:
@@ -69,24 +71,20 @@ Answer: It provides early warning capabilities through:
 - Community-driven disaster response coordination
 
 Q1.6: What geographic regions does this system cover?
-Answer: India's landslide-prone mountainous regions including:
-- Uttarakhand (Chamoli)
-- Himachal Pradesh (Kinnaur)
-- Kerala (Wayanad, Munnar-Idukki)
-- Sikkim (North)
-- Meghalaya (East, Cherrapunji)
-- Maharashtra (Mahabaleshwar)
-- Tamil Nadu (Ooty-Nilgiris)
-- West Bengal (Darjeeling)
+Answer: The prototype targets **Northeast India**, centred on **Assam**'s hill districts:
+- Assam: Dima Hasao, Karbi Anglong, Cachar, Hailakandi, Karimganj, Golaghat
+- Meghalaya: East Khasi Hills
+- Mizoram: Aizawl
+- Manipur: Churachandpur, Ukhrul
+These districts have the highest landslide casualty rates in the Northeast.
 
 Q1.7: What is the current system statistics shown in the dashboard?
-Answer:
-- 847+ Zones Monitored
-- 1,250 Rainfall Stations
-- 4,230+ Alerts Sent Today
-- 94.2% Model Accuracy
-- 12,400 Lives at Risk
-- 3 Active Alerts
+Answer: Live stats served by the backend `/dashboard/stats`:
+- 10 Zones Monitored (6 in Assam)
+- Live active alerts + SMS counts from the alerts table
+- 501-event Northeast Landslide Atlas training inventory
+- Model accuracy from the trained XGBoost run
+- All values come from the FastAPI backend, not hardcoded UI numbers.
 
 Q1.8: What is the significance of this project for Smart India Hackathon?
 Answer: It's a government-focused solution (Ministry of Earth Sciences, NDMA)
@@ -675,36 +673,37 @@ Answer: Model accuracy context:
 6. DATA & STATE MANAGEMENT (10 Questions)
 ================================================================================
 
-Q6.1: What is the structure of mockData.js and what does it contain?
-Answer: mockData.js exports six data structures:
-- zones: Array of 10 zone objects (id, name, lat, lng, risk, rainfall, slope, swi)
-- alerts: Array of 8 alert objects (id, zone, type, status, time, sms, recipients)
-- rainfallData: Array of 10 rainfall readings (time, value, forecast)
-- swiTimeline: Array of 6 SWI data points (date, swi, risk)
-- systemHealth: Array of 6 service health objects (name, status, uptime, latency)
-- stats: Object with 6 system-wide metrics (zonesMonitored, activeAlerts, etc.)
+Q6.1: How does the frontend get its data?
+Answer: The frontend is wired to the live FastAPI backend via `src/api/client.js`:
+- zones: GET /zones -> Array of 10 NE zone objects (id, name, lat, lng, risk, rainfall, slope, swi)
+- alerts: GET /alerts -> Array of alert objects (id, ref, zone, type, level, status, time, sms, recipients)
+- rainfall: GET /rainfall -> { points: [{ time, value, forecast }] }
+- swiTimeline: GET /zones/{id}/swi -> { points: [{ date, swi, risk }] }
+- systemHealth: GET /system/health -> { status, database, components }
+- dashboardStats: GET /dashboard/stats -> zonesMonitored, activeAlerts, smsSentToday, modelAccuracy
+- No mock data remains in the frontend (`src/data/mockData.js` was removed).
 
 Q6.2: How is authentication state managed in the application?
 Answer: Auth state management:
 - AuthContext created with createContext(null)
 - AuthProvider wraps entire app in App.jsx
-- useState(null) initializes user state
-- login(role) creates user object: { name: role-based-name, role }
-- logout() sets user state back to null
-- useAuth() custom hook provides access to { user, login, logout }
+- On mount, if a JWT exists in localStorage, calls GET /auth/me to restore the user
+- login(email, password) -> POST /auth/login returns { access_token, user }, token stored
+- logout() clears the token and resets user state
+- useAuth() custom hook provides { user, loading, login, logout }
 
 Q6.3: Explain the AuthContext implementation in detail.
 Answer: AuthContext implementation:
 1. createContext(null) creates the context with null default
 2. AuthProvider function component accepts children prop
 3. useState(null) for user state (null = not logged in)
-4. login(role) switch:
-   - 'admin' -> name: 'Dr. Sharma'
-   - 'officer' -> name: 'Rajesh Kumar'
-   - default -> name: 'Public User'
-5. logout() calls setUser(null)
-6. Returns AuthContext.Provider with value={{ user, login, logout }}
+4. login(email, password) calls the backend; on success:
+   - localStorage.setItem(TOKEN_KEY, data.access_token)
+   - setUser(data.user)  // backend user: { id, email, full_name, role, ... }
+5. logout() removes the token and sets user to null
+6. Returns AuthContext.Provider with value={{ user, loading, login, logout }}
 7. useAuth() = useContext(AuthContext) for convenient access
+8. Role comes from the backend (admin/officer/public), not a client-side picker
 
 Q6.4: What data is stored in component state across the application?
 Answer: Component states:
@@ -1179,10 +1178,11 @@ HashRouter for client-side routing compatible with static hosting."
 Q11.2: How would you explain this project to a non-technical person?
 Answer: Non-technical explanation:
 "LandslideSOS is a web application that helps predict and warn about landslides
-in India's mountainous regions. It monitors rainfall and soil conditions in real-
-time across 847 zones. When danger is detected, it automatically sends SMS and
-push notifications to people in the affected area. Government officials can view
-everything on an interactive map and manage the system through an admin panel."
+in the monsoon-prone hill districts of Assam and Northeast India. It monitors
+rainfall and soil conditions in real time across 10 zones. When danger is detected,
+it automatically sends SMS and push notifications to people in the affected area.
+Government officials can view everything on an interactive map and manage the system
+through an admin panel."
 
 Q11.3: What challenges did you face during development?
 Answer: Development challenges:
@@ -1255,12 +1255,12 @@ Answer: Most complex feature:
 
 Q11.10: How would you explain the data flow in this application?
 Answer: Data flow explanation:
-"Data starts in mockData.js as static objects. Pages import this data and
-pass it to components via props. For example, Dashboard imports stats and
-passes individual values to StatCard components. State is managed locally
-with useState for UI interactions (menu open/close, form inputs). Global
-state (authentication) uses Context API. When a user logs in, AuthContext
-updates the user object, which Navbar reads to conditionally render elements."
+"Data is served by the FastAPI backend. Each page calls `src/api/client.js` in a
+useEffect on mount - e.g. Dashboard fetches /dashboard/stats, /rainfall, /alerts
+and /zones via Promise.all, then passes values down to StatCard / AlertBadge /
+Leaflet markers as props. Global state (authentication) uses Context API - when a
+user logs in, AuthContext stores the JWT and user object, which Navbar reads to
+conditionally render links and the logout button. No mock data remains."
 
 Q11.11: What testing would you add to this project?
 Answer: Testing additions:
@@ -1401,13 +1401,13 @@ Answer: Styling debugging:
 
 Q12.9: What would you check if data doesn't display in components?
 Answer: Data debugging:
-1. Verify mockData.js exports are correct
-2. Check import statements match export names
-3. Verify data structure matches component expectations
-4. Check for undefined/null values in data
+1. Check `src/api/client.js` endpoint paths match the backend routers
+2. Verify the FastAPI server is running on :8000 and the Vite proxy is active
+3. Verify response schemas match component expectations (zone.risk, alert.zone, ...)
+4. Check for undefined/null values in data (e.g. stats.modelAccuracy may be null)
 5. Verify map/filter logic produces expected results
-6. Check console for rendering errors
-7. Verify props are passed correctly from parent
+6. Check browser console for fetch/CORS/network errors
+7. Verify the auth token allows the required role for the endpoint
 
 Q12.10: How would you debug a build failure?
 Answer: Build debugging:
@@ -1632,34 +1632,36 @@ Answer: Technology role:
 ================================================================================
 
 PROJECT SUMMARY:
-LandslideSOS is a React-based India Landslide Early Warning & SOS System
-built for Smart India Hackathon 2026. It features real-time monitoring,
-interactive GIS mapping, emergency SOS alerts, and role-based access.
+LandslideSOS is a full-stack **Assam & Northeast India** Landslide Early Warning & SOS System
+built for Smart India Hackathon 2026. It features real-time rainfall monitoring, an XGBoost
+risk model trained on the Northeast Landslide Atlas, interactive GIS mapping, emergency SOS
+alerts over SMS, and role-based access.
 
 TECHNOLOGY HIGHLIGHTS:
 - React 19 + Vite 8 (Fast development and builds)
 - Tailwind CSS v4 (Utility-first styling with custom theme)
 - Leaflet + React-Leaflet (Interactive GIS mapping)
 - Recharts (Data visualization)
-- React Router DOM v7 (Client-side routing)
-- Context API (State management)
+- FastAPI + SQLAlchemy + Alembic (Real backend, JWT auth, PostGIS-ready)
+- XGBoost (Native Booster risk model) + Celery (scheduled risk scoring)
+- SMS provider abstraction (mock by default, MSG91 for live)
 
 KEY FEATURES TO DISCUSS:
-1. Multi-zone monitoring (847 zones, 10 in demo)
-2. Risk classification (Green/Yellow/Orange/Red)
+1. 10 NE monitoring zones (6 in Assam: Dima Hasao, Cachar, Karbi Anglong, ...)
+2. Risk classification (Green/Yellow/Orange/Red) from the fused ML + SWI score
 3. Interactive GIS map with toggleable layers
 4. SWI timeline animation for trend analysis
-5. SOS alert system with confirmation flow
-6. Role-based access (Admin/Officer/Public)
+5. SOS alert system with SMS delivery + acknowledge lifecycle
+6. Role-based access (Admin/Officer/Public) enforced by the backend
 7. System health monitoring dashboard
 8. Responsive design for all devices
 
 COMMON FOLLOW-UP QUESTIONS:
-- How would you add a real backend?
-- How would you implement real-time data?
-- How would you scale this system?
+- How does the XGBoost model produce the risk level for each zone?
+- How does the SWI (3-tank soil-wetness) engine feed the fused score?
+- How are SMS alerts dispatched (Celery + provider abstraction)?
 - What testing strategy would you use?
-- How would you secure this application?
+- How would you secure / scale this system?
 
 ================================================================================
                          END OF QUESTION BANK

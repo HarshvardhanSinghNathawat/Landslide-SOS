@@ -8,7 +8,7 @@ from app.models.enums import ReportStatus, Role
 from app.models.report import Report
 from app.models.user import User
 from app.models.zone import Zone
-from app.schemas.report import ReportCreate, ReportOut
+from app.schemas.report import ReportCreate, ReportOut, ReportStatusUpdate
 
 router = APIRouter(prefix="/reports", tags=["reports"])
 
@@ -33,8 +33,8 @@ def _to_report_out(report: Report, db: DbDep) -> ReportOut:
 @router.get("", response_model=list[ReportOut])
 def list_reports(
     db: DbDep,
+    user: OfficerUser,
     limit: int = 50,
-    user: OfficerUser = None,
 ) -> list[ReportOut]:
     del user
     stmt = select(Report).order_by(Report.created_at.desc()).limit(limit)
@@ -63,4 +63,22 @@ def create_report(
     db.commit()
     db.refresh(report)
 
+    return _to_report_out(report, db)
+
+
+@router.patch("/{report_id}", response_model=ReportOut)
+def update_report_status(
+    report_id: int,
+    payload: ReportStatusUpdate,
+    db: DbDep,
+    user: OfficerUser,
+) -> ReportOut:
+    del user
+    report = db.get(Report, report_id)
+    if report is None:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    report.status = payload.status
+    db.commit()
+    db.refresh(report)
     return _to_report_out(report, db)

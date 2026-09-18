@@ -38,8 +38,8 @@ export const api = {
   me: () => request('/auth/me'),
 
   zones: () => request('/zones'),
-  zone: (id) => request(`/zones/${id}`),
-  swiTimeline: (id) => request(`/zones/${id}/swi-timeline`),
+  swiTimeline: (id) =>
+    request(`/zones/${id}/swi`).then((data) => (data && data.points) || []),
 
   alerts: (params = {}) => {
     const qs = new URLSearchParams();
@@ -49,21 +49,23 @@ export const api = {
     const q = qs.toString();
     return request(`/alerts${q ? `?${q}` : ''}`);
   },
-  recentAlerts: () => request('/alerts/recent'),
-  unreadCount: () => request('/alerts/unread-count'),
-  acknowledgeAlert: (id) => request(`/alerts/${id}/ack`, { method: 'PATCH' }),
+  recentAlerts: () => request('/alerts?limit=5'),
+  unreadCount: () =>
+    request('/alerts?limit=50').then((items) => ({
+      count: Array.isArray(items) ? items.filter((a) => a.status === 'pending').length : 0,
+    })),
+  acknowledgeAlert: (id) =>
+    request(`/alerts/${id}/acknowledge`, { method: 'PATCH', body: {} }),
 
   rainfall: (zoneId) =>
     request(`/rainfall${zoneId ? `?zone_id=${zoneId}` : ''}`),
-  rainfallHeatmap: () => request('/rainfall/heatmap'),
 
   dashboardStats: () => request('/dashboard/stats'),
-  publicStats: () => request('/stats/public'),
+  publicStats: () => request('/dashboard/stats'),
 
-  sendSos: (payload) => request('/sos/send', { method: 'POST', body: payload }),
+  sendSos: (payload) => request('/alerts/sos', { method: 'POST', body: payload }),
 
-  adminHealth: () => request('/admin/health'),
+  adminHealth: () => request('/system/health'),
   adminUsers: () => request('/admin/users'),
-  adminMetrics: () => request('/admin/metrics'),
-  adminModelPerformance: () => request('/admin/model-performance'),
+  adminMetrics: () => request('/admin/model/performance'),
 };

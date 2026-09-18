@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { AlertTriangle, Send, MapPin, CheckCircle, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../api/client';
-import { formatRelativeTime } from '../utils/formatTime';
 
 export default function SOS() {
   const { user } = useAuth();
@@ -54,7 +53,7 @@ export default function SOS() {
     try {
       const result = await api.sendSos({
         zone_id: Number(selectedZone),
-        alert_type: alertType,
+        kind: alertType === 'yellow' ? 'advisory' : 'landslide',
         message: message || undefined,
       });
       setSentResult(result);
@@ -87,18 +86,19 @@ export default function SOS() {
             <p className="text-sm font-medium text-success">Delivery Status</p>
             <div className="grid grid-cols-3 gap-4 mt-3">
               <div>
-                <p className="text-2xl font-bold text-success">{sentResult.delivery.sms_sent.toLocaleString()}</p>
+                <p className="text-2xl font-bold text-success">{sentResult.sms.toLocaleString()}</p>
                 <p className="text-xs text-text-secondary">SMS Sent</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-primary">{sentResult.delivery.push_delivered.toLocaleString()}</p>
-                <p className="text-xs text-text-secondary">Push Delivered</p>
+                <p className="text-2xl font-bold text-primary">{sentResult.recipients.toLocaleString()}</p>
+                <p className="text-xs text-text-secondary">Recipients</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-warning">{sentResult.delivery.pending.toLocaleString()}</p>
-                <p className="text-xs text-text-secondary">Pending</p>
+                <p className="text-2xl font-bold text-warning uppercase">{sentResult.status}</p>
+                <p className="text-xs text-text-secondary">Status</p>
               </div>
             </div>
+            <p className="text-xs text-text-secondary mt-3 font-mono">Ref: {sentResult.ref} · {sentResult.kind}</p>
           </div>
         </div>
       ) : (

@@ -110,7 +110,7 @@ export default function Navbar() {
                 <div className="w-8 h-8 bg-primary-light rounded-full flex items-center justify-center">
                   <User className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-sm font-medium hidden sm:block">{user.name}</span>
+                <span className="text-sm font-medium hidden sm:block">{user.full_name}</span>
                 <button onClick={logout} className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
                   <LogOut className="w-4 h-4 text-text-secondary" />
                 </button>

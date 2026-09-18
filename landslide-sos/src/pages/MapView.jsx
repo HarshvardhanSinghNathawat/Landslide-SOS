@@ -17,8 +17,8 @@ function shortDate(iso) {
 
 export default function MapView() {
   const [zones, setZones] = useState([]);
-  const [heatmap, setHeatmap] = useState([]);
   const [swiTimeline, setSwiTimeline] = useState([]);
+  const [selectedZoneId, setSelectedZoneId] = useState(null);
   const [showRainfall, setShowRainfall] = useState(true);
   const [showSlope, setShowSlope] = useState(false);
   const [showAlerts, setShowAlerts] = useState(true);
@@ -26,20 +26,26 @@ export default function MapView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      api.zones(),
-      api.rainfallHeatmap(),
-      api.swiTimeline(1),
-    ])
-      .then(([z, h, swi]) => {
+    api
+      .zones()
+      .then((z) => {
         setZones(z);
-        setHeatmap(h);
-        setSwiTimeline(swi);
-        setTimelineIdx(swi.length - 1);
+        setSelectedZoneId((prev) => prev ?? z[0]?.id ?? null);
       })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (!selectedZoneId) return;
+    api
+      .swiTimeline(selectedZoneId)
+      .then((points) => {
+        setSwiTimeline(points);
+        setTimelineIdx(Math.max(0, points.length - 1));
+      })
+      .catch(() => {});
+  }, [selectedZoneId]);
 
   const currentSWI = swiTimeline[timelineIdx] || swiTimeline[swiTimeline.length - 1] || {};
 
@@ -134,13 +140,13 @@ export default function MapView() {
             </CircleMarker>
           ))}
 
-          {showRainfall && heatmap.map((c, i) => (
+          {showRainfall && zones.map(z => (
             <CircleMarker
-              key={`rain-${i}`}
-              center={[c.lat, c.lng]}
-              radius={c.intensity / 10}
+              key={`rain-${z.id}`}
+              center={[z.lat, z.lng]}
+              radius={Math.max(4, z.rainfall / 10)}
               fillColor="#3B82F6"
-              fillOpacity={0.25}
+              fillOpacity={0.2}
               color="#3B82F6"
               weight={1}
               dashArray="4 4"
@@ -168,6 +174,15 @@ export default function MapView() {
               <span className="text-sm font-semibold">SWI Timeline Animation</span>
               <span className="text-xs text-text-secondary ml-auto">{shortDate(currentSWI.date)}</span>
             </div>
+            <select
+              value={selectedZoneId ?? ''}
+              onChange={(e) => setSelectedZoneId(Number(e.target.value))}
+              className="w-full mb-2 px-3 py-1.5 border border-border rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              {zones.map(z => (
+                <option key={z.id} value={z.id}>{z.name} — Risk {z.risk}</option>
+              ))}
+            </select>
             <input
               type="range"
               min={0}

@@ -3,12 +3,12 @@ from typing import Annotated
 import logging
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.orm import joinedload
 
 from app.middleware.auth import DbDep, require_roles
 from app.models.alert import Alert, AlertStatus
-from app.models.enums import Role
+from app.models.enums import RiskLevel, Role
 from app.models.user import User
 from app.models.zone import Zone
 from app.schemas.alert import AlertAcknowledge, AlertOut, SOSCreate
@@ -45,6 +45,8 @@ def _to_alert_out(alert: Alert, zone_name: str) -> AlertOut:
 def list_alerts(
     db: DbDep,
     limit: int = 50,
+    level: RiskLevel | None = None,
+    search: str | None = None,
 ) -> list[AlertOut]:
     stmt = (
         select(Alert, Zone.name.label("zone_name"))
@@ -52,6 +54,10 @@ def list_alerts(
         .order_by(Alert.created_at.desc())
         .limit(limit)
     )
+    if level is not None:
+        stmt = stmt.where(Alert.level == level)
+    if search:
+        stmt = stmt.where(or_(Zone.name.ilike(f"%{search}%"), Alert.message.ilike(f"%{search}%")))
     rows = db.execute(stmt).all()
     return [
         AlertOut(
@@ -83,7 +89,7 @@ def trigger_sos(
 ) -> AlertOut:
     zone = db.get(Zone, payload.zone_id)
     if zone is None:
-        raise HTTPException(status_code=404, detail="Zone not find")
+        raise HTTPException(status_code=404, detail="Zone not found")
 
     recipients = db.scalars(
         select(User).where(User.opt_in_sms == True, User.is_active == True, User.phone.isnot(None))  # noqa: E712
@@ -125,8 +131,8 @@ def trigger_sos(
 def acknowledge_alert(
     alert_id: int,
     db: DbDep,
+    user: OfficerUser,
     payload: AlertAcknowledge | None = None,
-    user: OfficerUser = None,
 ) -> AlertOut:
     alert = db.get(Alert, alert_id)
     if alert is None:

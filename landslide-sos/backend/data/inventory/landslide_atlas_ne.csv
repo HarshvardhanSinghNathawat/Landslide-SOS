@@ -1,0 +1,502 @@
+latitude,longitude,state,district,event_date,area_ha,severity,trigger
+25.58797,91.89152,Meghalaya,East Khasi Hills,2018-09-06,39.34,0.1418,monsoon
+25.45099,91.90405,Meghalaya,East Khasi Hills,2001-07-05,12.68,0.1501,monsoon
+25.49745,91.90690,Meghalaya,East Khasi Hills,2019-08-14,58.76,0.3008,monsoon
+25.50541,91.90972,Meghalaya,East Khasi Hills,2008-08-26,5.97,0.3422,monsoon
+25.44083,91.96236,Meghalaya,East Khasi Hills,2014-08-23,49.77,0.3146,monsoon
+25.49666,91.83484,Meghalaya,East Khasi Hills,2011-09-15,35.69,0.2537,monsoon
+25.50032,91.91054,Meghalaya,East Khasi Hills,2005-06-06,14.77,0.2724,monsoon
+25.56841,91.97740,Meghalaya,East Khasi Hills,2021-08-10,44.77,0.2552,monsoon
+25.57245,91.79592,Meghalaya,East Khasi Hills,2003-08-20,5.16,0.2919,monsoon
+25.48025,91.91078,Meghalaya,East Khasi Hills,1998-06-05,46.49,0.1727,monsoon
+25.48716,91.86488,Meghalaya,East Khasi Hills,2016-08-15,35.44,0.5930,monsoon
+25.53986,91.87776,Meghalaya,East Khasi Hills,2013-06-01,6.73,0.3753,monsoon
+25.46489,91.84571,Meghalaya,East Khasi Hills,2020-07-10,4.86,0.2189,monsoon
+25.53532,91.88983,Meghalaya,East Khasi Hills,2009-07-07,45.08,0.2775,monsoon
+25.49473,92.01048,Meghalaya,East Khasi Hills,1998-06-20,17.65,0.2277,monsoon
+25.44184,91.82413,Meghalaya,East Khasi Hills,1998-09-26,53.37,0.1344,monsoon
+25.44259,91.82982,Meghalaya,East Khasi Hills,2008-06-05,45.75,0.4851,monsoon
+25.58682,91.82188,Meghalaya,East Khasi Hills,2004-07-23,41.92,0.0374,monsoon
+25.49061,92.00365,Meghalaya,East Khasi Hills,2021-09-19,16.79,0.1432,monsoon
+25.59842,91.87226,Meghalaya,East Khasi Hills,2000-09-28,42.57,0.4865,monsoon
+25.46918,91.89846,Meghalaya,East Khasi Hills,2020-06-26,56.89,0.4913,monsoon
+25.51747,91.87583,Meghalaya,East Khasi Hills,2003-07-03,5.58,0.2439,monsoon
+25.64356,91.84333,Meghalaya,East Khasi Hills,2000-08-21,19.64,0.1360,monsoon
+25.43656,91.88589,Meghalaya,East Khasi Hills,2004-09-17,14.16,0.1283,monsoon
+25.38613,92.04749,Meghalaya,East Khasi Hills,2001-09-04,23.66,0.2581,monsoon
+25.57720,91.98352,Meghalaya,East Khasi Hills,2008-08-08,44.57,0.0952,monsoon
+25.45039,91.84882,Meghalaya,East Khasi Hills,2006-06-26,28.51,0.3084,monsoon
+25.49876,91.93885,Meghalaya,East Khasi Hills,2011-09-16,34.29,0.3755,monsoon
+25.46484,91.85011,Meghalaya,East Khasi Hills,2011-06-10,18.92,0.2438,monsoon
+25.51609,91.79342,Meghalaya,East Khasi Hills,1998-06-09,8.56,0.3075,monsoon
+25.44297,91.96117,Meghalaya,East Khasi Hills,2001-08-24,16.09,0.3944,monsoon
+25.48920,91.96961,Meghalaya,East Khasi Hills,2002-08-08,51.59,0.2720,monsoon
+25.52699,91.96276,Meghalaya,East Khasi Hills,2002-06-05,36.18,0.2502,monsoon
+25.43950,91.87181,Meghalaya,East Khasi Hills,2000-06-17,22.74,0.6432,monsoon
+25.45799,91.88999,Meghalaya,East Khasi Hills,2005-08-28,47.42,0.3316,monsoon
+25.47916,91.94499,Meghalaya,East Khasi Hills,2011-07-06,3.96,0.4022,monsoon
+25.41427,91.92349,Meghalaya,East Khasi Hills,2005-08-08,15.31,0.3203,monsoon
+25.47465,91.87638,Meghalaya,East Khasi Hills,2006-07-14,13.88,0.2893,monsoon
+25.50713,91.80286,Meghalaya,East Khasi Hills,2009-08-06,59.12,0.2826,monsoon
+25.47603,91.90683,Meghalaya,East Khasi Hills,2011-07-19,42.40,0.3833,monsoon
+25.48372,91.96474,Meghalaya,East Khasi Hills,2006-07-08,37.11,0.0808,monsoon
+25.49881,91.82814,Meghalaya,East Khasi Hills,2003-07-04,0.40,0.4880,monsoon
+25.46066,91.93833,Meghalaya,East Khasi Hills,2008-08-08,11.14,0.2561,monsoon
+25.54146,91.91989,Meghalaya,East Khasi Hills,1998-08-27,38.17,0.0602,monsoon
+25.58616,91.94501,Meghalaya,East Khasi Hills,2010-08-27,22.85,0.1211,monsoon
+25.47214,91.95232,Meghalaya,East Khasi Hills,2021-08-15,55.46,0.1275,monsoon
+25.52911,91.85833,Meghalaya,East Khasi Hills,2007-06-12,45.91,0.0708,monsoon
+25.48562,91.80298,Meghalaya,East Khasi Hills,2000-09-23,26.90,0.2702,monsoon
+25.52193,91.86799,Meghalaya,East Khasi Hills,2015-08-06,45.00,0.3288,monsoon
+25.59395,91.95335,Meghalaya,East Khasi Hills,2001-08-19,58.53,0.1896,monsoon
+25.53052,91.86748,Meghalaya,East Khasi Hills,2002-09-20,27.71,0.1886,monsoon
+25.39360,91.85836,Meghalaya,East Khasi Hills,2001-09-20,38.59,0.1034,monsoon
+25.52724,91.79072,Meghalaya,East Khasi Hills,2020-08-07,55.13,0.3438,monsoon
+25.57397,92.00516,Meghalaya,East Khasi Hills,2022-09-21,15.00,0.5101,monsoon
+25.48670,91.94954,Meghalaya,East Khasi Hills,2012-07-18,53.20,0.1827,monsoon
+25.55974,91.94619,Meghalaya,East Khasi Hills,2013-08-25,5.94,0.1835,monsoon
+25.45859,91.95806,Meghalaya,East Khasi Hills,2014-07-05,38.94,0.3966,monsoon
+25.41087,91.93460,Meghalaya,East Khasi Hills,2013-08-18,46.99,0.2771,monsoon
+25.50847,91.88534,Meghalaya,East Khasi Hills,2011-06-24,36.91,0.1591,monsoon
+25.39461,91.89017,Meghalaya,East Khasi Hills,2022-09-08,29.78,0.2713,monsoon
+25.48561,91.87435,Meghalaya,East Khasi Hills,2016-06-21,37.08,0.0832,monsoon
+25.57721,92.05808,Meghalaya,East Khasi Hills,2000-08-03,9.18,0.1852,monsoon
+25.38541,91.93335,Meghalaya,East Khasi Hills,2007-06-21,13.01,0.1894,monsoon
+25.42323,91.87217,Meghalaya,East Khasi Hills,2022-06-17,16.27,0.3209,monsoon
+25.43808,91.92793,Meghalaya,East Khasi Hills,2008-09-06,35.91,0.4593,monsoon
+25.49620,91.83935,Meghalaya,East Khasi Hills,2003-09-02,26.57,0.3419,monsoon
+25.47806,91.99027,Meghalaya,East Khasi Hills,2019-06-21,14.74,0.2472,monsoon
+25.58395,91.86034,Meghalaya,East Khasi Hills,2013-06-07,52.98,0.2921,monsoon
+25.55726,91.93007,Meghalaya,East Khasi Hills,2012-09-14,22.50,0.1554,monsoon
+25.52972,91.96396,Meghalaya,East Khasi Hills,2008-09-02,26.82,0.3560,monsoon
+25.50874,91.92309,Meghalaya,East Khasi Hills,2001-06-27,24.64,0.5554,monsoon
+25.52359,91.90567,Meghalaya,East Khasi Hills,2007-08-16,11.00,0.2557,monsoon
+25.44828,91.90065,Meghalaya,East Khasi Hills,2008-07-27,43.92,0.3646,monsoon
+25.55143,91.89661,Meghalaya,East Khasi Hills,2021-08-05,26.96,0.1489,monsoon
+25.43328,91.86540,Meghalaya,East Khasi Hills,2005-07-06,1.07,0.3577,monsoon
+25.55012,91.87303,Meghalaya,East Khasi Hills,2001-06-18,57.84,0.4217,monsoon
+25.57117,91.98878,Meghalaya,East Khasi Hills,2008-07-17,48.96,0.3477,monsoon
+25.51265,91.89349,Meghalaya,East Khasi Hills,2022-08-23,43.44,0.4754,monsoon
+25.48943,91.85285,Meghalaya,East Khasi Hills,2010-09-26,52.16,0.4171,monsoon
+25.52402,91.86902,Meghalaya,East Khasi Hills,2007-06-24,54.42,0.3524,monsoon
+25.32831,91.96602,Meghalaya,East Khasi Hills,2014-09-04,20.32,0.2980,monsoon
+25.51814,91.94054,Meghalaya,East Khasi Hills,2014-08-09,36.70,0.2959,monsoon
+25.49320,91.93362,Meghalaya,East Khasi Hills,2005-09-26,36.57,0.1864,monsoon
+25.49696,91.88455,Meghalaya,East Khasi Hills,2022-09-16,16.11,0.0474,monsoon
+25.54239,91.93440,Meghalaya,East Khasi Hills,2012-06-25,13.39,0.4090,monsoon
+25.49551,91.86139,Meghalaya,East Khasi Hills,1999-06-16,6.92,0.3924,monsoon
+25.43159,91.88442,Meghalaya,East Khasi Hills,2008-09-02,39.59,0.4201,monsoon
+25.23523,91.62397,Meghalaya,East Khasi Hills,2004-07-22,24.49,0.2373,monsoon
+25.35945,91.63832,Meghalaya,East Khasi Hills,2004-07-17,39.87,0.4340,monsoon
+25.42585,91.74330,Meghalaya,East Khasi Hills,2008-06-26,29.63,0.1734,monsoon
+25.19429,91.76502,Meghalaya,East Khasi Hills,2008-07-14,22.84,0.5977,monsoon
+25.27923,91.64256,Meghalaya,East Khasi Hills,2006-08-13,53.11,0.1242,monsoon
+25.37589,91.70144,Meghalaya,East Khasi Hills,2015-08-24,46.39,0.3769,monsoon
+25.21318,91.61711,Meghalaya,East Khasi Hills,2020-08-03,31.62,0.2063,monsoon
+25.33400,91.68913,Meghalaya,East Khasi Hills,2006-07-11,57.01,0.1555,monsoon
+25.37329,91.75022,Meghalaya,East Khasi Hills,2001-06-23,25.52,0.1076,monsoon
+25.30469,91.67390,Meghalaya,East Khasi Hills,2018-06-09,47.31,0.4327,monsoon
+25.33302,91.68506,Meghalaya,East Khasi Hills,2019-06-25,10.16,0.1112,monsoon
+25.40565,91.63221,Meghalaya,East Khasi Hills,2021-08-08,17.22,0.4670,monsoon
+25.41691,91.66110,Meghalaya,East Khasi Hills,2004-09-12,20.35,0.3988,monsoon
+25.29628,91.80549,Meghalaya,East Khasi Hills,2015-09-26,6.44,0.2572,monsoon
+25.26806,91.70438,Meghalaya,East Khasi Hills,2015-07-07,30.16,0.5846,monsoon
+25.24480,91.63986,Meghalaya,East Khasi Hills,2017-06-28,11.62,0.4072,monsoon
+25.35862,91.68111,Meghalaya,East Khasi Hills,2018-08-02,38.09,0.0590,monsoon
+25.21769,91.60415,Meghalaya,East Khasi Hills,2021-06-08,11.49,0.3109,monsoon
+25.28485,91.63915,Meghalaya,East Khasi Hills,2009-08-17,7.50,0.3815,monsoon
+25.30616,91.78162,Meghalaya,East Khasi Hills,1999-07-17,58.15,0.2032,monsoon
+25.26982,91.69145,Meghalaya,East Khasi Hills,2002-09-26,39.53,0.2655,monsoon
+25.31679,91.81344,Meghalaya,East Khasi Hills,2020-08-27,56.19,0.3457,monsoon
+25.45387,91.69428,Meghalaya,East Khasi Hills,2019-08-19,29.44,0.2491,monsoon
+25.29270,91.69784,Meghalaya,East Khasi Hills,1998-07-19,2.10,0.1763,monsoon
+25.27388,91.73845,Meghalaya,East Khasi Hills,2007-09-09,34.50,0.1133,monsoon
+25.36092,91.53964,Meghalaya,East Khasi Hills,2004-08-23,33.54,0.5666,monsoon
+25.31438,91.71230,Meghalaya,East Khasi Hills,2006-08-19,1.00,0.2237,monsoon
+25.38636,91.69706,Meghalaya,East Khasi Hills,2013-07-01,51.69,0.3614,monsoon
+25.30988,91.78916,Meghalaya,East Khasi Hills,2010-07-24,37.24,0.2055,monsoon
+25.28509,91.75788,Meghalaya,East Khasi Hills,2010-09-11,44.71,0.4443,monsoon
+25.19298,91.63198,Meghalaya,East Khasi Hills,2008-07-14,29.69,0.2399,monsoon
+25.20282,91.77453,Meghalaya,East Khasi Hills,2014-06-14,37.14,0.4853,monsoon
+25.18986,91.68426,Meghalaya,East Khasi Hills,2015-07-23,15.52,0.3010,monsoon
+25.32276,91.64573,Meghalaya,East Khasi Hills,1999-07-08,58.43,0.0561,monsoon
+25.21827,91.71183,Meghalaya,East Khasi Hills,2001-07-11,24.10,0.1571,monsoon
+25.37533,91.68783,Meghalaya,East Khasi Hills,2006-06-02,9.82,0.2732,monsoon
+25.30181,91.79231,Meghalaya,East Khasi Hills,2008-06-10,3.45,0.2633,monsoon
+25.28535,91.72044,Meghalaya,East Khasi Hills,2022-07-03,38.21,0.4550,monsoon
+25.24937,91.71234,Meghalaya,East Khasi Hills,2020-07-17,59.00,0.4358,monsoon
+25.33734,91.75404,Meghalaya,East Khasi Hills,2014-06-26,53.76,0.3040,monsoon
+25.25173,91.76557,Meghalaya,East Khasi Hills,1998-07-14,42.16,0.1959,monsoon
+25.24088,91.74702,Meghalaya,East Khasi Hills,2000-07-26,59.44,0.0843,monsoon
+25.37130,91.78517,Meghalaya,East Khasi Hills,2009-06-28,43.40,0.1491,monsoon
+25.32128,91.73652,Meghalaya,East Khasi Hills,2012-07-02,20.42,0.1690,monsoon
+25.28590,91.71006,Meghalaya,East Khasi Hills,2014-07-15,36.11,0.1945,monsoon
+25.33849,91.77435,Meghalaya,East Khasi Hills,2001-06-15,4.88,0.2236,monsoon
+25.30054,91.69455,Meghalaya,East Khasi Hills,2020-09-11,13.38,0.1216,monsoon
+25.32298,91.70199,Meghalaya,East Khasi Hills,2010-06-24,25.11,0.2935,monsoon
+25.25099,91.80329,Meghalaya,East Khasi Hills,2012-08-12,12.19,0.0720,monsoon
+25.42422,91.79732,Meghalaya,East Khasi Hills,1998-08-02,57.21,0.1315,monsoon
+25.26522,91.69951,Meghalaya,East Khasi Hills,2018-09-16,59.74,0.2360,monsoon
+25.39336,91.67279,Meghalaya,East Khasi Hills,2011-08-06,22.32,0.1255,monsoon
+25.28867,91.78779,Meghalaya,East Khasi Hills,2003-08-10,42.58,0.0809,monsoon
+25.34843,91.74803,Meghalaya,East Khasi Hills,2005-09-15,24.53,0.5685,monsoon
+25.34405,91.71893,Meghalaya,East Khasi Hills,2006-09-21,8.46,0.3162,monsoon
+25.36881,91.68069,Meghalaya,East Khasi Hills,1998-06-08,20.28,0.1734,monsoon
+25.24956,91.71990,Meghalaya,East Khasi Hills,2021-09-11,14.08,0.4053,monsoon
+25.36454,91.69870,Meghalaya,East Khasi Hills,2018-07-02,19.75,0.4150,monsoon
+25.41079,91.66014,Meghalaya,East Khasi Hills,2020-06-11,12.98,0.2626,monsoon
+25.28448,91.70774,Meghalaya,East Khasi Hills,2006-08-17,6.83,0.4275,monsoon
+25.30208,91.71593,Meghalaya,East Khasi Hills,2011-09-18,13.12,0.1401,monsoon
+25.26859,91.67748,Meghalaya,East Khasi Hills,2009-06-09,54.35,0.2644,monsoon
+25.27921,91.75423,Meghalaya,East Khasi Hills,2009-06-02,5.20,0.4316,monsoon
+25.40269,91.77733,Meghalaya,East Khasi Hills,2012-09-17,19.55,0.1946,monsoon
+25.23975,91.75819,Meghalaya,East Khasi Hills,2009-08-19,31.75,0.5566,monsoon
+25.24347,91.68343,Meghalaya,East Khasi Hills,2017-06-03,21.34,0.1894,monsoon
+25.39665,91.74535,Meghalaya,East Khasi Hills,1999-09-15,31.10,0.2078,monsoon
+25.33747,91.70468,Meghalaya,East Khasi Hills,2002-07-03,2.70,0.1738,monsoon
+25.42722,91.62586,Meghalaya,East Khasi Hills,2020-07-13,38.95,0.2117,monsoon
+25.27297,91.74036,Meghalaya,East Khasi Hills,2020-07-18,33.85,0.1094,monsoon
+25.30758,91.70877,Meghalaya,East Khasi Hills,2018-08-21,40.89,0.3032,monsoon
+25.26036,91.85561,Meghalaya,East Khasi Hills,2007-06-20,34.08,0.3688,monsoon
+25.30860,91.78744,Meghalaya,East Khasi Hills,2009-07-22,26.33,0.1936,monsoon
+25.19355,91.74267,Meghalaya,East Khasi Hills,1998-07-07,21.07,0.5840,monsoon
+25.34110,91.71495,Meghalaya,East Khasi Hills,2004-06-24,13.66,0.3445,monsoon
+25.31941,91.70982,Meghalaya,East Khasi Hills,2016-09-10,30.05,0.0422,monsoon
+25.29655,91.63978,Meghalaya,East Khasi Hills,2006-06-11,1.66,0.2485,monsoon
+25.27658,91.59566,Meghalaya,East Khasi Hills,2010-09-23,19.76,0.5610,monsoon
+25.24631,91.64765,Meghalaya,East Khasi Hills,2001-06-10,40.70,0.1479,monsoon
+25.34366,91.69714,Meghalaya,East Khasi Hills,2010-07-03,6.61,0.0607,monsoon
+25.22973,91.57367,Meghalaya,East Khasi Hills,2016-06-21,3.87,0.5409,monsoon
+25.33071,91.66734,Meghalaya,East Khasi Hills,2012-07-19,39.17,0.2802,monsoon
+25.42447,91.68514,Meghalaya,East Khasi Hills,2011-08-17,23.93,0.3319,monsoon
+25.38913,91.68707,Meghalaya,East Khasi Hills,2020-06-05,48.13,0.0669,monsoon
+25.20969,91.66030,Meghalaya,East Khasi Hills,2003-08-18,56.24,0.3380,monsoon
+25.26780,91.67951,Meghalaya,East Khasi Hills,2005-09-06,57.43,0.1933,monsoon
+25.32529,91.80343,Meghalaya,East Khasi Hills,2013-07-16,25.59,0.2419,monsoon
+25.29578,91.73973,Meghalaya,East Khasi Hills,2010-06-15,15.93,0.5763,monsoon
+25.21604,91.66638,Meghalaya,East Khasi Hills,2022-08-22,36.56,0.1897,monsoon
+25.32312,91.69590,Meghalaya,East Khasi Hills,1999-06-28,37.73,0.3325,monsoon
+25.29940,91.69830,Meghalaya,East Khasi Hills,2001-06-06,37.38,0.3125,monsoon
+25.41486,91.65392,Meghalaya,East Khasi Hills,2006-07-04,19.37,0.4603,monsoon
+25.28481,91.65385,Meghalaya,East Khasi Hills,2009-07-16,3.92,0.1180,monsoon
+25.37008,91.76063,Meghalaya,East Khasi Hills,2020-06-27,12.68,0.2252,monsoon
+25.17200,92.99133,Assam,Dima Hasao,2015-07-15,3.14,0.3521,monsoon
+25.17388,93.05638,Assam,Dima Hasao,2013-07-11,53.43,0.0922,monsoon
+25.13710,92.98180,Assam,Dima Hasao,2022-09-12,10.94,0.5218,monsoon
+25.14119,93.04501,Assam,Dima Hasao,2011-07-03,23.94,0.2326,monsoon
+25.12967,93.04791,Assam,Dima Hasao,2019-07-22,47.31,0.2104,monsoon
+25.19011,92.99442,Assam,Dima Hasao,2000-08-24,36.96,0.0539,monsoon
+25.16147,93.02196,Assam,Dima Hasao,2009-05-12,38.90,0.0557,monsoon
+25.17050,92.98760,Assam,Dima Hasao,1999-08-06,15.64,0.5082,monsoon
+25.15612,93.06298,Assam,Dima Hasao,2009-10-19,26.39,0.3491,monsoon
+25.19853,93.00182,Assam,Dima Hasao,2003-09-22,48.08,0.6222,monsoon
+25.12564,93.02561,Assam,Dima Hasao,2015-08-27,45.04,0.4555,monsoon
+25.17459,93.02829,Assam,Dima Hasao,2012-10-05,37.87,0.6046,monsoon
+25.13778,93.05776,Assam,Dima Hasao,2015-08-05,4.93,0.1400,monsoon
+25.14777,93.00755,Assam,Dima Hasao,1999-09-18,38.06,0.2602,monsoon
+25.12487,92.99888,Assam,Dima Hasao,2008-06-09,51.58,0.2000,monsoon
+25.13810,92.98390,Assam,Dima Hasao,2008-07-04,15.79,0.6363,monsoon
+25.13554,92.97507,Assam,Dima Hasao,2010-09-15,36.25,0.0767,monsoon
+25.14998,93.04498,Assam,Dima Hasao,2013-10-07,30.60,0.3712,monsoon
+25.14979,93.05813,Assam,Dima Hasao,2007-07-22,20.36,0.2919,monsoon
+25.17715,93.04085,Assam,Dima Hasao,2014-06-07,8.57,0.1223,monsoon
+25.15052,93.00709,Assam,Dima Hasao,2012-10-07,37.38,0.4623,monsoon
+25.15249,93.03346,Assam,Dima Hasao,2015-07-05,25.48,0.3837,monsoon
+25.14672,93.00090,Assam,Dima Hasao,2006-07-14,11.59,0.6345,monsoon
+25.18732,92.99595,Assam,Dima Hasao,2016-07-24,48.40,0.3131,monsoon
+25.12435,93.02355,Assam,Dima Hasao,2004-05-25,49.54,0.6349,monsoon
+25.17536,93.04940,Assam,Dima Hasao,1998-08-15,36.87,0.5120,monsoon
+25.20560,93.01767,Assam,Dima Hasao,2018-05-02,38.22,0.2096,monsoon
+25.17714,93.03601,Assam,Dima Hasao,2017-08-11,28.86,0.0935,monsoon
+25.16196,93.06157,Assam,Dima Hasao,2001-07-01,13.50,0.1801,monsoon
+25.19137,92.98245,Assam,Dima Hasao,2005-07-21,9.11,0.4880,monsoon
+25.17256,93.03363,Assam,Dima Hasao,2004-08-05,2.56,0.1636,monsoon
+25.16619,93.03818,Assam,Dima Hasao,2019-09-08,6.22,0.3665,monsoon
+25.12081,93.05495,Assam,Dima Hasao,2014-06-19,36.46,0.5946,monsoon
+25.12957,93.06275,Assam,Dima Hasao,2012-09-19,39.34,0.6460,monsoon
+25.17392,93.06324,Assam,Dima Hasao,2010-06-23,3.75,0.2229,monsoon
+25.16747,93.06256,Assam,Dima Hasao,2007-07-08,9.53,0.5467,monsoon
+25.17872,93.00791,Assam,Dima Hasao,2020-10-11,38.49,0.1941,monsoon
+25.15474,92.99554,Assam,Dima Hasao,2005-07-14,8.74,0.1485,monsoon
+25.15921,93.05712,Assam,Dima Hasao,2006-05-25,49.97,0.2475,monsoon
+25.12316,93.00185,Assam,Dima Hasao,2006-05-25,49.14,0.1271,monsoon
+25.17304,93.03340,Assam,Dima Hasao,2018-10-20,20.63,0.5254,monsoon
+25.20416,93.02934,Assam,Dima Hasao,2006-05-15,37.10,0.1049,monsoon
+25.17921,93.00722,Assam,Dima Hasao,1999-08-02,19.79,0.1891,monsoon
+25.15389,93.01780,Assam,Dima Hasao,2010-06-24,10.66,0.4626,monsoon
+25.19127,93.03922,Assam,Dima Hasao,2006-07-27,40.19,0.4606,monsoon
+25.14531,93.00956,Assam,Dima Hasao,2022-06-17,36.67,0.2283,monsoon
+25.14051,93.05283,Assam,Dima Hasao,2014-05-02,29.41,0.4778,monsoon
+25.12066,93.03647,Assam,Dima Hasao,2007-08-21,20.82,0.2233,monsoon
+25.15255,93.01700,Assam,Dima Hasao,2022-06-25,24.63,0.0884,monsoon
+25.12881,93.04234,Assam,Dima Hasao,2001-09-02,48.76,0.3223,monsoon
+25.19300,93.04853,Assam,Dima Hasao,2003-06-18,43.24,0.5698,monsoon
+25.19647,93.03808,Assam,Dima Hasao,2014-08-24,23.31,0.1538,monsoon
+25.18222,93.00753,Assam,Dima Hasao,2016-06-01,9.78,0.5421,monsoon
+25.13395,92.98516,Assam,Dima Hasao,2021-07-17,31.40,0.5773,monsoon
+25.20789,93.02351,Assam,Dima Hasao,2021-06-07,8.15,0.3857,monsoon
+25.19408,92.98454,Assam,Dima Hasao,2002-08-16,53.39,0.1604,monsoon
+25.13641,93.01872,Assam,Dima Hasao,2013-05-06,20.04,0.5820,monsoon
+25.17095,92.98992,Assam,Dima Hasao,1998-05-11,2.54,0.2102,monsoon
+25.20385,93.03082,Assam,Dima Hasao,2021-08-08,35.28,0.1690,monsoon
+25.13291,93.05713,Assam,Dima Hasao,2008-07-28,38.42,0.2415,monsoon
+25.86375,93.44303,Assam,Karbi Anglong,2011-07-07,37.38,0.6316,monsoon
+25.83350,93.46158,Assam,Karbi Anglong,1999-09-11,11.48,0.3466,monsoon
+25.85001,93.46203,Assam,Karbi Anglong,2014-07-28,22.42,0.3357,monsoon
+25.83331,93.45209,Assam,Karbi Anglong,2020-10-02,28.97,0.5017,monsoon
+25.83522,93.46365,Assam,Karbi Anglong,2013-07-02,51.19,0.1563,monsoon
+25.85141,93.39399,Assam,Karbi Anglong,2010-07-01,10.14,0.5990,monsoon
+25.80623,93.39647,Assam,Karbi Anglong,2005-10-07,24.25,0.1927,monsoon
+25.87556,93.41656,Assam,Karbi Anglong,2007-07-11,47.66,0.6485,monsoon
+25.81681,93.41645,Assam,Karbi Anglong,1999-09-07,43.70,0.2849,monsoon
+25.86362,93.41616,Assam,Karbi Anglong,2011-06-08,30.79,0.2593,monsoon
+25.82606,93.47259,Assam,Karbi Anglong,2016-07-01,4.91,0.4495,monsoon
+25.84039,93.43632,Assam,Karbi Anglong,2008-06-10,50.57,0.1513,monsoon
+25.87276,93.44597,Assam,Karbi Anglong,2020-07-21,35.99,0.5828,monsoon
+25.84536,93.44477,Assam,Karbi Anglong,2012-06-15,3.47,0.0593,monsoon
+25.82623,93.44350,Assam,Karbi Anglong,2012-09-05,1.94,0.1107,monsoon
+25.84589,93.39911,Assam,Karbi Anglong,1998-05-26,36.03,0.6260,monsoon
+25.83967,93.38557,Assam,Karbi Anglong,2004-09-22,37.28,0.1019,monsoon
+25.83210,93.47156,Assam,Karbi Anglong,2015-07-25,23.80,0.1961,monsoon
+25.85354,93.46149,Assam,Karbi Anglong,2013-09-06,4.47,0.3223,monsoon
+25.85080,93.40608,Assam,Karbi Anglong,2015-07-01,2.81,0.6299,monsoon
+25.80041,93.41317,Assam,Karbi Anglong,2018-09-17,35.48,0.5887,monsoon
+25.83039,93.46175,Assam,Karbi Anglong,2009-07-05,14.11,0.1100,monsoon
+25.84461,93.45114,Assam,Karbi Anglong,2015-08-16,21.46,0.3832,monsoon
+25.81762,93.47154,Assam,Karbi Anglong,2018-07-22,27.29,0.5545,monsoon
+25.88058,93.44799,Assam,Karbi Anglong,2006-07-12,33.50,0.4209,monsoon
+25.80836,93.47197,Assam,Karbi Anglong,2022-09-07,43.40,0.2539,monsoon
+25.88295,93.45149,Assam,Karbi Anglong,2016-07-08,5.00,0.2734,monsoon
+25.81811,93.46656,Assam,Karbi Anglong,2004-07-07,9.09,0.6095,monsoon
+25.79685,93.38907,Assam,Karbi Anglong,2008-07-11,11.50,0.6278,monsoon
+25.80767,93.47498,Assam,Karbi Anglong,2010-05-01,2.60,0.5682,monsoon
+25.85755,93.41379,Assam,Karbi Anglong,2016-06-13,3.19,0.3931,monsoon
+25.82800,93.44601,Assam,Karbi Anglong,2002-07-09,30.66,0.2453,monsoon
+25.85747,93.40846,Assam,Karbi Anglong,2022-10-22,12.13,0.4477,monsoon
+25.87313,93.42564,Assam,Karbi Anglong,2018-07-10,11.48,0.0630,monsoon
+25.84166,93.42560,Assam,Karbi Anglong,2004-07-18,1.52,0.2520,monsoon
+25.81440,93.39077,Assam,Karbi Anglong,2019-09-08,18.62,0.1703,monsoon
+25.85107,93.40003,Assam,Karbi Anglong,2012-09-25,42.86,0.2682,monsoon
+25.86959,93.41940,Assam,Karbi Anglong,2006-09-18,11.04,0.4993,monsoon
+25.82815,93.44947,Assam,Karbi Anglong,2020-07-28,36.77,0.1552,monsoon
+25.79892,93.40730,Assam,Karbi Anglong,2016-07-16,13.68,0.6107,monsoon
+25.88250,93.47304,Assam,Karbi Anglong,2000-08-03,44.05,0.5359,monsoon
+25.85764,93.41899,Assam,Karbi Anglong,2014-07-07,49.31,0.5239,monsoon
+24.77785,92.84219,Assam,Cachar,2004-06-19,52.10,0.2052,monsoon
+24.82146,92.79085,Assam,Cachar,2011-08-26,32.26,0.1030,monsoon
+24.82257,92.82447,Assam,Cachar,1999-09-27,7.12,0.2847,monsoon
+24.81936,92.83817,Assam,Cachar,2017-10-14,15.77,0.6132,monsoon
+24.79563,92.78540,Assam,Cachar,2003-07-19,16.51,0.1147,monsoon
+24.79737,92.81913,Assam,Cachar,2014-10-09,29.15,0.1996,monsoon
+24.84727,92.83382,Assam,Cachar,1998-07-25,15.50,0.6440,monsoon
+24.83198,92.82584,Assam,Cachar,2021-07-03,35.58,0.5896,monsoon
+24.81940,92.77934,Assam,Cachar,2015-06-04,46.33,0.6463,monsoon
+24.85670,92.82744,Assam,Cachar,2013-06-06,52.56,0.2753,monsoon
+24.80403,92.80677,Assam,Cachar,2005-06-23,34.61,0.4733,monsoon
+24.77519,92.78417,Assam,Cachar,2003-07-07,36.07,0.0662,monsoon
+24.85183,92.81172,Assam,Cachar,2006-09-23,2.01,0.6397,monsoon
+24.79240,92.81700,Assam,Cachar,2003-10-13,2.67,0.6253,monsoon
+24.78886,92.77161,Assam,Cachar,2016-06-03,26.95,0.1401,monsoon
+24.82149,92.81534,Assam,Cachar,2014-08-28,19.03,0.3379,monsoon
+24.83415,92.79283,Assam,Cachar,2014-07-13,24.09,0.1709,monsoon
+24.85673,92.82232,Assam,Cachar,2008-09-18,47.83,0.3726,monsoon
+24.78267,92.81673,Assam,Cachar,2002-06-26,50.61,0.2541,monsoon
+24.79928,92.78523,Assam,Cachar,2020-07-12,25.80,0.5318,monsoon
+24.77895,92.82815,Assam,Cachar,2006-07-11,54.53,0.2208,monsoon
+24.78899,92.81557,Assam,Cachar,2006-08-18,50.63,0.0658,monsoon
+24.77686,92.81292,Assam,Cachar,2000-07-21,15.32,0.0657,monsoon
+24.81010,92.84261,Assam,Cachar,1999-07-06,49.68,0.5653,monsoon
+24.79097,92.78358,Assam,Cachar,2003-10-24,26.30,0.4411,monsoon
+24.82037,92.78763,Assam,Cachar,2003-08-27,47.20,0.3796,monsoon
+24.84512,92.83727,Assam,Cachar,2000-05-02,54.42,0.3418,monsoon
+24.84555,92.81849,Assam,Cachar,2022-09-24,30.38,0.3197,monsoon
+24.84868,92.79673,Assam,Cachar,2022-07-05,22.19,0.5053,monsoon
+24.81592,92.83450,Assam,Cachar,2019-06-23,42.13,0.3630,monsoon
+24.64287,92.55153,Assam,Hailakandi,1998-09-03,37.65,0.1071,monsoon
+24.64706,92.60181,Assam,Hailakandi,1998-10-22,46.46,0.1044,monsoon
+24.63568,92.57436,Assam,Hailakandi,2021-10-06,10.89,0.6002,monsoon
+24.70076,92.54220,Assam,Hailakandi,2021-07-18,3.00,0.2538,monsoon
+24.70846,92.56414,Assam,Hailakandi,2004-06-02,15.34,0.3050,monsoon
+24.67465,92.55364,Assam,Hailakandi,2003-09-28,46.90,0.1162,monsoon
+24.70514,92.58968,Assam,Hailakandi,2007-05-24,28.99,0.2592,monsoon
+24.71964,92.57672,Assam,Hailakandi,2011-07-15,13.56,0.2050,monsoon
+24.68056,92.53273,Assam,Hailakandi,1999-06-12,4.54,0.6405,monsoon
+24.67844,92.55420,Assam,Hailakandi,2001-09-12,53.15,0.5254,monsoon
+24.71497,92.60018,Assam,Hailakandi,2019-07-18,16.64,0.3122,monsoon
+24.69365,92.53305,Assam,Hailakandi,1998-10-06,31.61,0.4222,monsoon
+24.64317,92.53861,Assam,Hailakandi,2001-07-04,22.76,0.6384,monsoon
+24.65541,92.55192,Assam,Hailakandi,2020-07-09,53.32,0.4535,monsoon
+24.67232,92.52113,Assam,Hailakandi,2000-06-23,22.74,0.5061,monsoon
+24.70635,92.59868,Assam,Hailakandi,2011-06-15,28.54,0.4990,monsoon
+24.67696,92.57611,Assam,Hailakandi,2013-08-17,49.01,0.5688,monsoon
+24.65368,92.57545,Assam,Hailakandi,2011-07-12,4.95,0.2698,monsoon
+24.68017,92.51910,Assam,Hailakandi,2016-07-26,28.43,0.1400,monsoon
+24.71636,92.57796,Assam,Hailakandi,1998-07-10,51.76,0.3957,monsoon
+24.83846,92.39099,Assam,Karimganj,2006-07-23,26.13,0.3702,monsoon
+24.87302,92.34653,Assam,Karimganj,2011-09-13,32.85,0.4396,monsoon
+24.83393,92.39523,Assam,Karimganj,2008-09-15,14.08,0.0619,monsoon
+24.85024,92.33417,Assam,Karimganj,2022-08-25,49.01,0.5229,monsoon
+24.87233,92.33938,Assam,Karimganj,2021-05-13,16.83,0.2248,monsoon
+24.90241,92.39888,Assam,Karimganj,2009-06-18,4.43,0.4883,monsoon
+24.91475,92.38738,Assam,Karimganj,2016-08-13,54.09,0.2175,monsoon
+24.83914,92.36987,Assam,Karimganj,2008-08-21,1.06,0.5717,monsoon
+24.89816,92.37119,Assam,Karimganj,2017-07-21,54.74,0.2476,monsoon
+24.89916,92.36442,Assam,Karimganj,2016-06-17,24.90,0.0993,monsoon
+24.88586,92.34552,Assam,Karimganj,2013-07-18,29.55,0.4394,monsoon
+24.87076,92.37247,Assam,Karimganj,2020-07-17,21.35,0.5339,monsoon
+24.84126,92.34025,Assam,Karimganj,1998-07-04,39.91,0.0929,monsoon
+24.86874,92.32594,Assam,Karimganj,2015-08-06,38.32,0.0762,monsoon
+24.90314,92.37530,Assam,Karimganj,2006-05-25,26.76,0.0503,monsoon
+24.89875,92.35991,Assam,Karimganj,2002-06-15,48.94,0.0566,monsoon
+24.86787,92.33209,Assam,Karimganj,2015-08-03,40.52,0.3142,monsoon
+24.90628,92.37150,Assam,Karimganj,2002-10-13,30.18,0.2483,monsoon
+24.88077,92.33712,Assam,Karimganj,1999-06-18,22.16,0.1579,monsoon
+24.82887,92.35675,Assam,Karimganj,1998-06-26,28.55,0.3643,monsoon
+26.52116,93.86008,Assam,Golaghat,2019-08-22,19.59,0.3225,monsoon
+26.49576,93.91508,Assam,Golaghat,2003-10-10,1.53,0.5007,monsoon
+26.49218,93.86375,Assam,Golaghat,2010-06-14,29.84,0.5010,monsoon
+26.49956,93.90047,Assam,Golaghat,1999-09-07,8.33,0.3078,monsoon
+26.51010,93.88415,Assam,Golaghat,2022-06-21,48.90,0.3955,monsoon
+26.46168,93.90307,Assam,Golaghat,2001-07-12,4.79,0.2656,monsoon
+26.46165,93.85945,Assam,Golaghat,2022-07-08,18.20,0.6266,monsoon
+26.49985,93.88354,Assam,Golaghat,2018-08-21,45.01,0.3193,monsoon
+26.45714,93.86005,Assam,Golaghat,1999-08-06,40.28,0.4068,monsoon
+26.50187,93.88525,Assam,Golaghat,2000-08-18,42.23,0.0641,monsoon
+26.51982,93.88731,Assam,Golaghat,2012-06-01,16.12,0.4048,monsoon
+26.48375,93.89021,Assam,Golaghat,2012-08-08,23.26,0.1022,monsoon
+26.50932,93.92675,Assam,Golaghat,2011-09-14,39.06,0.5030,monsoon
+26.51070,93.87429,Assam,Golaghat,2018-09-13,8.98,0.5525,monsoon
+26.48418,93.88555,Assam,Golaghat,2021-05-02,1.08,0.0670,monsoon
+26.53178,93.93585,Assam,Golaghat,2000-09-07,35.93,0.6442,monsoon
+26.49663,93.94295,Assam,Golaghat,2014-10-04,4.28,0.3517,monsoon
+26.49403,93.86408,Assam,Golaghat,2015-10-16,2.25,0.5061,monsoon
+26.51055,93.92938,Assam,Golaghat,2008-09-14,41.02,0.5162,monsoon
+26.52267,93.92345,Assam,Golaghat,2018-07-19,28.94,0.5595,monsoon
+26.52179,93.92293,Assam,Golaghat,2019-06-19,46.00,0.1692,monsoon
+26.52372,93.90086,Assam,Golaghat,2006-09-16,1.88,0.0928,monsoon
+26.45842,93.92444,Assam,Golaghat,2020-07-14,25.66,0.3917,monsoon
+26.49481,93.88047,Assam,Golaghat,2010-09-08,34.84,0.4824,monsoon
+26.53134,93.91472,Assam,Golaghat,2022-05-16,54.15,0.4618,monsoon
+26.45787,93.86424,Assam,Golaghat,2002-08-11,43.46,0.2925,monsoon
+23.68659,92.73194,Mizoram,Aizawl,2008-09-24,29.57,0.4469,monsoon
+23.73057,92.75769,Mizoram,Aizawl,2015-10-10,6.61,0.3304,monsoon
+23.74211,92.70016,Mizoram,Aizawl,2011-06-28,53.54,0.4607,monsoon
+23.77054,92.71448,Mizoram,Aizawl,2020-10-15,24.71,0.3817,monsoon
+23.72103,92.73017,Mizoram,Aizawl,2013-08-04,22.99,0.5467,monsoon
+23.69234,92.71834,Mizoram,Aizawl,2010-09-28,27.77,0.0555,monsoon
+23.74157,92.70526,Mizoram,Aizawl,2017-07-01,19.43,0.2211,monsoon
+23.75794,92.71132,Mizoram,Aizawl,2011-07-05,9.15,0.6036,monsoon
+23.73325,92.75264,Mizoram,Aizawl,2015-07-28,50.65,0.3722,monsoon
+23.72460,92.74751,Mizoram,Aizawl,2001-09-25,36.41,0.0756,monsoon
+23.72752,92.70043,Mizoram,Aizawl,1999-09-08,37.07,0.5439,monsoon
+23.75173,92.72860,Mizoram,Aizawl,2007-07-08,12.18,0.1578,monsoon
+23.71646,92.70368,Mizoram,Aizawl,2016-08-07,11.41,0.0726,monsoon
+23.71481,92.75221,Mizoram,Aizawl,2009-09-03,18.94,0.5149,monsoon
+23.68820,92.73053,Mizoram,Aizawl,2000-05-15,6.22,0.1399,monsoon
+23.71978,92.73625,Mizoram,Aizawl,2022-07-10,1.27,0.2328,monsoon
+23.73341,92.74573,Mizoram,Aizawl,2016-07-11,12.95,0.6074,monsoon
+23.71496,92.71388,Mizoram,Aizawl,2007-10-17,16.99,0.0724,monsoon
+23.72279,92.70184,Mizoram,Aizawl,2005-07-11,21.89,0.5160,monsoon
+23.68516,92.73788,Mizoram,Aizawl,2002-07-14,0.80,0.4544,monsoon
+23.68747,92.70051,Mizoram,Aizawl,2020-09-18,1.38,0.3413,monsoon
+23.71165,92.71674,Mizoram,Aizawl,2015-10-14,40.79,0.2671,monsoon
+23.69146,92.75321,Mizoram,Aizawl,2016-09-12,25.53,0.4668,monsoon
+23.74967,92.67945,Mizoram,Aizawl,1998-09-11,43.60,0.0838,monsoon
+23.72840,92.68793,Mizoram,Aizawl,2002-06-14,45.91,0.3788,monsoon
+23.74453,92.72430,Mizoram,Aizawl,2018-09-23,24.96,0.5455,monsoon
+23.75236,92.71301,Mizoram,Aizawl,2001-10-01,25.94,0.1632,monsoon
+23.69914,92.73584,Mizoram,Aizawl,2011-10-27,42.82,0.4197,monsoon
+23.73239,92.75139,Mizoram,Aizawl,2008-05-06,26.30,0.6313,monsoon
+23.75243,92.70938,Mizoram,Aizawl,2016-06-15,3.33,0.4754,monsoon
+23.71364,92.72625,Mizoram,Aizawl,2008-08-05,44.46,0.2851,monsoon
+23.75775,92.70078,Mizoram,Aizawl,2022-07-15,3.84,0.3100,monsoon
+23.69423,92.75112,Mizoram,Aizawl,2014-08-28,48.55,0.3519,monsoon
+23.77178,92.68403,Mizoram,Aizawl,2008-09-17,51.77,0.3143,monsoon
+23.77485,92.69766,Mizoram,Aizawl,2021-08-26,51.21,0.4254,monsoon
+23.74378,92.73704,Mizoram,Aizawl,2002-06-16,33.36,0.3947,monsoon
+23.76745,92.72871,Mizoram,Aizawl,2012-08-18,51.70,0.2741,monsoon
+23.71706,92.74314,Mizoram,Aizawl,2000-05-22,14.03,0.2210,monsoon
+23.74547,92.70480,Mizoram,Aizawl,2022-07-03,9.50,0.1093,monsoon
+23.75321,92.76208,Mizoram,Aizawl,2013-06-25,17.40,0.4223,monsoon
+23.71189,92.71327,Mizoram,Aizawl,2017-08-21,44.46,0.6246,monsoon
+23.72950,92.73224,Mizoram,Aizawl,2014-08-11,28.37,0.4239,monsoon
+23.70103,92.69466,Mizoram,Aizawl,2015-07-17,6.19,0.0882,monsoon
+23.75516,92.72245,Mizoram,Aizawl,2022-05-06,43.94,0.2171,monsoon
+23.73084,92.75410,Mizoram,Aizawl,2000-09-18,49.61,0.3801,monsoon
+23.72176,92.75539,Mizoram,Aizawl,2014-08-14,3.39,0.2500,monsoon
+23.74540,92.69292,Mizoram,Aizawl,2009-10-23,35.44,0.5022,monsoon
+23.69125,92.69410,Mizoram,Aizawl,2016-10-03,21.71,0.1084,monsoon
+23.72821,92.71752,Mizoram,Aizawl,2016-08-15,36.56,0.1961,monsoon
+23.69559,92.72786,Mizoram,Aizawl,2019-07-08,23.06,0.4726,monsoon
+23.73776,92.71538,Mizoram,Aizawl,2002-07-18,48.31,0.3758,monsoon
+23.75582,92.72989,Mizoram,Aizawl,2022-07-23,2.00,0.2245,monsoon
+24.31779,93.69350,Manipur,Churachandpur,2021-06-15,41.92,0.5065,monsoon
+24.36403,93.66990,Manipur,Churachandpur,2022-07-27,29.62,0.5195,monsoon
+24.28604,93.64115,Manipur,Churachandpur,2022-07-02,32.10,0.4068,monsoon
+24.36798,93.68183,Manipur,Churachandpur,2016-10-03,37.49,0.3572,monsoon
+24.28801,93.68476,Manipur,Churachandpur,2003-09-23,13.84,0.5890,monsoon
+24.29753,93.71405,Manipur,Churachandpur,2016-08-27,0.99,0.1905,monsoon
+24.36705,93.70355,Manipur,Churachandpur,2017-09-22,6.35,0.3578,monsoon
+24.32214,93.68815,Manipur,Churachandpur,2002-09-18,30.87,0.3560,monsoon
+24.35807,93.68603,Manipur,Churachandpur,2008-09-01,45.87,0.3122,monsoon
+24.33656,93.64107,Manipur,Churachandpur,2002-07-04,11.82,0.4848,monsoon
+24.33341,93.68672,Manipur,Churachandpur,2008-07-26,34.08,0.2705,monsoon
+24.35859,93.68319,Manipur,Churachandpur,2012-08-10,31.72,0.1367,monsoon
+24.28664,93.68585,Manipur,Churachandpur,2011-06-07,40.25,0.0834,monsoon
+24.31269,93.64406,Manipur,Churachandpur,1998-06-16,40.20,0.3893,monsoon
+24.34811,93.64677,Manipur,Churachandpur,2005-09-11,0.74,0.3954,monsoon
+24.28729,93.64353,Manipur,Churachandpur,2000-09-21,33.26,0.1573,monsoon
+24.34125,93.69913,Manipur,Churachandpur,2010-10-27,8.60,0.3452,monsoon
+24.37239,93.66862,Manipur,Churachandpur,2017-08-11,49.31,0.1945,monsoon
+24.33108,93.71882,Manipur,Churachandpur,2005-08-06,49.84,0.5352,monsoon
+24.31712,93.66685,Manipur,Churachandpur,2003-09-04,32.10,0.4337,monsoon
+24.33267,93.67221,Manipur,Churachandpur,2020-09-10,45.61,0.5033,monsoon
+24.34114,93.69120,Manipur,Churachandpur,2000-07-28,26.67,0.1738,monsoon
+24.32166,93.63785,Manipur,Churachandpur,1998-09-06,42.84,0.3321,monsoon
+24.36523,93.67749,Manipur,Churachandpur,1998-05-07,14.90,0.0886,monsoon
+24.33838,93.66140,Manipur,Churachandpur,2020-09-09,30.33,0.4084,monsoon
+24.31902,93.66668,Manipur,Churachandpur,2007-07-13,9.91,0.4967,monsoon
+24.36957,93.71797,Manipur,Churachandpur,2018-10-17,35.78,0.6440,monsoon
+24.31350,93.65321,Manipur,Churachandpur,2000-05-04,33.68,0.5804,monsoon
+24.35242,93.69704,Manipur,Churachandpur,2015-07-09,35.88,0.4352,monsoon
+24.33824,93.66114,Manipur,Churachandpur,2020-07-10,50.27,0.3018,monsoon
+24.32863,93.64653,Manipur,Churachandpur,2005-06-05,19.12,0.1910,monsoon
+24.31312,93.66049,Manipur,Churachandpur,2002-10-10,22.68,0.4891,monsoon
+24.33041,93.70598,Manipur,Churachandpur,2002-10-19,15.45,0.5661,monsoon
+24.31404,93.63952,Manipur,Churachandpur,2017-05-05,30.71,0.1924,monsoon
+25.07354,94.36077,Manipur,Ukhrul,2004-07-01,42.08,0.2235,monsoon
+25.08876,94.41433,Manipur,Ukhrul,2014-08-08,25.79,0.3046,monsoon
+25.12043,94.37506,Manipur,Ukhrul,2019-09-24,21.72,0.1906,monsoon
+25.12558,94.37247,Manipur,Ukhrul,1999-06-01,32.02,0.2698,monsoon
+25.06685,94.40655,Manipur,Ukhrul,2006-07-04,37.40,0.1319,monsoon
+25.08124,94.39603,Manipur,Ukhrul,2006-08-01,13.22,0.4054,monsoon
+25.07320,94.39791,Manipur,Ukhrul,2020-06-05,1.06,0.2553,monsoon
+25.07305,94.34768,Manipur,Ukhrul,2010-05-09,31.77,0.2869,monsoon
+25.08011,94.34942,Manipur,Ukhrul,2018-07-17,23.70,0.6012,monsoon
+25.10779,94.36886,Manipur,Ukhrul,1998-07-21,8.93,0.5524,monsoon
+25.10475,94.33359,Manipur,Ukhrul,1999-06-17,22.67,0.2469,monsoon
+25.12605,94.35386,Manipur,Ukhrul,2022-08-07,17.38,0.0697,monsoon
+25.11639,94.33672,Manipur,Ukhrul,2006-06-16,32.20,0.5676,monsoon
+25.06491,94.36478,Manipur,Ukhrul,2011-07-14,46.90,0.4960,monsoon
+25.06379,94.37582,Manipur,Ukhrul,2000-10-01,35.89,0.2271,monsoon
+25.14253,94.37631,Manipur,Ukhrul,2002-07-19,22.76,0.5059,monsoon
+25.10777,94.38935,Manipur,Ukhrul,2018-10-26,6.75,0.3479,monsoon
+25.07883,94.34997,Manipur,Ukhrul,2006-07-10,46.17,0.2081,monsoon
+25.13399,94.34998,Manipur,Ukhrul,2013-07-12,18.90,0.3468,monsoon
+25.07385,94.38005,Manipur,Ukhrul,2001-09-24,22.76,0.3089,monsoon
+25.11377,94.40030,Manipur,Ukhrul,2022-10-06,23.79,0.3287,monsoon
+25.07937,94.34690,Manipur,Ukhrul,2015-08-27,20.83,0.3613,monsoon
+25.09861,94.39860,Manipur,Ukhrul,2002-09-15,8.52,0.3689,monsoon
+25.05785,94.37345,Manipur,Ukhrul,2001-06-10,53.29,0.4792,monsoon
+25.11279,94.34790,Manipur,Ukhrul,1998-10-15,20.03,0.3154,monsoon
+25.12062,94.41285,Manipur,Ukhrul,2006-07-03,2.78,0.5252,monsoon
+25.10530,94.38801,Manipur,Ukhrul,2006-10-17,13.97,0.5825,monsoon
+25.09430,94.39657,Manipur,Ukhrul,2003-07-19,21.74,0.3697,monsoon
+25.08380,94.36725,Manipur,Ukhrul,2004-06-01,15.24,0.3082,monsoon
+25.05591,94.37778,Manipur,Ukhrul,2022-06-12,8.93,0.4566,monsoon
+25.08363,94.37914,Manipur,Ukhrul,2011-09-01,48.65,0.5835,monsoon
+25.09852,94.41397,Manipur,Ukhrul,2013-10-12,8.39,0.4298,monsoon
+25.10753,94.33450,Manipur,Ukhrul,2019-09-24,30.81,0.0943,monsoon
+25.11761,94.39176,Manipur,Ukhrul,2006-06-15,22.88,0.2772,monsoon
+25.13496,94.40130,Manipur,Ukhrul,2002-10-13,23.78,0.1029,monsoon
+25.08554,94.38252,Manipur,Ukhrul,2005-07-22,16.97,0.5519,monsoon

@@ -16,10 +16,10 @@ python -m venv .venv
 # 2. Apply DB migrations (SQLite dev DB by default; see .env.example for Postgres+PostGIS)
 .\.venv\Scripts\python.exe -m alembic upgrade head
 
-# 3. Seed demo data (10 zones from mockData.js, 8 alerts, 45-day monsoon rainfall history, SWI readings, admin+officer users)
+# 3. Seed demo data (10 Northeast zones across Assam/Meghalaya/Mizoram/Manipur, 8 alerts, 45-day monsoon rainfall history, SWI readings, admin+officer users)
 .\.venv\Scripts\python.exe scripts\seed_data.py
 
-# 4. Load the landslide inventory (841 sample events, NRSC/ISRO-atlas style)
+# 4. Load the Northeast landslide inventory (501 events, NRSC/ISRO-atlas style)
 .\.venv\Scripts\python.exe scripts\load_inventory.py
 
 # 5. Recompute Soil Water Index for all zones from rainfall history
@@ -174,19 +174,21 @@ Daily rainfall → cascading surface→root→deep tank model (k₁0.6/k₂0.3/k
 link fractions 0.5/0.7) → normalised SWI ∈ [0,1]. Risk mapping (shared with zones router):
 `SWI ≥ 0.45 green / ≥ 0.32 yellow / ≥ 0.22 orange / else red`. Engine upserts one `SWIReading`
 per day and refreshes `Zone.swi_current`. The seed ships **45 days of monsoon-style rainfall
-history** so out-of-the-box SWI values are meaningful (e.g. Wayanad ≈ 0.45).
+history** so out-of-the-box SWI values are meaningful. (Values below from the Phase 2a run on the
+earlier India-wide sample zones, e.g. Kerala - Wayanad ≈ 0.45; current seed ships the 10 NE zones.)
 
 `compute_swi.py [--days 45]` recomputes every zone; this is the hook Phase 2b's Celery job calls.
 
 ### Landslide inventory — `app/services/inventory/loader.py` + `scripts/load_inventory.py`
 Loads ISRO/NRSC-style Landslide Atlas CSVs (`latitude, longitude, state, district,
 event_date, area_ha, severity, trigger`) into `landslide_events`, idempotently by
-(lat, lng, event_date). Ships with **841 sample events** (`data/inventory/landslide_atlas_sample.csv`)
-clustered around the 10 zones, 1998-2022 — training labels placeholder for Phase 2b.
+(lat, lng, event_date). Ships with **501 Northeast events** (`data/inventory/landslide_atlas_ne.csv`)
+— Assam (Dima Hasao, Cachar, Karbi Anglong, Hailakandi, Karimganj, Golaghat), Meghalaya,
+Mizoram, Manipur (Churachandpur, Ukhrul) — 1998-2022, the training labels for the risk model.
 Drop the real ~80k-row NRSC extraction (with `geometry`) in the same format when available.
 
 ```bash
-python scripts/load_inventory.py --csv data/inventory/landslide_atlas_sample.csv --source "NRSC-ISRO Landslide Atlas 2023 (sample)"
+python scripts/load_inventory.py --csv data/inventory/landslide_atlas_ne.csv --source "NRSC-ISRO Landslide Atlas 2023 (Northeast)"
 ```
 
 ### Schema change (migration `c85d9a255d2e`)
@@ -196,8 +198,9 @@ python scripts/load_inventory.py --csv data/inventory/landslide_atlas_sample.csv
 ### Verification (Phase 2a exit)
 - `pytest tests/test_swi_engine.py` → 5 passed (aggregation, boundedness, response, decay, thresholds)
 - Server up + `tests/smoke_test.py` → 26 passed; zones now return **real computed `swi`**
-  (e.g. `Kerala - Wayanad swi: 0.4470`), `/system/health` lists IMD/DEM/SWI/Inventory components
-- `/system/health` "Landslide Inventory: operational (841 events)"
+  (Phase 2a run used the older India-wide sample zones, e.g. `Kerala - Wayanad swi: 0.4470`);
+  `/system/health` lists IMD/DEM/SWI/Inventory components
+- `/system/health` "Landslide Inventory: operational (events loaded)"
 
 ## Phase 2b — Risk Model + Scheduled Scoring (this section)
 

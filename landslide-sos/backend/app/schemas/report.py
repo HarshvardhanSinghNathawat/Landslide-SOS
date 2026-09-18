@@ -11,6 +11,10 @@ class ReportCreate(BaseModel):
     description: str | None = Field(default=None, max_length=1000)
 
 
+class ReportStatusUpdate(BaseModel):
+    status: ReportStatus
+
+
 class ReportOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

@@ -16,7 +16,7 @@ AdminUser = Annotated[User, Depends(require_roles(Role.admin))]
 
 
 @router.get("/users", response_model=list[UserOut])
-def list_users(db: DbDep, limit: int = 100, user: AdminUser = None) -> list[UserOut]:
+def list_users(db: DbDep, user: AdminUser, limit: int = 100) -> list[UserOut]:
     users = db.scalars(select(User).order_by(User.id).limit(limit)).all()
     return [UserOut.model_validate(u) for u in users]
 
@@ -26,7 +26,7 @@ def update_user(
     target_user_id: int,
     payload: UserUpdate,
     db: DbDep,
-    user: AdminUser = None,
+    user: AdminUser,
 ) -> dict:
     if target_user_id == user.id and payload.role is not None and payload.role != Role.admin:
         raise HTTPException(
@@ -51,7 +51,7 @@ def update_user(
 
 
 @router.get("/model/performance")
-def model_performance(db: DbDep, user: AdminUser = None) -> dict:
+def model_performance(db: DbDep, user: AdminUser) -> dict:
     run = latest_metrics(db)
     if run is None:
         return {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Shield, Activity, Server, Cpu, Wifi, Radio, Users, Settings, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Shield, Activity, Server, Cpu, Radio, Users, CheckCircle, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api/client';
@@ -8,6 +8,7 @@ const statusConfig = {
   operational: { icon: CheckCircle, color: 'text-success', bg: 'bg-green-50', label: 'Operational' },
   degraded: { icon: AlertTriangle, color: 'text-warning', bg: 'bg-amber-50', label: 'Degraded' },
   down: { icon: AlertTriangle, color: 'text-emergency', bg: 'bg-red-50', label: 'Down' },
+  pending: { icon: AlertTriangle, color: 'text-text-secondary', bg: 'bg-gray-100', label: 'Pending' },
 };
 
 const roleColors = {
@@ -16,29 +17,27 @@ const roleColors = {
   public: 'bg-gray-100 text-text-secondary',
 };
 
-function formatAgo(iso) {
-  if (!iso) return 'N/A';
-  const diff = Date.now() - new Date(iso).getTime();
-  const mins = Math.floor(diff / 60000);
-  if (mins < 1) return 'just now';
-  if (mins < 60) return `${mins} min ago`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs} hr${hrs === 1 ? '' : 's'} ago`;
-  const days = Math.floor(hrs / 24);
-  return `${days} day${days === 1 ? '' : 's'} ago`;
-}
+const COMPONENT_NOTE = {
+  'Rainfall API (IMD)': 'Mock ingest active — IMD key off',
+  'DEM Processing (SRTM 30m)': 'Offline DEM cache',
+  'SWI Engine (3-tank)': 'Derived from rainfall history',
+  'Landslide Inventory': 'Events loaded from NE atlas',
+  'ML Prediction Model': 'XGBoost risk model',
+  'Risk Scheduler (Celery)': '30-min beat configured',
+  'SMS Gateway': 'Mock provider (swap to MSG91)',
+  'PWA Push Service': 'Planned for Phase 3',
+  'GIS Tile Server': 'Planned for Phase 4',
+};
 
 export default function Admin() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [health, setHealth] = useState([]);
+  const [health, setHealth] = useState({ status: 'ok', database: 'ok', components: [] });
   const [users, setUsers] = useState([]);
   const [metrics, setMetrics] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user || user.role !== 'admin') {
-      setLoading(false);
       return;
     }
     Promise.all([
@@ -47,12 +46,11 @@ export default function Admin() {
       api.adminMetrics(),
     ])
       .then(([h, u, m]) => {
-        setHealth(h);
+        setHealth(h && h.components ? h : { status: 'ok', database: 'ok', components: [] });
         setUsers(u);
         setMetrics(m);
       })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+      .catch(() => {});
   }, [user]);
 
   if (!user) {
@@ -74,7 +72,7 @@ export default function Admin() {
     );
   }
 
-  const uptime = health.find(h => h.name === 'Rainfall API')?.uptime || '—';
+  const apiStatus = health?.status === 'ok' ? 'Operational' : health?.status === 'degraded' ? 'Degraded' : '—';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
@@ -90,9 +88,9 @@ export default function Admin() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { icon: Server, label: 'API Uptime', value: uptime, color: 'bg-green-50 text-success' },
-          { icon: Cpu, label: 'Model Accuracy', value: metrics ? `${metrics.accuracy}%` : '—', color: 'bg-blue-50 text-primary' },
-          { icon: Wifi, label: 'PWA Users', value: '3,240', color: 'bg-purple-50 text-purple-600' },
+          { icon: Server, label: 'API Status', value: apiStatus, color: 'bg-green-50 text-success' },
+          { icon: Cpu, label: 'Model Accuracy', value: metrics ? `${(metrics.accuracy * 100).toFixed(1)}%` : '—', color: 'bg-blue-50 text-primary' },
+          { icon: Radio, label: 'Model Version', value: metrics?.version || '—', color: 'bg-purple-50 text-purple-600' },
           { icon: Users, label: 'Total Users', value: String(users.length), color: 'bg-amber-50 text-warning' },
         ].map((card, i) => (
           <div key={i} className="bg-white rounded-xl border border-border p-5">
@@ -116,7 +114,7 @@ export default function Admin() {
             System Health
           </h2>
           <div className="space-y-3">
-            {health.map((service, i) => {
+            {health.components.map((service, i) => {
               const config = statusConfig[service.status] || statusConfig.operational;
               return (
                 <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-background hover:bg-gray-100 transition-colors">
@@ -125,11 +123,12 @@ export default function Admin() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium">{service.name}</p>
-                    <p className="text-xs text-text-secondary">{service.latency} latency</p>
+                    <p className="text-xs text-text-secondary">{COMPONENT_NOTE[service.name] || service.status}</p>
                   </div>
                   <div className="text-right">
                     <span className={`text-xs font-medium ${config.color}`}>{config.label}</span>
-                    <p className="text-xs text-text-secondary">{service.uptime}</p>
+                    {service.uptime && <p className="text-xs text-text-secondary">{service.uptime}</p>}
+                    {service.latency && <p className="text-xs text-text-secondary">{service.latency} latency</p>}
                   </div>
                 </div>
               );
@@ -146,10 +145,10 @@ export default function Admin() {
             {users.map((u) => (
               <div key={u.id} className="flex items-center gap-3 p-3 rounded-xl bg-background hover:bg-gray-100 transition-colors">
                 <div className="w-9 h-9 bg-primary-light rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-sm font-bold text-primary">{u.name?.charAt(0) || '?'}</span>
+                  <span className="text-sm font-bold text-primary">{u.full_name?.charAt(0) || '?'}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{u.name}</p>
+                  <p className="text-sm font-medium truncate">{u.full_name}</p>
                   <p className="text-xs text-text-secondary">{u.email}</p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -161,10 +160,6 @@ export default function Admin() {
               </div>
             ))}
           </div>
-          <button className="w-full mt-4 py-2.5 border border-border rounded-xl text-sm font-medium text-text-secondary hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
-            <Settings className="w-4 h-4" />
-            Manage All Users
-          </button>
         </div>
       </div>
 
@@ -175,14 +170,28 @@ export default function Admin() {
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: 'Prediction Accuracy', value: metrics ? `${metrics.accuracy}%` : '—', desc: 'Last 30 days' },
-            { label: 'False Positive Rate', value: metrics ? `${metrics.false_positive_rate}%` : '—', desc: 'Within tolerance' },
-            { label: 'Inference Time', value: metrics ? `${metrics.inference_time_ms}ms` : '—', desc: 'Avg per prediction' },
-            { label: 'Training Data', value: metrics ? `${(metrics.training_data_points / 1000).toFixed(1)}K` : '—', desc: 'Data points used' },
+            { label: 'Prediction Accuracy', value: metrics ? `${(metrics.accuracy * 100).toFixed(1)}%` : '—', desc: 'Holdout test set' },
+            { label: 'Precision', value: metrics ? `${(metrics.precision * 100).toFixed(1)}%` : '—', desc: 'Positives correctly predicted' },
+            { label: 'Recall', value: metrics ? `${(metrics.recall * 100).toFixed(1)}%` : '—', desc: 'True events detected' },
+            { label: 'F1 Score', value: metrics ? `${(metrics.f1_score * 100).toFixed(1)}%` : '—', desc: 'Harmonic precision/recall' },
           ].map((metric, i) => (
             <div key={i} className="p-4 bg-background rounded-xl">
               <p className="text-xs text-text-secondary">{metric.label}</p>
               <p className="text-xl font-bold mt-1">{metric.value}</p>
+              <p className="text-[10px] text-text-secondary mt-1">{metric.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+          {[
+            { label: 'ROC-AUC', value: metrics ? `${(metrics.roc_auc * 100).toFixed(1)}%` : '—', desc: 'Discrimination power' },
+            { label: 'Training Data', value: metrics ? `${(metrics.n_samples / 1000).toFixed(1)}K` : '—', desc: 'Events + ambient samples' },
+            { label: 'Model Features', value: metrics ? String(metrics.n_features) : '—', desc: 'Input variables' },
+            { label: 'Model', value: metrics ? metrics.model_name : '—', desc: metrics ? `v${metrics.version}` : 'Not trained' },
+          ].map((metric, i) => (
+            <div key={`m2-${i}`} className="p-4 bg-background rounded-xl">
+              <p className="text-xs text-text-secondary">{metric.label}</p>
+              <p className="text-xl font-bold mt-1 truncate">{metric.value}</p>
               <p className="text-[10px] text-text-secondary mt-1">{metric.desc}</p>
             </div>
           ))}

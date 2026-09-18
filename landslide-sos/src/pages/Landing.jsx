@@ -82,7 +82,7 @@ export default function Landing() {
               <p className="text-blue-200 text-sm mt-1">Alerts Sent Today</p>
             </div>
             <div>
-              <p className="text-3xl font-bold">{stats.modelAccuracy}%</p>
+              <p className="text-3xl font-bold">{Math.round((stats.modelAccuracy ?? 0) * 100)}%</p>
               <p className="text-blue-200 text-sm mt-1">Model Accuracy</p>
             </div>
           </div>

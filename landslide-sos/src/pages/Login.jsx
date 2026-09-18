@@ -5,8 +5,8 @@ import { Mountain, Shield, User, Radio } from 'lucide-react';
 
 const DEMO_ACCOUNTS = {
   public: { email: 'user@example.com', password: 'user123' },
-  officer: { email: 'officer@landslide.gov.in', password: 'officer123' },
-  admin: { email: 'admin@landslide.gov.in', password: 'admin123' },
+  officer: { email: 'officer@landslidesos.in', password: 'officer123456' },
+  admin: { email: 'admin@landslidesos.in', password: 'admin123456' },
 };
 
 export default function Login() {

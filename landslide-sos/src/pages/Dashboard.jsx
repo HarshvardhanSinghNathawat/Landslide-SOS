@@ -30,12 +30,12 @@ export default function Dashboard() {
     Promise.all([
       api.dashboardStats(),
       api.rainfall(),
-      api.recentAlerts(),
+      api.alerts({ limit: 6 }),
       api.zones(),
     ])
       .then(([statsData, rainfallData, alertsData, zonesData]) => {
         setStats(statsData);
-        setRainfall(rainfallData);
+        setRainfall(rainfallData?.points ?? []);
         setRecentAlerts(alertsData);
         setZones(zonesData);
       })
@@ -59,10 +59,10 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard title="Active Alerts" value={stats?.activeAlerts ?? 0} change={12} icon={AlertTriangle} color="emergency" />
+        <StatCard title="Active Alerts" value={stats?.activeAlerts ?? 0} icon={AlertTriangle} color="emergency" />
         <StatCard title="Zones at Risk" value={stats?.zonesMonitored ?? 0} icon={Mountain} color="warning" />
-        <StatCard title="SMS Sent Today" value={stats?.smsSentToday ?? 0} suffix="" change={-5} icon={Droplets} color="primary" />
-        <StatCard title="Model Accuracy" value={stats?.modelAccuracy ?? 0} suffix="%" icon={Activity} color="success" />
+        <StatCard title="SMS Sent Today" value={stats?.smsSentToday ?? 0} icon={Droplets} color="primary" />
+        <StatCard title="Model Accuracy" value={Math.round((stats?.modelAccuracy ?? 0) * 100)} suffix="%" icon={Activity} color="success" />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -72,7 +72,7 @@ export default function Dashboard() {
               <TrendingUp className="w-4 h-4 text-primary" />
               Rainfall Trend (24h)
             </h2>
-            <span className="text-xs text-text-secondary bg-background px-2 py-1 rounded-lg">Dima Hasao Hills</span>
+            <span className="text-xs text-text-secondary bg-background px-2 py-1 rounded-lg">{zones[0]?.name || 'NE Network'}</span>
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">

@@ -26,7 +26,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Load landslide inventory CSV")
     parser.add_argument(
         "--csv",
-        default=os.path.join("data", "inventory", "landslide_atlas_sample.csv"),
+        default=os.path.join("data", "inventory", "landslide_atlas_ne.csv"),
         help="path to inventory CSV",
     )
     parser.add_argument("--source", default="NRSC-ISRO Landslide Atlas 2023 (sample)")
