@@ -31,7 +31,7 @@ services:
       - key: AUTO_SEED
         value: "true"
       - key: CORS_ALLOW_ALL
-        value: "false"
+        value: "true"
       - key: CORS_ORIGINS
         value: '["http://localhost:5173","http://127.0.0.1:5173","https://landslide-sos.vercel.app"]'
       - key: CELERY_TASK_ALWAYS_EAGER
