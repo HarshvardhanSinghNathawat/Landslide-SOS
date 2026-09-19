@@ -20,15 +20,17 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     """Upgrade schema."""
-    op.add_column('alerts', sa.Column('triggered_by', sa.Integer(), nullable=True))
-    op.add_column('alerts', sa.Column('sms_failed', sa.Integer(), nullable=False, server_default='0'))
-    op.add_column('alerts', sa.Column('sent_at', sa.DateTime(timezone=True), nullable=True))
-    op.create_foreign_key('fk_alerts_triggered_by', 'alerts', 'users', ['triggered_by'], ['id'], ondelete='SET NULL')
+    with op.batch_alter_table('alerts') as batch_op:
+        batch_op.add_column(sa.Column('triggered_by', sa.Integer(), nullable=True))
+        batch_op.add_column(sa.Column('sms_failed', sa.Integer(), nullable=False, server_default='0'))
+        batch_op.add_column(sa.Column('sent_at', sa.DateTime(timezone=True), nullable=True))
+        batch_op.create_foreign_key('fk_alerts_triggered_by', 'users', ['triggered_by'], ['id'], ondelete='SET NULL')
 
 
 def downgrade() -> None:
     """Downgrade schema."""
-    op.drop_constraint('fk_alerts_triggered_by', 'alerts', type_='foreignkey')
-    op.drop_column('alerts', 'sent_at')
-    op.drop_column('alerts', 'sms_failed')
-    op.drop_column('alerts', 'triggered_by')
+    with op.batch_alter_table('alerts') as batch_op:
+        batch_op.drop_constraint('fk_alerts_triggered_by', type_='foreignkey')
+        batch_op.drop_column('sent_at')
+        batch_op.drop_column('sms_failed')
+        batch_op.drop_column('triggered_by')
