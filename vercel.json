@@ -1,6 +1,7 @@
 {
   "framework": "vite",
   "routes": [
+    { "src": "/api/v1/(.*)", "dest": "https://landslidesos-api.onrender.com/api/v1/$1" },
     { "handle": "filesystem" },
     { "src": "/.*", "dest": "/index.html" }
   ]
