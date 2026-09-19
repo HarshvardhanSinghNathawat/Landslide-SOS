@@ -22,6 +22,8 @@ RUN addgroup --system app && \
     mkdir -p /app/data /app/models && \
     chown -R app:app /app
 
+ENV HOME=/app
+
 USER app
 
 EXPOSE 8000
