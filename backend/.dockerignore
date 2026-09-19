@@ -8,7 +8,6 @@ __pycache__/
 *.db
 *.sqlite3
 data/dem/
-models/
 .venv/
 .vscode/
 .idea/
