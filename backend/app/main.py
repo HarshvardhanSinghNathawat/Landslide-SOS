@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.database import Base, engine
-from app import models  # noqa: F401 — ensure all models registered on Base.metadata
+import app.models  # noqa: F401 — ensure all models registered on Base.metadata
 from app.middleware.logging import RequestLoggingMiddleware
 from app.routers import admin, alerts, auth, dashboard, rainfall, reports, routes, system, zones
 from app.startup import validate_production_settings
