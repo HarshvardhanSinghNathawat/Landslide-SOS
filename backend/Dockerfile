@@ -21,6 +21,7 @@ RUN addgroup --system app && \
     adduser --system --ingroup app app && \
     mkdir -p /app/data /app/models && \
     chown -R app:app /app && \
+    sed -i 's/\r$//' /app/docker-entrypoint.sh && \
     chmod +x /app/docker-entrypoint.sh
 
 ENV HOME=/app
