@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Mountain, Bell, User, LogOut, Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { api } from '../api/client';
 import { formatRelativeTime } from '../utils/formatTime';
 
@@ -12,16 +12,40 @@ export default function Navbar() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [unread, setUnread] = useState(0);
   const [notifications, setNotifications] = useState([]);
+  const prevUnreadRef = useRef(null);
 
   useEffect(() => {
-    api
-      .unreadCount()
-      .then((data) => setUnread(data.count || 0))
-      .catch(() => {});
-    api
-      .recentAlerts()
-      .then((items) => setNotifications(items))
-      .catch(() => {});
+    const fetchAlertsData = () => {
+      api
+        .unreadCount()
+        .then((data) => {
+          const currentCount = data?.count ?? 0;
+          if (prevUnreadRef.current !== null && currentCount > prevUnreadRef.current) {
+            if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+              try {
+                new Notification('🚨 LandslideSOS Emergency Alert', {
+                  body: `${currentCount - prevUnreadRef.current} new alert(s) reported. Check alerts panel immediately.`,
+                  icon: '/favicon.ico',
+                });
+              } catch {
+                /* notification blocked */
+              }
+            }
+          }
+          prevUnreadRef.current = currentCount;
+          setUnread(currentCount);
+        })
+        .catch(() => {});
+
+      api
+        .recentAlerts()
+        .then((items) => setNotifications(Array.isArray(items) ? items : []))
+        .catch(() => {});
+    };
+
+    fetchAlertsData();
+    const interval = setInterval(fetchAlertsData, 8000);
+    return () => clearInterval(interval);
   }, [location.pathname]);
 
   const navLinks = [
@@ -74,7 +98,12 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <div className="relative">
               <button
-                onClick={() => setNotifOpen(!notifOpen)}
+                onClick={() => {
+                  setNotifOpen(!notifOpen);
+                  if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default') {
+                    Notification.requestPermission().catch(() => {});
+                  }
+                }}
                 className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <Bell className="w-5 h-5 text-text-secondary" />

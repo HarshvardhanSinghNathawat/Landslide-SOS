@@ -29,18 +29,27 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      api.dashboardStats(),
-      api.alerts({ limit: 6 }),
-      api.zones(),
-    ])
-      .then(([statsData, alertsData, zonesData]) => {
-        setStats(statsData);
-        setRecentAlerts(alertsData);
-        setZones(zonesData);
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    const loadDashboardData = (isBackground = false) => {
+      if (!isBackground) setLoading(true);
+      Promise.all([
+        api.dashboardStats(),
+        api.alerts({ limit: 6 }),
+        api.zones(),
+      ])
+        .then(([statsData, alertsData, zonesData]) => {
+          setStats(statsData);
+          setRecentAlerts(alertsData);
+          setZones(zonesData);
+        })
+        .catch(() => {})
+        .finally(() => {
+          if (!isBackground) setLoading(false);
+        });
+    };
+
+    loadDashboardData();
+    const interval = setInterval(() => loadDashboardData(true), 12000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

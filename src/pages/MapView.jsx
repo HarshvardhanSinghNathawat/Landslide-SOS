@@ -26,14 +26,23 @@ export default function MapView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api
-      .zones()
-      .then((z) => {
-        setZones(z);
-        setSelectedZoneId((prev) => prev ?? z[0]?.id ?? null);
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    const loadZones = (isBackground = false) => {
+      if (!isBackground) setLoading(true);
+      api
+        .zones()
+        .then((z) => {
+          setZones(z);
+          setSelectedZoneId((prev) => prev ?? z[0]?.id ?? null);
+        })
+        .catch(() => {})
+        .finally(() => {
+          if (!isBackground) setLoading(false);
+        });
+    };
+
+    loadZones();
+    const interval = setInterval(() => loadZones(true), 15000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

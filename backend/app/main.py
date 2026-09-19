@@ -19,14 +19,41 @@ logging.basicConfig(
 logger = logging.getLogger("app.startup")
 
 
+import asyncio
+
+async def _periodic_pipeline_scheduler():
+    logger.info("Starting in-process risk & alert pipeline scheduler")
+    await asyncio.sleep(10)
+    while True:
+        try:
+            from app.tasks.rainfall_tasks import ingest_imd
+            from app.tasks.risk_tasks import recompute_all
+            await asyncio.to_thread(ingest_imd)
+            await asyncio.to_thread(recompute_all)
+            logger.info("In-process pipeline scheduler: refreshed rainfall and risk scores")
+        except asyncio.CancelledError:
+            break
+        except Exception as exc:
+            logger.warning("Pipeline scheduler cycle error: %s", exc)
+        await asyncio.sleep(120.0)
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     validate_production_settings(settings)
     logger.info("LandslideSOS starting (env=%s, debug=%s)", settings.ENVIRONMENT, settings.DEBUG)
     if settings.AUTO_CREATE_TABLES:
         Base.metadata.create_all(bind=engine)
-    yield
-    logger.info("LandslideSOS shutting down")
+    scheduler_task = asyncio.create_task(_periodic_pipeline_scheduler())
+    try:
+        yield
+    finally:
+        scheduler_task.cancel()
+        try:
+            await scheduler_task
+        except asyncio.CancelledError:
+            pass
+        logger.info("LandslideSOS shutting down")
 
 
 app = FastAPI(

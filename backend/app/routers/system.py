@@ -118,3 +118,18 @@ def system_health() -> HealthOut:
         database=db_status,
         components=components,
     )
+
+
+@router.post("/pipeline/trigger")
+def trigger_pipeline() -> dict:
+    from app.tasks.rainfall_tasks import ingest_imd
+    from app.tasks.risk_tasks import recompute_all
+
+    rainfall_res = ingest_imd()
+    risk_res = recompute_all()
+    return {
+        "status": "ok",
+        "rainfall": rainfall_res,
+        "zones_scored": len(risk_res),
+        "results": risk_res,
+    }

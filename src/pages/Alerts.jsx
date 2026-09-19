@@ -23,20 +23,26 @@ export default function Alerts() {
 
   const canAck = user?.role === 'officer' || user?.role === 'admin';
 
-  const fetchAlerts = (f, s) => {
-    setLoading(true);
+  const fetchAlerts = (f, s, isBackground = false) => {
+    if (!isBackground) setLoading(true);
     api
       .alerts({ level: f === 'all' ? undefined : f, search: s || undefined, limit: 50 })
       .then((items) => {
         setItems(Array.isArray(items) ? items : []);
       })
       .catch(() => {})
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!isBackground) setLoading(false);
+      });
   };
 
   useEffect(() => {
     fetchAlerts(filter, search);
-  }, [filter]);
+    const interval = setInterval(() => {
+      fetchAlerts(filter, search, true);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [filter, search]);
 
   const handleSearch = (value) => {
     setSearch(value);
