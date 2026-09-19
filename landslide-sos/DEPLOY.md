@@ -140,12 +140,12 @@ service (used by the Vercel-deployed frontend).
 One-time deploy:
 1. Push the repo to GitHub (backend.Dockerfile + `render.yaml` must be present).
 2. Render Dashboard → **New +** → **Blueprint** → connect the repo.
-3. Render creates three resources:
+3. Render creates two resources:
    - `landslideos-db` — managed PostgreSQL (free tier).
    - `landslideos-api` — web service (Docker → gunicorn), `PORT` handled by Render.
-   - `landslideos-migrate-seed` — one-time job that runs migrations + demo seed.
-4. Wait for the **migrate-seed job** to complete before using the API.
-   If the job didn't run/fail, open the web service → **Shell** and run:
+   - (Render Blueprints don't support one-off `job` services, so migration/seed
+     has to run manually in the web service Shell — see next step.)
+4. Wait for the web service to deploy, then open it → **Shell** and run:
    ```bash
    python -m alembic upgrade head
    python scripts/seed_data.py

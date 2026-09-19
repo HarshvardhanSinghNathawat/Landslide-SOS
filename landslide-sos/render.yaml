@@ -1,6 +1,7 @@
 # Render Blueprint for LandslideSOS
-# Deploys: managed Postgres + the FastAPI backend (web) + a one-time
-# migrate/seed job. See DEPLOY.md -> "Hosting on Render".
+# Deploys: managed Postgres + the FastAPI backend (web).
+# Migrations/seed run manually via the web service Shell (Render Blueprints
+# don't support one-off "job" services). See DEPLOY.md -> "Hosting on Render".
 #
 # Defaults are demo-safe: SMS/IMD/DEM providers run in SIMULATION mode,
 # Celery runs eager (no worker needed), CORS allows the Vercel SPA.
@@ -44,34 +45,6 @@ services:
         value: ""
       - key: OPENTOPOGRAPHY_API_KEY
         value: ""
-
-  - type: job
-    name: landslidesos-migrate-seed
-    runtime: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
-    plan: free
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: landslidesos-db
-          property: connectionString
-      - key: ENVIRONMENT
-        value: production
-      - key: DEBUG
-        value: "false"
-      - key: CORS_ALLOW_ALL
-        value: "false"
-      - key: CELERY_TASK_ALWAYS_EAGER
-        value: "true"
-      - key: CELERY_BROKER_URL
-        value: "memory://"
-      - key: CELERY_RESULT_BACKEND
-        value: "cache+memory://"
-    command:
-      - python -m alembic upgrade head
-      - python scripts/seed_data.py
-      - python scripts/seed_demo_risk.py --reset-alerts --reset-reports
 
 databases:
   - name: landslidesos-db
